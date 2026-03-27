@@ -1,0 +1,64 @@
+@{
+    ViewBag.Title = "Contacto";
+}
+
+<link href="~/Content/contacto.css" rel="stylesheet" type="text/css">
+
+<section class="contenedor-contacto">
+    <header class="titulo-contacto">
+        <h1>CONTÁCTANOS</h1>
+        <p>¿Tienes dudas o necesitas reservar? Estamos aquí para ayudarte.</p>
+    </header>
+
+    <br />
+
+    <div class="descripcion-hotel">
+        <p><strong>Bienvenidos a Oasis Desert Hotel</strong></p>
+        <p>
+            Un refugio de lujo en el corazón de Mexicali. Nuestro hotel combina elegancia, comodidad y servicio
+            excepcional
+            para brindarte una experiencia inolvidable. Disfruta de nuestras exclusivas habitaciones, gastronomía de
+            primer nivel y atención personalizada.
+        </p>
+    </div>
+
+    <div class="info-hotel">
+        <p><strong>Dirección:</strong> Av. Paseo del Sol, Zona Hotelera, Mexicali, BCN, México</p>
+        <p><strong>Teléfono:</strong> +52 686 123 4567</p>
+        <p><strong>Correo:</strong> contacto@oasisdeserthotel.com</p>
+    </div>
+
+    <nav class="enlaces-contacto">
+        <a href="#"><img src="~/Imagenes/icons8-facebook-96.png" alt="Facebook" /></a>
+        <a href="#"><img src="~/Imagenes/icons8-instagram-96.png" alt="Instagram" /></a>
+        <a href="#"><img src="~/Imagenes/icons8-whatsapp-96.png" alt="WhatsApp" /></a>
+    </nav>
+
+    <form class="formulario-contacto" action="/" method="post">
+        <div class="grupo-formulario">
+            <div class="campo-formulario">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="name" placeholder="Ingresa tu nombre" required />
+            </div>
+
+            <div class="campo-formulario">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+            </div>
+
+            <div class="campo-formulario">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Tu número" required />
+            </div>
+
+            <div class="campo-formulario">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu consulta..." required></textarea>
+            </div>
+
+            <div class="boton-formulario">
+                <button type="submit">Enviar Mensaje</button>
+            </div>
+        </div>
+    </form>
+</section>

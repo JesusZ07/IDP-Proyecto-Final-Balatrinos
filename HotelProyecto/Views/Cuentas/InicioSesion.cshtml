@@ -1,0 +1,35 @@
+@{
+    ViewBag.Title = "Inicio de Sesión";
+}
+
+<!-- Enlace a los estilos -->
+<link rel="stylesheet" href="~/Content/inicio-sesion.css" />
+
+<div id="inicio-sesion-titulo">
+    <h2>Iniciar Sesión</h2>
+</div>
+
+<div id="inicio-sesion-formulario">
+    @if (ViewBag.Error != null)
+    {
+        <p class="error">@ViewBag.Error</p>
+    }
+
+    <form method="post" action="@Url.Action("InicioSesion", "Cuentas")">
+        <div class="campo">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="correo" required />
+        </div>
+
+        <div class="campo">
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" required />
+        </div>
+
+        <div class="boton-formulario">
+            <button type="submit">Ingresar</button>
+        </div>
+    </form>
+</div>
+
+

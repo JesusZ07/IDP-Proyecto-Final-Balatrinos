@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-solution",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "IDP-Proyecto-Final-Balatrinos.sln"
+      ],
+      "group": "build",
+      "problemMatcher": ["$msCompile"]
+    },
+    {
+      "label": "build-web",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "HotelProyecto/HotelProyecto.csproj"
+      ],
+      "problemMatcher": ["$msCompile"]
+    },
+    {
+      "label": "build-desktop",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "CapaPresentacion/CapaPresentacion.csproj"
+      ],
+      "problemMatcher": ["$msCompile"]
+    },
+    {
+      "label": "run-desktop",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "CapaPresentacion/CapaPresentacion.csproj"
+      ],
+      "isBackground": true,
+      "problemMatcher": ["$msCompile"]
+    },
+    {
+      "label": "run-web",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "HotelProyecto/HotelProyecto.csproj"
+      ],
+      "isBackground": true,
+      "problemMatcher": ["$msCompile"]
+    }
+  ]
+}

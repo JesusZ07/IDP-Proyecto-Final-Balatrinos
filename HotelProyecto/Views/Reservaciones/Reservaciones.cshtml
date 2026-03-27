@@ -1,0 +1,71 @@
+@model System.Data.DataTable
+
+@{
+    ViewBag.Title = "Reservaciones";
+}
+
+<link href="~/Content/TablaHabitaciones.css" rel="stylesheet" />
+<link href="~/Content/Reservar-habitacion.css" rel="stylesheet" />
+
+<div class="titulo-habitaciones">
+    <h2>Habitaciones Disponibles</h2>
+</div>
+
+@if (TempData["Error"] != null)
+{
+    <div class="mensaje-error">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="reserva-exitosa">
+        @TempData["Mensaje"]
+    </div>
+}
+
+@if (Model.Rows.Count == 0)
+{
+    <div class="alert alert-warning text-center">
+        No hay habitaciones disponibles en este momento.
+    </div>
+}
+else
+{
+    <table class="table-habitaciones">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Piso</th>
+                <th>Estatus</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["numero_habitacion"]</td>
+                    <td>@row["tipo_habitacion"]</td>
+                    <td>@row["piso"]</td>
+                    <td>@row["estatus"]</td>
+                    <td>
+                        @if (Context.Request.Cookies.ContainsKey("UsuarioCorreo"))
+                        {
+                            <a href="@Url.Action("ReservarHabitacion", "Reservaciones", new { numero_habitacion = row["numero_habitacion"] })"
+                                   class="btn-reservar">
+                                Reservar
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="mensaje-iniciar-sesion">Inicia sesión para reservar</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

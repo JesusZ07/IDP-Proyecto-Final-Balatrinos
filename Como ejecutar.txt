@@ -1,0 +1,6 @@
+Para ejecutar el programa (tanto la aplicacion de escritorio como la web) realiza lo siguiente:
+
+1.- Haz click en la seccion de los " ... " (el que esta al lado del Go)
+2.- Selecciona la opcion Terminal > Run-Task
+3.- Te va salir un menu de select run task, escoge run-desktop para ejecutar la aplicacion de escritorio y run-web para ejecutar
+la aplicacion web.

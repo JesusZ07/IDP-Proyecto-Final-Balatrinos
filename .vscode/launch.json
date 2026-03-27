@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Web: HotelProyecto",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-web",
+      "program": "${workspaceFolder}/HotelProyecto/bin/Debug/net9.0/HotelProyecto.dll",
+      "cwd": "${workspaceFolder}/HotelProyecto",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": "Desktop: CapaPresentacion",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-desktop",
+      "program": "${workspaceFolder}/CapaPresentacion/bin/Debug/net9.0-windows/CapaPresentacion.dll",
+      "cwd": "${workspaceFolder}/CapaPresentacion",
+      "stopAtEntry": false
+    }
+  ]
+}

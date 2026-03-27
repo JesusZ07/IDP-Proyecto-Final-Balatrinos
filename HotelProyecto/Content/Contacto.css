@@ -1,0 +1,140 @@
+﻿/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.contenedor-contacto {
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px; /* Aumentando el padding */
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Título de la sección */
+.titulo-contacto h1 {
+    font-size: 28px;
+    color: #162447;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.titulo-contacto p {
+    font-size: 16px;
+    text-align: center;
+    color: #555;
+}
+
+/* Descripción del hotel */
+.descripcion-hotel {
+    text-align: justify; /* Justificación del texto */
+    margin-bottom: 20px;
+    font-size: 17px;
+    color: #444;
+    line-height: 1.5; /* Ajuste de interlineado */
+}
+
+/* Información del hotel */
+.info-hotel {
+    text-align: justify; /* Justificación del texto */
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5; /* Interlineado */
+}
+
+/* Redes sociales */
+.enlaces-contacto {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .enlaces-contacto a {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    .enlaces-contacto img {
+        width: 40px;
+        height: 40px;
+        transition: transform 0.3s ease;
+    }
+
+    .enlaces-contacto a:hover img {
+        transform: scale(1.1);
+    }
+
+/* Formulario de contacto */
+.formulario-contacto {
+    width: 100%;
+}
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.campo-formulario label {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.campo-formulario input,
+.campo-formulario textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+    .campo-formulario input:focus,
+    .campo-formulario textarea:focus {
+        border-color: #1f3c88;
+        outline: none;
+    }
+
+.campo-formulario textarea {
+    resize: none;
+    line-height: 1.5; /* Ajuste de interlineado */
+    text-align: justify; /* Justificación del texto */
+}
+
+/* Botón de enviar */
+.boton-formulario {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .boton-formulario button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .boton-formulario button:hover {
+            background-color: #218838;
+        }
+
+/* Diseño responsivo */
+@media screen and (max-width: 768px) {
+    .contenedor-contacto {
+        width: 95%;
+    }
+}

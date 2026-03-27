@@ -1,0 +1,90 @@
+@model CapaEntidad.Huesped
+
+@{
+    ViewBag.Title = "EditarPerfil";
+}
+
+<link rel="stylesheet" href="~/Content/editar-perfil.css" />
+
+<div id="editar-perfil-container">
+    <h2>Editar Perfil</h2>
+
+    @if (ViewBag.MensajeExito != null)
+    {
+        <p class="mensaje-exito">@ViewBag.MensajeExito</p>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <p class="error">@ViewBag.Error</p>
+    }
+
+    <form method="post" action="@Url.Action("EditarPerfil", "Cuentas")">
+
+        <!-- Campo oculto para enviar el ID sin mostrarlo -->
+        <input type="hidden" name="huesped_id" value="@Model.huesped_id" />
+
+        <div class="campo">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="@Model.nombre" required maxlength="50"
+                   placeholder="Ingresa tu nombre" autofocus />
+        </div>
+
+        <div class="campo">
+            <label>Primer Apellido:</label>
+            <input type="text" name="apellido_1" value="@Model.apellido_1" required maxlength="50"
+                   placeholder="Ingresa tu primer apellido" />
+        </div>
+
+        <div class="campo">
+            <label>Segundo Apellido:</label>
+            <input type="text" name="apellido_2" value="@Model.apellido_2" required maxlength="50"
+                   placeholder="Ingresa tu segundo apellido" />
+        </div>
+
+        <div class="campo">
+            <label>Calle:</label>
+            <input type="text" name="calle" value="@Model.calle" required maxlength="100"
+                   placeholder="Ingresa tu calle" />
+        </div>
+
+        <div class="campo">
+            <label>Colonia:</label>
+            <input type="text" name="colonia" value="@Model.colonia" required maxlength="100"
+                   placeholder="Ingresa tu colonia" />
+        </div>
+
+        <div class="campo">
+            <label>Código Postal:</label>
+            <input type="number" name="codigo_postal" value="@Model.codigo_postal" required min="10000" max="99999"
+                   placeholder="Ejemplo: 12345" />
+        </div>
+
+        <div class="campo">
+            <label>Ciudad:</label>
+            <input type="text" name="ciudad" value="@Model.ciudad" required maxlength="100"
+                   placeholder="Ingresa tu ciudad" />
+        </div>
+
+        <div class="campo">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="correo" value="@Model.correo" required placeholder="ejemplo@correo.com" />
+        </div>
+
+        <div class="campo">
+            <label>Número Celular:</label>
+            <input type="tel" name="numero_celular" value="@Model.numero_celular" required pattern="[0-9]{10}"
+                   title="Debe contener 10 dígitos numéricos" placeholder="Ejemplo: 5512345678" />
+        </div>
+
+        <div class="campo">
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" value="@Model.contrasena" required minlength="8"
+                   placeholder="Mínimo 8 caracteres" />
+        </div>
+
+        <div class="boton-formulario">
+            <button type="submit">Actualizar Perfil</button>
+        </div>
+    </form>
+</div>

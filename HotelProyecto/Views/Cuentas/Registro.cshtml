@@ -1,0 +1,84 @@
+@using CapaEntidad;
+
+@{
+    ViewBag.Title = "Registro";
+}
+
+<link rel="stylesheet" href="~/Content/Registro.css" />
+
+<div>
+
+    <div id="registro-titulo">
+        <h2>Registrar Cuenta de Huésped</h2>
+    </div>
+
+    @if (ViewBag.MensajeExito != null)
+    {
+        <div class="mensaje-exito">
+            @ViewBag.MensajeExito
+        </div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <p class="error">@ViewBag.Error</p>
+    }
+
+    <form method="post" action="@Url.Action("Registro", "Cuentas")" id="registro-formulario">
+        <div class="campo">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" required />
+        </div>
+
+        <div class="campo">
+            <label>Primer Apellido:</label>
+            <input type="text" name="apellido_1" required />
+        </div>
+
+        <div class="campo">
+            <label>Segundo Apellido:</label>
+            <input type="text" name="apellido_2" required />
+        </div>
+
+        <div class="campo">
+            <label>Calle:</label>
+            <input type="text" name="calle" required />
+        </div>
+
+        <div class="campo">
+            <label>Colonia:</label>
+            <input type="text" name="colonia" required />
+        </div>
+
+        <div class="campo">
+            <label>Código Postal:</label>
+            <input type="number" name="codigo_postal" required />
+        </div>
+
+        <div class="campo">
+            <label>Ciudad:</label>
+            <input type="text" name="ciudad" required />
+        </div>
+
+        <div class="campo">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="correo" required />
+        </div>
+
+        <div class="campo">
+            <label>Número Celular:</label>
+            <input type="tel" name="numero_celular" required />
+        </div>
+
+        <div class="campo">
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" required />
+        </div>
+
+        <div class="boton-formulario">
+            <button type="submit">Registrar</button>
+        </div>
+    </form>
+
+</div>
+

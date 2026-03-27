@@ -1,0 +1,41 @@
+@{
+    ViewBag.Title = "ReservarHabitacion";
+}
+
+<link href="~/Content/Reservar-habitacion.css" rel="stylesheet" />
+<div id="titulo-reserva">
+    <h2>Reservar Habitación</h2>
+</div>
+
+<div class="reservar-container">
+    <div class="habitacion-info">
+        <p><strong>Número de habitación:</strong> @ViewBag.NumeroHabitacion</p>
+        <p><strong>Tipo de habitación:</strong> @ViewBag.TipoHabitacion</p>
+        <p><strong>Precio por noche:</strong> $@ViewBag.PrecioPorNoche</p>
+    </div>
+
+    <form class="reservar-form" action="/Reservaciones/ConfirmarReserva" method="post">
+        <input type="hidden" name="numero_habitacion" value="@ViewBag.NumeroHabitacion" />
+
+        <label for="nombre_huesped">Nombre del huésped:</label>
+        <input type="text" name="nombre_huesped" id="nombre_huesped" required />
+
+        <label for="correo_huesped">Correo electrónico:</label>
+        <input type="email" name="correo_huesped" id="correo_huesped" required />
+
+        <label for="num_personas">Número de personas:</label>
+        <input type="number" name="num_personas" id="num_personas" min="1" required />
+
+        <label for="fecha_entrada">Fecha de entrada:</label>
+        <input type="date" name="fecha_entrada" id="fecha_entrada" required />
+
+        <label for="fecha_salida">Fecha de salida:</label>
+        <input type="date" name="fecha_salida" id="fecha_salida" required />
+
+        <label for="costo_total">Costo total:</label>
+        <input type="text" id="costo_total" readonly value="$@ViewBag.PrecioPorNoche" />
+
+        <button type="submit">Confirmar Reserva</button>
+    </form>
+
+</div>

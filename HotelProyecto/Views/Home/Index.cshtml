@@ -1,0 +1,140 @@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<!--DESCRIPCION DEL HOTEL-->
+<!-- PRIMER BLOQUE -->
+<div class="mensaje-bienvenida">
+
+    <div class="mensaje-bienvenida-mensaje">
+        <div>
+            <h1>¡Bienvenido al oasis del lujo y la serenidad!</h1>
+            <p>
+                <br /><br />
+                Bienvenido al oasis del lujo.Sumérgete en un refugio de sofisticación y confort,
+                donde cada detalle ha sido diseñado para tu placer. Relájate en nuestras exclusivas habitaciones,
+                disfruta de una gastronomía excepcional y deja que la elegancia del desierto te envuelva. ¡Tu escape perfecto comienza aquí!
+            </p>
+            <br />
+            <hr id="linea-premium" />
+        </div>
+    </div>
+
+    <div class="mensaje-bienvenida-imagen">
+        <img src="~/Imagenes/ImagenPresentacion.png" alt="Alternate Text" />
+    </div>
+
+</div>
+
+<!-- SEGUNDO BLOQUE -->
+<div class="mensaje-bienvenida">
+
+    <div class="mensaje-bienvenida-imagen">
+        <img src="~/Imagenes/ExteriorHotel.png" alt="Alternate Text" />
+    </div>
+
+    <div class="mensaje-bienvenida-mensaje">
+        <div>
+            <h1>Hotel Oasis: Un Refugio de Lujo en el Corazón del Desierto</h1>
+            <p>
+                <br /><br />
+                El Hotel Oasis nació como un sueño de lujo y serenidad en medio del desierto. Construido alrededor de un oasis natural, ofrece un refugio exclusivo donde la elegancia se fusiona con la belleza del paisaje.
+                Hoy, es sinónimo de confort y hospitalidad única.
+            </p>
+            <br />
+            <hr id="linea-premium" />
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<hr id="linea-refinada" />
+<br />
+<br />
+
+<!--OTROS SERVICIOS-->
+<div id="bufet">
+    <div id="bufet-mensaje">
+        <h2>Sabores exclusivos en cada plato</h2>
+        <p>
+            Disfruta de un buffet excepcional con opciones gourmet para desayuno, almuerzo y cena.
+            Ingredientes frescos, recetas sofisticadas y un servicio impecable te esperan en el Hotel Oasis.
+        </p>
+    </div>
+
+    <div id="bufet-mensaje-imagen">
+        <img src="~/Imagenes/BufetHotel.png" alt="Bufet Hotel" />
+    </div>
+</div>
+
+<!-- SECCIÓN REGISTRO -->
+<div id="registro">
+    <h2>Únete al Lujo y la Exclusividad</h2>
+    <p>
+        Regístrate ahora y accede a una experiencia única en el <strong>Hotel Oasis</strong>.
+        Disfruta de habitaciones de ensueño, gastronomía exquisita y servicios diseñados para tu comodidad.
+        ¡Haz de cada estancia un momento inolvidable!
+    </p>
+    <div id="registro-boton">
+        <a href="/Cuentas/Registro" class="boton-registro">Registrarse</a>
+    </div>
+</div>
+
+<hr id="linea-refinada" />
+
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="contenedor-contacto">
+
+        <header class="titulo-contacto">
+            <h1>CONTÁCTANOS</h1>
+        </header>
+
+        <nav class="enlaces-contacto">
+            <a href="#"><img src="~/Imagenes/icons8-facebook-96.png" alt="Facebook" /></a>
+            <a href="#"><img src="~/Imagenes/icons8-instagram-96.png" alt="Instagram" /></a>
+            <a href="#"><img src="~/Imagenes/icons8-whatsapp-96.png" alt="WhatsApp" /></a>
+        </nav>
+
+        <form class="formulario-contacto" action="/" method="post">
+            <div class="grupo-formulario">
+
+                <div class="campo-formulario">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" name="name" placeholder="Ingresa tu nombre" required />
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Tu número" />
+                </div>
+
+                <div class="boton-formulario">
+                    <button type="submit">Contactar</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</section>
+
+
+
+<section class="seccion-mapa" id="ubicacion">
+    <h2>¿Dónde estamos?</h2>
+    <div class="contenedor-mapa">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3285.2437218607077!2d-115.45566448478234!3d32.62494298093283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2s" width="100%" height="350" style="border:0;" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+
+        </iframe>
+    </div>
+</section>

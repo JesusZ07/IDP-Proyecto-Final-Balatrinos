@@ -1,0 +1,125 @@
+﻿/* ------------------ TÍTULO RESERVA ------------------ */
+#titulo-reserva {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+    #titulo-reserva h2 {
+        font-family: "Cinzel", serif;
+        font-size: 32px;
+        color: #d3ab4d;
+    }
+
+/* Mensaje de error en rojo */
+.mensaje-error {
+    background-color: #dc3545; /* Rojo alerta */
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------ MENSAJE DE RESERVACIÓN EXITOSA ------------------ */
+.reserva-exitosa {
+    background-color: #28a745; /* Verde elegante */
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------ CONTENEDOR DE RESERVA ------------------ */
+.reservar-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    padding: 40px;
+    margin-bottom: 80px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ------------------ INFO DE HABITACIÓN ------------------ */
+.habitacion-info {
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: black;
+    line-height: 1.6;
+}
+
+/* ------------------ FORMULARIO DE RESERVA ------------------ */
+.reservar-form {
+    width: 100%;
+}
+
+    .reservar-form label {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: black;
+        margin-bottom: 8px;
+    }
+
+    .reservar-form input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid black;
+        border-radius: 6px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+        .reservar-form input:focus {
+            border-color: #d3ab4d;
+            outline: none;
+        }
+
+    /* ------------------ BOTÓN DE RESERVA ------------------ */
+    .reservar-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #d3ab4d;
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+        .reservar-form button:hover {
+            background-color: black;
+            color: white;
+        }
+
+/* ------------------ RESPONSIVE ------------------ */
+@media (max-width: 600px) {
+    .reservar-container {
+        padding: 20px;
+    }
+
+    #titulo-reserva h2 {
+        font-size: 24px;
+    }
+}
