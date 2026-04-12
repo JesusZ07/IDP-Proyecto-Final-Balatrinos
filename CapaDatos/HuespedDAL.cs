@@ -2,7 +2,7 @@ using CapaEntidad;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -156,11 +156,6 @@ namespace CapaDatos
                 throw new Exception("Error al obtener el huésped por correo.", ex);
             }
         }
-
-
-
-
-
         // Método para obtener todos los huespedes
         public DataTable ObtenerTodos()
         {
@@ -202,10 +197,6 @@ namespace CapaDatos
                 throw;
             }
         }
-
-
-
-
         // Método para agregar un huesped
         public bool Agregar(Huesped huesped)
         {
@@ -222,7 +213,7 @@ namespace CapaDatos
                 // agregar el registro
                 query = @"INSERT INTO huespedes (nombre, apellido_1, apellido_2, calle, colonia, codigo_postal, ciudad, correo, numero_celular, contrasena) 
                              VALUES (@nombre, @apellido_1, @apellido_2, @calle, @colonia, @codigo_postal, @ciudad, @correo, @numero_celular, @contrasena)";
-
+                
                 SqlCommand comando = new SqlCommand(query, conexionBD);
                 //comando.Parameters.AddWithValue("@huesped_id", huesped.huesped_id);
                 comando.Parameters.AddWithValue("@nombre", huesped.nombre);

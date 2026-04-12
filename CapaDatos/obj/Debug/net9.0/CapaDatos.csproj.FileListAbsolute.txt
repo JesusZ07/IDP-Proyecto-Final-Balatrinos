@@ -13,3 +13,4 @@ C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proye
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Debug\net9.0\refint\CapaDatos.dll
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Debug\net9.0\CapaDatos.pdb
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Debug\net9.0\ref\CapaDatos.dll
+C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Debug\net9.0\CapaDatos.sourcelink.json

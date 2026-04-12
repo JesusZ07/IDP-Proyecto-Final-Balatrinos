@@ -15,3 +15,4 @@ C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proye
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\refint\CapaNegocios.dll
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.pdb
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\ref\CapaNegocios.dll
+C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.sourcelink.json

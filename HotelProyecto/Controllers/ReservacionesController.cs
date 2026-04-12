@@ -9,6 +9,8 @@ namespace HotelProyecto.Controllers
 {
     public class ReservacionesController : Controller
     {
+        private const string CorreoReceptorFijo = "jesus.zapata@uabc.edu.mx";
+
         private HabitacionBLL habitacionBLL = new HabitacionBLL();
         private ReservacionBLL reservacionBLL = new ReservacionBLL();
 
@@ -100,14 +102,7 @@ namespace HotelProyecto.Controllers
                     return RedirectToAction("Reservaciones");
                 }
 
-                try
-                {
-                    EnviarCorreoConfirmacion(correo_huesped, nombre_huesped, numero_habitacion, fecha_entrada, fecha_salida);
-                }
-                catch
-                {
-                    TempData["Error"] = "La reservación se guardó, pero no fue posible enviar el correo de confirmación.";
-                }
+                EnviarCorreoConfirmacion(nombre_huesped, correo_huesped, numero_habitacion, fecha_entrada, fecha_salida);
 
                 TempData["Mensaje"] = "La reservación se realizó con éxito.";
                 return RedirectToAction("Reservaciones");
@@ -122,15 +117,17 @@ namespace HotelProyecto.Controllers
             }
         }
 
-        private void EnviarCorreoConfirmacion(string destinatario, string nombre, int numeroHabitacion, DateTime entrada, DateTime salida)
+        private void EnviarCorreoConfirmacion(string nombre, string correoHuesped, int numeroHabitacion, DateTime entrada, DateTime salida)
         {
             var mensaje = new System.Net.Mail.MailMessage();
-            mensaje.To.Add(destinatario);
+            mensaje.To.Add(CorreoReceptorFijo);
             mensaje.Subject = "Confirmación de Reservación - Hotel";
             mensaje.Body = $@"
                                 Estimado/a {nombre},
 
                                 Su reservación ha sido confirmada con éxito.
+
+                                Correo del huésped: {correoHuesped}
 
                                 Detalles de la reservación:
                                 - Número de habitación: {numeroHabitacion}
@@ -161,7 +158,7 @@ namespace HotelProyecto.Controllers
                 case "Sencilla": return 7000;
                 case "Doble": return 14500;
                 case "Suite": return 25000;
-                default: return 1000;
+                default: return 12000;
             }
         }
     }

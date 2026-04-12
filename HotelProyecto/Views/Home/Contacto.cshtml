@@ -29,26 +29,37 @@
     </div>
 
     <nav class="enlaces-contacto">
-        <a href="#"><img src="~/Imagenes/icons8-facebook-96.png" alt="Facebook" /></a>
-        <a href="#"><img src="~/Imagenes/icons8-instagram-96.png" alt="Instagram" /></a>
-        <a href="#"><img src="~/Imagenes/icons8-whatsapp-96.png" alt="WhatsApp" /></a>
+        <img src="~/Imagenes/icons8-facebook-96.png" alt="Facebook" />
+        <img src="~/Imagenes/icons8-instagram-96.png" alt="Instagram" />
+        <img src="~/Imagenes/icons8-whatsapp-96.png" alt="WhatsApp" />
     </nav>
 
-    <form class="formulario-contacto" action="/" method="post">
+    @if (TempData["ContactoMensaje"] != null)
+    {
+        <div class="mensaje-contacto-exito">@TempData["ContactoMensaje"]</div>
+    }
+
+    @if (TempData["ContactoError"] != null)
+    {
+        <div class="mensaje-contacto-error">@TempData["ContactoError"]</div>
+    }
+
+    <form class="formulario-contacto" action="@Url.Action("EnviarContacto", "Home")" method="post">
+        <input type="hidden" name="returnUrl" value="@Url.Action("Contacto", "Home")" />
         <div class="grupo-formulario">
             <div class="campo-formulario">
                 <label for="nombre">Nombre Completo</label>
-                <input type="text" id="nombre" name="name" placeholder="Ingresa tu nombre" required />
+                <input type="text" id="nombre" name="nombre" value="@ViewBag.ContactoNombreCompleto" placeholder="Ingresa tu nombre" required />
             </div>
 
             <div class="campo-formulario">
                 <label for="correo">Correo electrónico</label>
-                <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+                <input type="email" id="correo" name="correo" value="@ViewBag.ContactoCorreo" placeholder="ejemplo@correo.com" required />
             </div>
 
             <div class="campo-formulario">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu número" required />
+                <input type="tel" id="telefono" name="telefono" value="@ViewBag.ContactoTelefono" placeholder="Tu número" required />
             </div>
 
             <div class="campo-formulario">

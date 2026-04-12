@@ -4,3 +4,6 @@ Para ejecutar el programa (tanto la aplicacion de escritorio como la web) realiz
 2.- Selecciona la opcion Terminal > Run-Task
 3.- Te va salir un menu de select run task, escoge run-desktop para ejecutar la aplicacion de escritorio y run-web para ejecutar
 la aplicacion web.
+
+Nota: Es necesario tener en ejecucion los servicios SQL Server (MSSQLSERVER) y SQL Server Agent para que funcione la base de datos,
+ademas de poseer el archivo Hotel.bak, del caso contrario no podras hacer reservaciones, registrar e iniciar sesion.

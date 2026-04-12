@@ -54,9 +54,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "System.Data.SqlClient": {
+            "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.9.0, )"
+              "version": "[6.1.1, )"
             }
           },
           "imports": [

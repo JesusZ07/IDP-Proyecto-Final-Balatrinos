@@ -19,6 +19,7 @@ namespace CapaNegocios
             return huespedDAL.Obtener(huespedID);
         }
 
+
         public Huesped ValidarCredenciales(string correo, string contrasena)
         {
             return huespedDAL.ObtenerPorCorreo(correo, contrasena); // Retorna el huésped autenticado si existe

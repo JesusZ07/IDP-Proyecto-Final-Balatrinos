@@ -1,13 +1,4 @@
-﻿/* Estilos generales */
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #fdfdfd;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-/* Contenedor principal */
+﻿/* Contenedor principal */
 .contenedor-contacto {
     width: 90%;
     max-width: 1000px;
@@ -56,24 +47,39 @@ body {
     margin-bottom: 30px;
 }
 
-    .enlaces-contacto a {
-        display: inline-block;
-        margin: 0 10px;
-    }
-
     .enlaces-contacto img {
         width: 40px;
         height: 40px;
-        transition: transform 0.3s ease;
-    }
-
-    .enlaces-contacto a:hover img {
-        transform: scale(1.1);
+        margin: 0 10px;
+        cursor: default;
+        user-select: none;
     }
 
 /* Formulario de contacto */
 .formulario-contacto {
     width: 100%;
+}
+
+.mensaje-contacto-exito,
+.mensaje-contacto-error {
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.mensaje-contacto-exito {
+    background-color: #e8f7ec;
+    color: #1f6a31;
+    border: 1px solid #9fd5ab;
+}
+
+.mensaje-contacto-error {
+    background-color: #fdecec;
+    color: #8b1e1e;
+    border: 1px solid #f2b0b0;
 }
 
 .grupo-formulario {
@@ -136,5 +142,29 @@ body {
 @media screen and (max-width: 768px) {
     .contenedor-contacto {
         width: 95%;
+        padding: 20px;
+        margin: 24px auto;
+    }
+
+    .titulo-contacto h1 {
+        font-size: 24px;
+    }
+
+    .descripcion-hotel,
+    .info-hotel {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .enlaces-contacto img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .campo-formulario input,
+    .campo-formulario textarea,
+    .boton-formulario button {
+        font-size: 14px;
     }
 }

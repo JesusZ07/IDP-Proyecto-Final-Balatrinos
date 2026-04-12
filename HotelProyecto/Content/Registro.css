@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: min(94vw, 680px);
     max-width: 600px;
     padding: 40px;
     margin-bottom: 80px;
@@ -109,9 +110,15 @@ input {
 @media (max-width: 600px) {
     #registro-formulario {
         padding: 20px;
+        margin-bottom: 40px;
     }
 
     #registro-titulo h2 {
         font-size: 24px;
+    }
+
+    .boton-formulario button,
+    input {
+        font-size: 15px;
     }
 }

@@ -29,7 +29,7 @@ namespace HotelProyecto.Controllers
                     Expires = DateTimeOffset.Now.AddMonths(1),
                     IsEssential = true
                 };
-
+                Response.Cookies.Append("UsuarioLogueado", "1", opciones);
                 Response.Cookies.Append("UsuarioNombre", huesped.nombre ?? string.Empty, opciones);
                 Response.Cookies.Append("UsuarioCorreo", huesped.correo ?? string.Empty, opciones);
 
@@ -43,9 +43,9 @@ namespace HotelProyecto.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet] 
         public IActionResult Registro()
-        {
+        { 
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace HotelProyecto.Controllers
                     Expires = DateTimeOffset.Now.AddMonths(1),
                     IsEssential = true
                 };
-
+                Response.Cookies.Append("UsuarioLogueado", "1", opciones);
                 Response.Cookies.Append("UsuarioNombre", huesped.nombre ?? string.Empty, opciones);
                 Response.Cookies.Append("UsuarioCorreo", huesped.correo ?? string.Empty, opciones);
                 ViewBag.MensajeExito = "¡Registro exitoso!";
@@ -81,6 +81,7 @@ namespace HotelProyecto.Controllers
 
         public IActionResult CerrarSesion()
         {
+            Response.Cookies.Delete("UsuarioLogueado");
             Response.Cookies.Delete("UsuarioNombre");
             Response.Cookies.Delete("UsuarioCorreo");
 
@@ -138,7 +139,7 @@ namespace HotelProyecto.Controllers
                     Expires = DateTimeOffset.Now.AddMonths(1),
                     IsEssential = true
                 };
-
+                Response.Cookies.Append("UsuarioLogueado", "1", opciones);
                 Response.Cookies.Append("UsuarioNombre", huespedExistente.nombre ?? string.Empty, opciones);
                 Response.Cookies.Append("UsuarioCorreo", huespedExistente.correo ?? string.Empty, opciones);
 
@@ -151,5 +152,9 @@ namespace HotelProyecto.Controllers
 
             return View(huespedExistente);
         }
+
+
+
+
     }
 }

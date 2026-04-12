@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,56 +58,6 @@ namespace CapaDatos
                 throw;
             }
         }
-
-        /*public Alumno ObtenerPorMatricula(int matricula)
-        {
-            try
-            {
-                DataTable registros = new DataTable();
-                Alumno alumno = new Alumno();
-
-                // crear conexion
-                SqlConnection conexionBD = ConexionBD.obtenerConexion();
-                //SqlConnection conexionBD = new SqlConnection(cadenaConexionBD);
-
-                // abrir conexion
-                conexionBD.Open();
-
-                // llenar una DataTable
-                query = @"select * from alumnos where matricula = @matricula";
-                SqlCommand comando = new SqlCommand(query, conexionBD);
-                comando.Parameters.AddWithValue("@matricula", matricula);
-
-                SqlDataAdapter adaptadorDatos = new SqlDataAdapter(comando);
-                adaptadorDatos.Fill(registros);
-
-
-                // revisar si trajo el registro
-                if (registros.Rows.Count > 0)
-                {
-                    alumno.alumno_id = int.Parse(registros.Rows[0]["alumno_id"].ToString());
-                    alumno.matricula = int.Parse(registros.Rows[0]["matricula"].ToString());
-                    alumno.nombre = registros.Rows[0]["nombre"].ToString();
-                    alumno.apellido1 = registros.Rows[0]["apellido1"].ToString();
-                    alumno.apellido2 = registros.Rows[0]["apellido2"].ToString();
-                    alumno.fecha_nacimiento = DateTime.Parse(registros.Rows[0]["fecha_nacimiento"].ToString());
-                    alumno.sexo_id = int.Parse(registros.Rows[0]["sexo_id"].ToString());
-
-                }
-
-                // cerrar conexion
-                conexionBD.Close();
-
-                // devolver el DataTable
-                return alumno;
-
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-        }*/
-
 
         // Método para obtener todos los habitaciones
         public DataTable ObtenerTodos()

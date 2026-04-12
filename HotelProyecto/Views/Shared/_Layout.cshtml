@@ -21,7 +21,7 @@
 
 </head>
 
-<body>
+<body class="app-shell">
 
     <!-- MENU PRINCIPAL -->
     <div id="menu-principal">
@@ -70,7 +70,9 @@
 
 
 
-    @RenderBody()
+    <main class="page-content">
+        @RenderBody()
+    </main>
 
 
     <footer class="footer">
@@ -83,19 +85,18 @@
             <div class="footer-enlaces">
                 <h3>Enlaces</h3>
                 <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#habitaciones">Habitaciones</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+                    <li><a href="@Url.Action("Reservaciones", "Reservaciones")">Reservaciones</a></li>
+                    <li><a href="@Url.Action("Contacto", "Home")">Contacto</a></li>
                 </ul>
             </div>
 
             <div class="footer-redes">
                 <h3>Síguenos</h3>
                 <div class="redes">
-                    <a href="#"><img src="~/Imagenes/icons8-facebook-96-color.png" alt="Facebook" /></a>
-                    <a href="#"><img src="~/Imagenes/icons8-instagram-96-color.png" alt="Instagram" /></a>
-                    <a href="#"><img src="~/Imagenes/icons8-whatsapp-96-color.png" alt="WhatsApp" /></a>
+                    <img src="~/Imagenes/icons8-facebook-96-color.png" alt="Facebook" />
+                    <img src="~/Imagenes/icons8-instagram-96-color.png" alt="Instagram" />
+                    <img src="~/Imagenes/icons8-whatsapp-96-color.png" alt="WhatsApp" />
                 </div>
             </div>
         </div>

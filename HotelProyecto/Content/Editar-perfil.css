@@ -1,6 +1,7 @@
 ﻿/* ------------------ CONTENEDOR PRINCIPAL ------------------ */
 #editar-perfil-container {
     max-width: 500px;
+    width: min(94vw, 560px);
     margin: 100px auto;
     padding: 40px;
     background-color: white;
@@ -95,9 +96,15 @@ input {
 @media (max-width: 600px) {
     #editar-perfil-container {
         padding: 20px;
+        margin: 40px auto;
     }
 
         #editar-perfil-container h2 {
             font-size: 28px;
         }
+
+    .boton-formulario button,
+    input {
+        font-size: 15px;
+    }
 }

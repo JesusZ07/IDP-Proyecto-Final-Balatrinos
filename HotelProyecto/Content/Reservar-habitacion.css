@@ -46,6 +46,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: min(94vw, 560px);
     max-width: 500px;
     padding: 40px;
     margin-bottom: 80px;
@@ -117,9 +118,15 @@
 @media (max-width: 600px) {
     .reservar-container {
         padding: 20px;
+        margin-bottom: 40px;
     }
 
     #titulo-reserva h2 {
         font-size: 24px;
+    }
+
+    .reservar-form button,
+    .reservar-form input {
+        font-size: 15px;
     }
 }

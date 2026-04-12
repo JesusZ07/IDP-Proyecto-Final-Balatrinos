@@ -14,14 +14,24 @@
         <p><strong>Precio por noche:</strong> $@ViewBag.PrecioPorNoche</p>
     </div>
 
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" style="margin-bottom:12px;">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p style="margin:0;">@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
     <form class="reservar-form" action="/Reservaciones/ConfirmarReserva" method="post">
         <input type="hidden" name="numero_habitacion" value="@ViewBag.NumeroHabitacion" />
 
         <label for="nombre_huesped">Nombre del huésped:</label>
-        <input type="text" name="nombre_huesped" id="nombre_huesped" required />
+        <input type="text" name="nombre_huesped" id="nombre_huesped" value="@ViewBag.NombreHuesped" required />
 
         <label for="correo_huesped">Correo electrónico:</label>
-        <input type="email" name="correo_huesped" id="correo_huesped" required />
+        <input type="email" name="correo_huesped" id="correo_huesped" value="@ViewBag.CorreoHuesped" required />
 
         <label for="num_personas">Número de personas:</label>
         <input type="number" name="num_personas" id="num_personas" min="1" required />
