@@ -17,6 +17,32 @@ jobs:
       - name: Clonar repositorio
         uses: actions/checkout@v4
 
+      - name: Instalar .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restaurar dependencias de la web
+        run: dotnet restore HotelProyecto/HotelProyecto.csproj
+
+      - name: Iniciar aplicacion web en segundo plano
+        run: |
+          nohup dotnet run --project HotelProyecto/HotelProyecto.csproj --configuration Release --urls "http://127.0.0.1:5000" > app.log 2>&1 &
+          echo $! > app.pid
+
+      - name: Esperar a que la aplicacion este lista
+        run: |
+          for i in {1..60}; do
+            if curl -fsS "http://127.0.0.1:5000/" > /dev/null; then
+              echo "Aplicacion disponible en localhost:5000"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "La aplicacion no inicio a tiempo"
+          cat app.log
+          exit 1
+
       - name: Instalar Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,3 +53,9 @@ jobs:
 
       - name: Ejecutar pruebas de humo
         run: newman run "Pruebas de humo - Hotel Osiris.json"
+
+      - name: Mostrar logs de la aplicacion si falla
+        if: failure()
+        run: |
+          echo "===== app.log ====="
+          cat app.log
