@@ -19,4 +19,4 @@ jobs:
         run: npm install -g newman
 
       - name: Ejecutar pruebas de humo
-        run: newman run Pruebas de humo - Hotel Osiris.json
+        run: newman run pruebas_de_humo_hotel_osiris.json
