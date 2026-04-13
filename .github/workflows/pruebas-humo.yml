@@ -1,95 +1,93 @@
 name: Pruebas de humo
 
 on:
-push:
-branches: ["main"]
-pull_request:
-branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 permissions:
-contents: read
+  contents: read
 
 jobs:
-smoke-test:
-runs-on: ubuntu-latest
+  smoke-test:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Clonar repositorio
-    uses: actions/checkout@v4
-
-  - name: Instalar .NET
-    uses: actions/setup-dotnet@v4
-    with:
-      dotnet-version: "9.0.x"
-
-  - name: Restaurar dependencias de la web
-    run: dotnet restore HotelProyecto/HotelProyecto.csproj
-
-  - name: Iniciar aplicacion web en segundo plano
-    run: |
-      nohup dotnet run --project HotelProyecto/HotelProyecto.csproj --configuration Release --urls "http://127.0.0.1:5000" > app.log 2>&1 &
-      echo $! > app.pid
-
-  - name: Esperar a que la aplicacion este lista
-    run: |
-      for i in {1..60}; do
-        if curl -fsS "http://127.0.0.1:5000/" > /dev/null; then
-          echo "Aplicacion disponible en localhost:5000"
-          exit 0
-        fi
-        sleep 2
-      done
-      echo "La aplicacion no inicio a tiempo" | tee -a app.log
-      exit 1
-
-  - name: Instalar Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: "18"
-
-  - name: Instalar Newman
-    run: npm install -g newman
-
-  - name: Ejecutar pruebas de humo
-    run: |
-      newman run "Pruebas de humo - Hotel Osiris.json" --reporters cli,junit --reporter-junit-export newman-results.xml
-
-  - name: Preparar carpeta de artefactos
-    run: |
-      mkdir -p build/logs
-      mkdir -p build/newman
-
-  - name: Copiar logs
-    run: |
-      if [ -f app.log ]; then
-        cp app.log build/logs/
-      else
-        echo "No log found" > build/logs/empty.txt
-      fi
-
-  - name: Copiar resultados de Newman
-    run: |
-      if [ -f newman-results.xml ]; then
-        cp newman-results.xml build/newman/
-      else
-        echo "No Newman results" > build/newman/empty.txt
-      fi
-
-  - name: Ver contenido de build
-    run: ls -R build
-
-  - name: Subida de artefactos
-    if: always()
-    uses: actions/upload-artifact@v4
-    with:
-      name: Artefacto-SmokeTest
-      path: build/
-      retention-days: 30
-
-  - name: Mostrar logs de la aplicacion si falla
-    if: failure()
-    run: |
-      echo "===== app.log ====="
-      cat app.log
-```
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+    
+      - name: Instalar .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+    
+      - name: Restaurar dependencias de la web
+        run: dotnet restore HotelProyecto/HotelProyecto.csproj
+    
+      - name: Iniciar aplicación web en segundo plano
+        run: |
+          nohup dotnet run --project HotelProyecto/HotelProyecto.csproj --configuration Release --urls "http://127.0.0.1:5000" > app.log 2>&1 &
+          echo $! > app.pid
+    
+      - name: Esperar a que la aplicación esté lista
+        run: |
+          for i in {1..60}; do
+            if curl -fsS "http://127.0.0.1:5000/" > /dev/null; then
+              echo "Aplicación disponible en localhost:5000"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "La aplicación no inició a tiempo" | tee -a app.log
+          exit 1
+    
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+    
+      - name: Instalar Newman
+        run: npm install -g newman
+    
+      - name: Ejecutar pruebas de humo
+        run: |
+          newman run "Pruebas de humo - Hotel Osiris.json" --reporters cli,junit --reporter-junit-export newman-results.xml
+    
+      - name: Preparar carpeta de artefactos
+        run: |
+          mkdir -p build/logs
+          mkdir -p build/newman
+    
+      - name: Copiar logs
+        run: |
+          if [ -f app.log ]; then
+            cp app.log build/logs/
+          else
+            echo "No log found" > build/logs/empty.txt
+          fi
+    
+      - name: Copiar resultados de Newman
+        run: |
+          if [ -f newman-results.xml ]; then
+            cp newman-results.xml build/newman/
+          else
+            echo "No Newman results" > build/newman/empty.txt
+          fi
+    
+      - name: Ver contenido de build
+        run: ls -R build
+    
+      - name: Subida de artefactos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artefacto-SmokeTest
+          path: build/
+          retention-days: 30
+    
+      - name: Mostrar logs de la aplicación si falla
+        if: failure()
+        run: |
+          echo "===== app.log ====="
+          cat app.log
