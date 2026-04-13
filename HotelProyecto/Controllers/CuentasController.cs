@@ -57,6 +57,14 @@ namespace HotelProyecto.Controllers
             {
                 return View(huesped);
             }
+
+            // Validar que el correo no exista
+            if (huespedBLL.VerificarCorreoExistente(huesped.correo))
+            {
+                ViewBag.Error = "El correo ya existe. Por favor, usa otro correo.";
+                return View(huesped);
+            }
+
             bool exito = huespedBLL.Agregar(huesped);
             if (exito)
             {

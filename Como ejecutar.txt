@@ -1,9 +1,38 @@
-Para ejecutar el programa (tanto la aplicacion de escritorio como la web) realiza lo siguiente:
+Para ejecutar el programa (aplicacion de escritorio y web), abre la solucion en VS Code y realiza lo siguiente:
 
-1.- Haz click en la seccion de los " ... " (el que esta al lado del Go)
-2.- Selecciona la opcion Terminal > Run-Task
-3.- Te va salir un menu de select run task, escoge run-desktop para ejecutar la aplicacion de escritorio y run-web para ejecutar
-la aplicacion web.
+1.- Haz clic en los tres puntos (...) junto al boton de ejecutar.
+2.- Selecciona la opcion Terminal > Run Task.
+3.- En el menu, elige run-desktop para la aplicacion de escritorio o run-web para la aplicacion web.
 
-Nota: Es necesario tener en ejecucion los servicios SQL Server (MSSQLSERVER) y SQL Server Agent para que funcione la base de datos,
-ademas de poseer el archivo Hotel.bak, del caso contrario no podras hacer reservaciones, registrar e iniciar sesion.
+Nota: Es necesario tener en ejecucion los servicios SQL Server (MSSQLSERVER) y SQL Server Agent para que funcione la base de datos.
+Tambien necesitas el respaldo Hotel.bak; de lo contrario no podras hacer reservaciones, registrarte ni iniciar sesion.
+
+Para ejecutar pruebas, usa estos comandos desde la raiz de la solucion:
+
+Ejecutar todas las pruebas:
+dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release
+
+Ejecutar solo las pruebas unitarias:
+dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --filter "FullyQualifiedName~PruebasUnitarias"
+
+Ejecutar solo las pruebas funcionales de UI (visual, abre navegador):
+dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --filter "FullyQualifiedName~PruebasFuncionalesUI"
+
+Si falla una prueba UI por navegador/Playwright, instala Chromium y vuelve a ejecutar:
+powershell -ExecutionPolicy Bypass -File "HotelProyecto.Tests/bin/Release/net9.0/playwright.ps1" install chromium
+
+Generar reporte HTML (equivalente a practicas con pytest, pero en .NET):
+
+1.- Ejecuta pruebas con resultados y cobertura:
+dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --logger "trx;LogFileName=TestResults.trx" --collect:"XPlat Code Coverage"
+
+2.- Instala ReportGenerator (solo la primera vez):
+dotnet tool install --global dotnet-reportgenerator-globaltool
+
+3.- Genera reporte HTML de cobertura:
+reportgenerator -reports:"HotelProyecto.Tests/TestResults/**/coverage.cobertura.xml" -targetdir:"HotelProyecto.Tests/TestResults/CoverageReport" -reporttypes:Html
+
+4.- Abre el reporte en el navegador:
+HotelProyecto.Tests/TestResults/CoverageReport/index.html
+
+Nota: En este proyecto no se usa pytest; los comandos con "python -m pytest" no aplican porque las pruebas estan en xUnit + Playwright (.NET).

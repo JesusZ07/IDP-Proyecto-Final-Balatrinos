@@ -49,5 +49,10 @@ namespace CapaNegocios
         {
             return huespedDAL.Eliminar(huespedID);
         }
+
+        public bool VerificarCorreoExistente(string correo)
+        {
+            return huespedDAL.VerificarCorreoExistente(correo);
+        }
     }
 }

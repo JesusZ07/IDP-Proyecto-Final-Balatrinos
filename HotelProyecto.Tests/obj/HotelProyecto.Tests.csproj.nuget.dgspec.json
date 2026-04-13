@@ -1,0 +1,399 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto.Tests\\HotelProyecto.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
+        "projectName": "CapaDatos",
+        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "projectName": "CapaEntidad",
+        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
+        "projectName": "CapaNegocios",
+        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
+        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj"
+              },
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto.Tests\\HotelProyecto.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto.Tests\\HotelProyecto.Tests.csproj",
+        "projectName": "HotelProyecto.Tests",
+        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto.Tests\\HotelProyecto.Tests.csproj",
+        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj"
+              },
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              },
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj"
+              },
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.12.0, )"
+            },
+            "Microsoft.Playwright": {
+              "target": "Package",
+              "version": "[1.52.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
+        "projectName": "HotelProyecto",
+        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
+        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              },
+              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
+                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -322,5 +322,30 @@ namespace CapaDatos
                 throw;
             }
         }
+
+        // Método para verificar si un correo ya existe
+        public bool VerificarCorreoExistente(string correo)
+        {
+            try
+            {
+                using (SqlConnection conexionBD = new SqlConnection(cadenaConexionBD))
+                {
+                    conexionBD.Open();
+
+                    string query = @"SELECT COUNT(*) FROM huespedes WHERE correo = @correo";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexionBD))
+                    {
+                        comando.Parameters.AddWithValue("@correo", correo);
+                        int cantidad = (int)comando.ExecuteScalar();
+                        return cantidad > 0;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al verificar el correo.", ex);
+            }
+        }
     }
 }
