@@ -33,12 +33,7 @@ steps:
   run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release
 
 - name: Run Unit Tests
-  run: |
-    dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj \
-    --configuration Release \
-    --logger "trx" \
-    --results-directory ./TestResults \
-    --collect:"XPlat Code Coverage"
+  run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --logger "trx" --results-directory ./TestResults --collect:"XPlat Code Coverage"
 
 - name: Instalar ReportGenerator
   if: matrix.os == 'ubuntu-latest'
