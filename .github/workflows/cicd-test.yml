@@ -1,0 +1,91 @@
+# This workflow will build a .NET project and run unit tests with xUnit
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET CI/CD Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore IDP-Proyecto-Final-Balatrinos.sln
+    
+    - name: Build
+      run: dotnet build IDP-Proyecto-Final-Balatrinos.sln --no-restore --configuration Release
+    
+    - name: Instalar herramientas de análisis
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+    
+    - name: Run Unit Tests con xUnit
+      run: |
+        dotnet test IDP-Proyecto-Final-Balatrinos.sln \
+          --no-build \
+          --configuration Release \
+          --logger "console;verbosity=normal" \
+          --collect:"XPlat Code Coverage" \
+          --results-directory ./TestResults
+    
+    - name: Generar reporte de cobertura
+      run: |
+        reportgenerator \
+          -reports:"./TestResults/**/coverage.cobertura.xml" \
+          -targetdir:"./coverage-report" \
+          -reporttypes:"Html;HtmlSummary"
+    
+    - name: Lint con StyleCop
+      run: |
+        dotnet build IDP-Proyecto-Final-Balatrinos.sln \
+          --no-restore \
+          --configuration Release \
+          /p:EnforceCodeStyleInBuild=true \
+          /p:TreatWarningsAsErrors=false
+      continue-on-error: true
+    
+    - name: Crear carpeta de artefactos
+      run: |
+        mkdir -p build/reports
+        mkdir -p build/coverage
+    
+    - name: Copiar reporte de cobertura
+      run: |
+        cp -r coverage-report/* build/coverage/
+        cp -r TestResults/* build/reports/
+    
+    - name: Copiar archivos compilados
+      run: |
+        cp IDP-Proyecto-Final-Balatrinos.sln build/
+        cp -r HotelProyecto/bin/Release build/HotelProyecto/
+        cp -r CapaPresentacion/bin/Release build/CapaPresentacion/
+    
+    - name: Subida de artefactos de prueba
+      uses: actions/upload-artifact@v4
+      with:
+        name: Artefacto-Prueba-DotNet
+        path: build/
+        retention-days: 30
+    
+    - name: Subida de cobertura a Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: ./coverage-report
+        flags: unittests
+        name: codecov-dotnet
+        fail_ci_if_error: false
