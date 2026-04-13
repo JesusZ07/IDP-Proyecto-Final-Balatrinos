@@ -1,104 +1,102 @@
 name: .NET CI/CD Test
 
 on:
-push:
-branches: ["main"]
-pull_request:
-branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 permissions:
-contents: read
+  contents: read
 
 jobs:
-build:
-runs-on: ${{ matrix.os }}
-strategy:
-fail-fast: false
-matrix:
-os: [ubuntu-latest, windows-latest]
+  build:
+    runs-on: ${{ matrix.os }}
 
-```
-steps:
-- uses: actions/checkout@v4
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
 
-- name: Setup .NET
-  uses: actions/setup-dotnet@v4
-  with:
-    dotnet-version: '9.0.x'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-- name: Restore dependencies
-  run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
 
-- name: Build
-  run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release
+      - name: Restore
+        run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
 
-- name: Run Unit Tests
-  run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --logger "trx" --results-directory ./TestResults --collect:"XPlat Code Coverage"
+      - name: Build
+        run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release
 
-- name: Instalar ReportGenerator
-  if: matrix.os == 'ubuntu-latest'
-  run: |
-    dotnet tool install -g dotnet-reportgenerator-globaltool
-    echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+      - name: Test
+        run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --logger "trx" --results-directory ./TestResults --collect:"XPlat Code Coverage"
 
-- name: Generar reporte de cobertura
-  if: matrix.os == 'ubuntu-latest'
-  run: |
-    reportgenerator \
-      -reports:"./TestResults/**/coverage.cobertura.xml" \
-      -targetdir:"./coverage-report" \
-      -reporttypes:"Html"
-
-- name: Preparar carpeta de artefactos
-  shell: pwsh
-  run: |
-    New-Item -ItemType Directory -Force -Path build | Out-Null
-    New-Item -ItemType Directory -Force -Path build/TestResults | Out-Null
-    New-Item -ItemType Directory -Force -Path build/Coverage | Out-Null
-    New-Item -ItemType Directory -Force -Path build/Binaries | Out-Null
-
-- name: Copiar resultados de pruebas
-  shell: pwsh
-  run: |
-    if (Test-Path "TestResults") {
-      Copy-Item -Path "TestResults/*" -Destination "build/TestResults/" -Recurse -Force
-    } else {
-      "No TestResults found" | Out-File build/TestResults/empty.txt
-    }
-
-- name: Copiar cobertura
-  shell: pwsh
-  run: |
-    if (Test-Path "coverage-report") {
-      Copy-Item -Path "coverage-report/*" -Destination "build/Coverage/" -Recurse -Force
-    } else {
-      "No coverage generated" | Out-File build/Coverage/empty.txt
-    }
-
-- name: Copiar binarios
-  shell: pwsh
-  run: |
-    if (Test-Path "HotelProyecto/bin/Release") {
-      Copy-Item -Path "HotelProyecto/bin/Release/*" -Destination "build/Binaries/" -Recurse -Force
-    } else {
-      "No binaries found" | Out-File build/Binaries/empty.txt
-    }
-
-- name: Ver contenido de build
-  run: ls -R build
-  shell: bash
-
-- name: Subida de artefactos
-  uses: actions/upload-artifact@v4
-  with:
-    name: Artefacto-${{ matrix.os }}
-    path: build/
-    retention-days: 30
-
-- name: Subir a Codecov
-  if: matrix.os == 'ubuntu-latest'
-  uses: codecov/codecov-action@v3
-  with:
-    directory: ./coverage-report
-    fail_ci_if_error: false
-```
+      - name: Install ReportGenerator
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          dotnet tool install -g dotnet-reportgenerator-globaltool
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+    
+      - name: Generate Coverage Report
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          reportgenerator -reports:"./TestResults/**/coverage.cobertura.xml" -targetdir:"./coverage-report" -reporttypes:"Html"
+    
+      - name: Prepare Artifacts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build | Out-Null
+          New-Item -ItemType Directory -Force -Path build/TestResults | Out-Null
+          New-Item -ItemType Directory -Force -Path build/Coverage | Out-Null
+          New-Item -ItemType Directory -Force -Path build/Binaries | Out-Null
+    
+      - name: Copy Test Results
+        shell: pwsh
+        run: |
+          if (Test-Path "TestResults") {
+            Copy-Item "TestResults/*" "build/TestResults/" -Recurse -Force
+          } else {
+            "No TestResults" | Out-File build/TestResults/empty.txt
+          }
+    
+      - name: Copy Coverage
+        shell: pwsh
+        run: |
+          if (Test-Path "coverage-report") {
+            Copy-Item "coverage-report/*" "build/Coverage/" -Recurse -Force
+          } else {
+            "No Coverage" | Out-File build/Coverage/empty.txt
+          }
+    
+      - name: Copy Binaries
+        shell: pwsh
+        run: |
+          if (Test-Path "HotelProyecto/bin/Release") {
+            Copy-Item "HotelProyecto/bin/Release/*" "build/Binaries/" -Recurse -Force
+          } else {
+            "No Binaries" | Out-File build/Binaries/empty.txt
+          }
+    
+      - name: List Build Folder
+        run: ls -R build
+    
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artefacto-${{ matrix.os }}
+          path: build/
+          retention-days: 30
+    
+      - name: Upload to Codecov
+        if: matrix.os == 'ubuntu-latest'
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage-report
+          fail_ci_if_error: false
