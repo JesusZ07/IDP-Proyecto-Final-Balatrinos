@@ -1,0 +1,22 @@
+name: Pruebas de humo
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar Newman
+        run: npm install -g newman
+
+      - name: Ejecutar pruebas de humo
+        run: newman run Pruebas de humo - Hotel Osiris.json
