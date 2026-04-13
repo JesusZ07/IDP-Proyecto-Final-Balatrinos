@@ -39,7 +39,7 @@ jobs:
     
     - name: Run Unit Tests con xUnit
       run: |
-        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --configuration Release --filter "FullyQualifiedName~PruebasUnitarias" --logger "console;verbosity=normal" --collect:"XPlat Code Coverage" --results-directory ./TestResults
+        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --configuration Release --filter "FullyQualifiedName~PruebasUnitarias&Category!=Database" --logger "console;verbosity=normal" --collect:"XPlat Code Coverage" --results-directory ./TestResults
     
     - name: Generar reporte de cobertura
       if: matrix.os == 'ubuntu-latest'

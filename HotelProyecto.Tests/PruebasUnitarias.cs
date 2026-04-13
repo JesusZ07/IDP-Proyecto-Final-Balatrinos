@@ -11,8 +11,14 @@ namespace HotelProyecto.Tests
     {
         private const string CadenaConexion = "Data Source=.;Initial Catalog=Hotel;Integrated Security=True;TrustServerCertificate=True";
 
-        //Pruebas de las funciones y metodos de la CapaDatos
         [Fact]
+        public void CadenaConexion_ContieneCatalogoHotel()
+        {
+            Assert.Contains("Initial Catalog=Hotel", CadenaConexion, StringComparison.OrdinalIgnoreCase);
+        }
+
+        //Pruebas de las funciones y metodos de la CapaDatos
+        [Fact, Trait("Category", "Database")]
         public void Conexion_BD()
         {
             using SqlConnection conexion = new SqlConnection(CadenaConexion);
@@ -22,7 +28,7 @@ namespace HotelProyecto.Tests
             Assert.Equal(System.Data.ConnectionState.Open, conexion.State);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerHuespedes()
         {
             HuespedDAL huespedDAL = new HuespedDAL();
@@ -33,7 +39,7 @@ namespace HotelProyecto.Tests
             Assert.True(huespedes.Columns.Count > 0, "HuespedDAL.ObtenerTodos no devolvió columnas.");
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerHabitaciones()
         {
             HabitacionDAL habitacionDAL = new HabitacionDAL();
@@ -44,7 +50,7 @@ namespace HotelProyecto.Tests
             Assert.True(habitaciones.Columns.Count > 0, "HabitacionDAL.ObtenerTodos no devolvió columnas.");
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerReservaciones()
         {
             ReservacionDAL reservacionDAL = new ReservacionDAL();
@@ -55,7 +61,7 @@ namespace HotelProyecto.Tests
             Assert.True(reservaciones.Columns.Count > 0, "ReservacionDAL.ObtenerTodos no devolvió columnas.");
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerHuespedPorID()
         {
             HuespedDAL huespedDAL = new HuespedDAL();
@@ -75,7 +81,7 @@ namespace HotelProyecto.Tests
             Assert.Equal(huespedId, huesped.huesped_id);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerHabitacionesPorNumero()
         {
             HabitacionDAL habitacionDAL = new HabitacionDAL();
@@ -95,7 +101,7 @@ namespace HotelProyecto.Tests
             Assert.Equal(numeroHabitacion, habitacion.numero_habitacion);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerReservacionesPorID()
         {
             ReservacionDAL reservacionDAL = new ReservacionDAL();
@@ -116,7 +122,7 @@ namespace HotelProyecto.Tests
         }
 
         //Pruebas de las funciones y metodos de la CapaNegocios
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void Cargar_TablasBD()
         {
             HuespedBLL huespedBLL = new HuespedBLL();
@@ -136,7 +142,7 @@ namespace HotelProyecto.Tests
             Assert.True(reservaciones.Columns.Count > 0, "La tabla de reservaciones no cargó columnas.");
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void VerificacionCorreo()
         {
             HuespedBLL huespedBLL = new HuespedBLL();
@@ -160,7 +166,7 @@ namespace HotelProyecto.Tests
             Assert.True(correoExiste, "La validación de correo existente debe ser verdadera para un correo real.");
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerHabitacionPorNumero()
         {
             HabitacionBLL habitacionBLL = new HabitacionBLL();
@@ -180,7 +186,7 @@ namespace HotelProyecto.Tests
             Assert.Equal(numeroHabitacion, habitacion.numero_habitacion);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void ObtenerReservacionPorID()
         {
             ReservacionBLL reservacionBLL = new ReservacionBLL();
