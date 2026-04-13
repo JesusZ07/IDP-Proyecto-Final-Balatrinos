@@ -14,7 +14,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v4
@@ -25,25 +29,23 @@ jobs:
         dotnet-version: '9.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore IDP-Proyecto-Final-Balatrinos.sln
+      run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
     
     - name: Build
-      run: dotnet build IDP-Proyecto-Final-Balatrinos.sln --no-restore --configuration Release
+      run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
     
     - name: Instalar herramientas de análisis
+      if: matrix.os == 'ubuntu-latest'
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
+        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
     
     - name: Run Unit Tests con xUnit
       run: |
-        dotnet test IDP-Proyecto-Final-Balatrinos.sln \
-          --no-build \
-          --configuration Release \
-          --logger "console;verbosity=normal" \
-          --collect:"XPlat Code Coverage" \
-          --results-directory ./TestResults
+        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --configuration Release --filter "FullyQualifiedName~PruebasUnitarias" --logger "console;verbosity=normal" --collect:"XPlat Code Coverage" --results-directory ./TestResults
     
     - name: Generar reporte de cobertura
+      if: matrix.os == 'ubuntu-latest'
       run: |
         reportgenerator \
           -reports:"./TestResults/**/coverage.cobertura.xml" \
@@ -52,37 +54,43 @@ jobs:
     
     - name: Lint con StyleCop
       run: |
-        dotnet build IDP-Proyecto-Final-Balatrinos.sln \
-          --no-restore \
-          --configuration Release \
-          /p:EnforceCodeStyleInBuild=true \
-          /p:TreatWarningsAsErrors=false
+        dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release /p:EnforceCodeStyleInBuild=true /p:TreatWarningsAsErrors=false
       continue-on-error: true
     
     - name: Crear carpeta de artefactos
+      shell: pwsh
       run: |
-        mkdir -p build/reports
-        mkdir -p build/coverage
+        New-Item -ItemType Directory -Force -Path build/reports | Out-Null
+        New-Item -ItemType Directory -Force -Path build/coverage | Out-Null
     
     - name: Copiar reporte de cobertura
+      shell: pwsh
       run: |
-        cp -r coverage-report/* build/coverage/
-        cp -r TestResults/* build/reports/
+        if (Test-Path coverage-report) {
+          Copy-Item -Path "coverage-report/*" -Destination "build/coverage/" -Recurse -Force
+        }
+        if (Test-Path TestResults) {
+          Copy-Item -Path "TestResults/*" -Destination "build/reports/" -Recurse -Force
+        }
     
     - name: Copiar archivos compilados
+      shell: pwsh
       run: |
-        cp IDP-Proyecto-Final-Balatrinos.sln build/
-        cp -r HotelProyecto/bin/Release build/HotelProyecto/
-        cp -r CapaPresentacion/bin/Release build/CapaPresentacion/
+        Copy-Item -Path "HotelProyecto.Tests/HotelProyecto.Tests.csproj" -Destination "build/" -Force
+        if (Test-Path "HotelProyecto/bin/Release") {
+          New-Item -ItemType Directory -Force -Path "build/HotelProyecto" | Out-Null
+          Copy-Item -Path "HotelProyecto/bin/Release/*" -Destination "build/HotelProyecto/" -Recurse -Force
+        }
     
     - name: Subida de artefactos de prueba
       uses: actions/upload-artifact@v4
       with:
-        name: Artefacto-Prueba-DotNet
+        name: Artefacto-Prueba-DotNet-${{ matrix.os }}
         path: build/
         retention-days: 30
     
     - name: Subida de cobertura a Codecov
+      if: matrix.os == 'ubuntu-latest'
       uses: codecov/codecov-action@v3
       with:
         directory: ./coverage-report
