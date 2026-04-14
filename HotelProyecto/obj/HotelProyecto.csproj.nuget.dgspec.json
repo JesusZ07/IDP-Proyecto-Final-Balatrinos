@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {}
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
-        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\obj\\",
+        "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\arqju\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arqju\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -75,24 +75,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "projectUniqueName": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
         "projectName": "CapaEntidad",
-        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
-        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\obj\\",
+        "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "packagesPath": "C:\\Users\\arqju\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arqju\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -140,24 +140,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
+        "projectUniqueName": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
         "projectName": "CapaNegocios",
-        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
-        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\obj\\",
+        "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj",
+        "packagesPath": "C:\\Users\\arqju\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arqju\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -172,11 +172,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
-                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj"
+              "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaDatos\\CapaDatos.csproj"
               },
-              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -212,24 +212,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
+        "projectUniqueName": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
         "projectName": "HotelProyecto",
-        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
-        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\obj\\",
+        "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\HotelProyecto.csproj",
+        "packagesPath": "C:\\Users\\arqju\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\HotelProyecto\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arqju\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -244,11 +244,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj"
               },
-              "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
-                "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj"
+              "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj": {
+                "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaNegocios\\CapaNegocios.csproj"
               }
             }
           }
@@ -287,7 +287,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

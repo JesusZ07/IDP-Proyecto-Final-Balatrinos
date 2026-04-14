@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {}
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
+    "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "projectUniqueName": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
         "projectName": "CapaEntidad",
-        "projectPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
-        "packagesPath": "C:\\Users\\TAPIAPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAPIAPC\\Documents\\GitHub\\Ingenieria de pruebas\\Proyecto final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\obj\\",
+        "projectPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\CapaEntidad.csproj",
+        "packagesPath": "C:\\Users\\arqju\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arqju\\OneDrive\\Desktop\\Hatty 7025\\School\\UABC\\Semestre 7\\Ingeniería de Pruebas\\Proyecto Final\\IDP-Proyecto-Final-Balatrinos\\CapaEntidad\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TAPIAPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arqju\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

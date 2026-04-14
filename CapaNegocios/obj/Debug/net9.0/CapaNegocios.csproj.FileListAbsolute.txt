@@ -16,3 +16,21 @@ C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proye
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.pdb
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\ref\CapaNegocios.dll
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.sourcelink.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaNegocios.deps.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaNegocios.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaNegocios.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaDatos.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaDatos.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\bin\Debug\net9.0\CapaEntidad.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.csproj.AssemblyReference.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.AssemblyInfoInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.AssemblyInfo.cs
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.csproj.CoreCompileInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.sourcelink.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNego.1D246B3C.Up2Date
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\refint\CapaNegocios.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\CapaNegocios.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaNegocios\obj\Debug\net9.0\ref\CapaNegocios.dll
