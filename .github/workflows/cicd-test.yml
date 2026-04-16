@@ -10,6 +10,15 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: "Str0ng!Passw0rd123"
+        ports:
+          - 1433:1433
+
     steps:
     - uses: actions/checkout@v4
 
@@ -23,11 +32,14 @@ jobs:
     - name: Build
       run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
 
-    - name: Install Playwright
-      shell: pwsh
-      run: |
-        cd HotelProyecto.Tests
-        pwsh bin/Release/net9.0/playwright.ps1 install
+    - name: Install Playwright CLI
+      run: dotnet tool install --global Microsoft.Playwright.CLI
+
+    - name: Install Playwright Browsers
+      run: playwright install --with-deps
+
+    - name: Wait for SQL Server
+      run: sleep 30
 
     - name: Start Web App
       run: |
@@ -35,15 +47,10 @@ jobs:
         sleep 15
 
     - name: Run Tests
-      shell: pwsh
       env:
         BASE_URL: "http://localhost:5000"
-        ASPNETCORE_ENVIRONMENT: "Testing"
-      run: |
-        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj `
-          --no-build `
-          --logger "trx" `
-          --results-directory TestResults
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestDB;User Id=sa;Password=Str0ng!Passw0rd123;TrustServerCertificate=True;Encrypt=False;"
+      run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --logger "trx" --results-directory TestResults
 
     - name: Upload Artifacts
       if: always()
