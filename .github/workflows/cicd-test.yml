@@ -41,15 +41,18 @@ jobs:
     - name: Wait for SQL Server
       run: sleep 30
 
-    - name: Start Web App
-      run: |
-        dotnet run --project HotelProyecto/HotelProyecto.csproj --urls "http://localhost:5000" &
-        sleep 15
+    - name: Add EF Design Package
+      run: dotnet add HotelProyecto/HotelProyecto.csproj package Microsoft.EntityFrameworkCore.Design
 
     - name: Init Database
       run: |
         dotnet tool install --global dotnet-ef
         dotnet ef database update --project CapaDatos --startup-project HotelProyecto
+
+    - name: Start Web App
+      run: |
+        dotnet run --project HotelProyecto/HotelProyecto.csproj --urls "http://localhost:5000" &
+        sleep 15
 
     - name: Run Tests
       env:
