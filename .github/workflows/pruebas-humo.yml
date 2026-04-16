@@ -26,6 +26,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
+
+      - name: Instalar dependencias de Playwright
+        run: npx playwright install --with-deps
     
       - name: Restaurar dependencias de la web
         run: dotnet restore HotelProyecto/HotelProyecto.csproj
@@ -36,7 +39,7 @@ jobs:
       - name: Ejecutar pruebas de humo y generar reportes
         shell: pwsh
         run: |
-          powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite smoke
+          ./scripts/run-tests.ps1 -Suite smoke
     
       - name: Preparar estructura de artefactos
         shell: pwsh
@@ -45,7 +48,6 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
           New-Item -ItemType Directory -Force -Path "$buildDir/logs" | Out-Null
           
-          # Copiar reportes de humo
           if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke") {
             if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke/report.html") {
               Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-smoke/report.html" `
@@ -61,7 +63,7 @@ jobs:
         shell: pwsh
         run: |
           if (Test-Path "build") {
-            Write-Host "Estructura de artefactos" 
+            Write-Host "Estructura de artefactos"
             Get-ChildItem -Path "build" -Recurse | Select-Object FullName
           }
     
