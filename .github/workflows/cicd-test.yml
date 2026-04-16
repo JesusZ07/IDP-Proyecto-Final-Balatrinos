@@ -32,11 +32,11 @@ jobs:
     - name: Build
       run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
 
-    - name: Install Playwright CLI
-      run: dotnet tool install --global Microsoft.Playwright.CLI
-
-    - name: Install Playwright Browsers
-      run: playwright install --with-deps
+    - name: Install Playwright
+      shell: pwsh
+      run: |
+        cd HotelProyecto.Tests
+        pwsh bin/Release/net9.0/playwright.ps1 install --with-deps
 
     - name: Wait for SQL Server
       run: sleep 30
