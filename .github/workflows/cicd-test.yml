@@ -46,6 +46,11 @@ jobs:
         dotnet run --project HotelProyecto/HotelProyecto.csproj --urls "http://localhost:5000" &
         sleep 15
 
+    - name: Init Database
+      run: |
+        dotnet tool install --global dotnet-ef
+        dotnet ef database update --project CapaDatos --startup-project HotelProyecto
+
     - name: Run Tests
       env:
         BASE_URL: "http://localhost:5000"
