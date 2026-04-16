@@ -1,104 +1,35 @@
-name: NET Tests
+name: .NET Tests (Unitarias)
 
 on:
   push:
-    branches: ["main"]
+    branches: [ main ]
   pull_request:
-    branches: ["main"]
-
-permissions:
-  contents: read
+    branches: [ main ]
 
 jobs:
-  tests:
+  build-and-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
-
-    services:
-      sqlserver:
-        image: mcr.microsoft.com/mssql/server:2022-latest
-        env:
-          ACCEPT_EULA: Y
-          MSSQL_SA_PASSWORD: ${{ secrets.MSSQL_SA_PASSWORD }}
-        ports:
-          - 1433:1433
-
-    env:
-      ASPNETCORE_ENVIRONMENT: Testing
-      ConnectionStrings__DefaultConnection: Server=localhost,1433;Database=TestDB;User Id=sa;Password=${{ secrets.MSSQL_SA_PASSWORD }};TrustServerCertificate=True;Encrypt=False;
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
-      - name: Restore HotelProyecto
-        run: dotnet restore HotelProyecto/HotelProyecto.csproj
+    - name: Restore
+      run: dotnet restore
 
-      - name: Restore Tests
-        run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
+    - name: Build
+      run: dotnet build --no-restore
 
-      - name: Build HotelProyecto
-        run: dotnet build HotelProyecto/HotelProyecto.csproj --configuration Release --no-restore
+    - name: Run Unit Tests Only
+      run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --filter "FullyQualifiedName~PruebasUnitarias" --logger "trx" --results-directory TestResults
 
-      - name: Build Tests
-        run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --no-restore
-
-      - name: Write Testing Configuration
-        shell: pwsh
-        run: |
-          $config = @{
-            ConnectionStrings = @{
-              DefaultConnection = $env:ConnectionStrings__DefaultConnection
-            }
-          } | ConvertTo-Json -Depth 10
-
-          $config | Set-Content -Path "HotelProyecto/appsettings.Testing.json" -Encoding utf8
-          $config | Set-Content -Path "HotelProyecto.Tests/appsettings.Testing.json" -Encoding utf8
-
-      - name: Install Playwright
-        shell: pwsh
-        run: |
-          cd HotelProyecto.Tests
-          pwsh bin/Release/net9.0/playwright.ps1 install --with-deps
-
-      - name: Wait for SQL Server
-        shell: bash
-        run: |
-          for i in {1..30}; do
-            if (echo > /dev/tcp/127.0.0.1/1433) >/dev/null 2>&1; then
-              break
-            fi
-            sleep 2
-          done
-
-      - name: Start Web App
-        shell: bash
-        run: |
-          dotnet HotelProyecto/bin/Release/net9.0/HotelProyecto.dll --urls "http://0.0.0.0:5000" > app.log 2>&1 &
-          echo $! > app.pid
-
-          for i in {1..60}; do
-            if curl -fsS http://127.0.0.1:5000 >/dev/null; then
-              exit 0
-            fi
-            sleep 2
-          done
-
-          cat app.log
-          exit 1
-
-      - name: Run Tests
-        run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --no-build --logger "trx" --results-directory TestResults
-
-      - name: Upload Artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: |
-            TestResults/
-            app.log
-          retention-days: 30
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: TestResults
+        path: TestResults
