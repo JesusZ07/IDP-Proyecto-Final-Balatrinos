@@ -1,54 +1,48 @@
-name: CI-CD
+name: CI-CD Verificacion .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
   pull_request:
-    branches: [ main ]
+    branches: ["main"]
 
 jobs:
-  validacion:
-    runs-on: ubuntu-latest
+  verificacion:
 
-    env:
-      EnableWindowsTargeting: true
+    runs-on: ubuntu-latest
 
     steps:
     - name: Clonar repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar .NET
+    - name: Instalar .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
 
-    - name: Verificar versión de .NET
+    - name: Verificar version de .NET
       run: dotnet --version
 
-    - name: Mostrar información del entorno .NET
-      run: dotnet --info
-
-    - name: Listar SDKs instalados
+    - name: Verificar SDKs instalados
       run: dotnet --list-sdks
 
-    - name: Listar runtimes instalados
-      run: dotnet --list-runtimes
-
     - name: Restaurar dependencias
-      run: dotnet restore
+      run: |
+        dotnet restore CapaEntidad/CapaEntidad.csproj
+        dotnet restore CapaDatos/CapaDatos.csproj
+        dotnet restore CapaNegocios/CapaNegocios.csproj
 
-    - name: Verificar cargas de trabajo (workloads)
-      run: dotnet workload list
+    - name: Compilar proyectos 
+      run: |
+        dotnet build CapaEntidad/CapaEntidad.csproj --no-restore -c Release
+        dotnet build CapaDatos/CapaDatos.csproj --no-restore -c Release
+        dotnet build CapaNegocios/CapaNegocios.csproj --no-restore -c Release
 
-    - name: Compilar solución
-      run: dotnet build --no-restore
-
-    - name: Publicar aplicación (prueba)
-      run: dotnet publish -c Release --no-build
-
-    - name: Subir artefactos de compilación
+    - name: Generar artefactos
       uses: actions/upload-artifact@v4
       with:
-        name: salida-compilacion
+        name: build-dotnet
         path: |
-          **/bin/Release/**
+          CapaEntidad/bin/Release
+          CapaDatos/bin/Release
+          CapaNegocios/bin/Release
