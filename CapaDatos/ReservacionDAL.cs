@@ -114,7 +114,7 @@ namespace CapaDatos
                 conexionBD.Open();
 
                 // agregar el registro
-                query = @"INSERT INTO reservaciones (estatus, fecha_entrada, fecha_salida, nombre_huesped) 
+                query = @"INSERT INTO reservaciones (estatus, fecha_entrada, fecha_salida, nombre_huesped, numero_personas) 
                                       VALUES (@estatus, @fecha_entrada, @fecha_salida, @nombre_huesped, @numero_personas)";
                 
                 SqlCommand comando = new SqlCommand(query, conexionBD);
