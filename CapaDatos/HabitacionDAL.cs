@@ -104,7 +104,7 @@ namespace CapaDatos
                 {
                     conexionBD.Open();
 
-                    string query = @"INSERT INTO habitaciones (numero_habitacion, tipo_habitacion, piso, estatus) 
+                    string query = @"INSERT INTO habitaciones (numero_habitacion, tipo_habitacion, piso) 
                                  VALUES (@numero_habitacion, @tipo_habitacion, @piso, @estatus)";
 
                     using (SqlCommand comando = new SqlCommand(query, conexionBD))
