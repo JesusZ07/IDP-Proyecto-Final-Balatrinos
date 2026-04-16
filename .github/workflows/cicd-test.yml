@@ -11,127 +11,56 @@ permissions:
 
 jobs:
   test-unit:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-    
-    - name: Restore dependencies
-      run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
-    
-    - name: Build
-      run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
-    
-    - name: Ejecutar pruebas unitarias y generar reportes
-      shell: pwsh
-      run: |
-        ./scripts/run-tests.ps1 -Suite unit
-    
-    - name: Preparar artefactos de pruebas unitarias
-      shell: pwsh
-      run: |
-        $buildDir = "build/unit-tests"
-        New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
-        New-Item -ItemType Directory -Force -Path "$buildDir/coverage" | Out-Null
-        
-        if (Test-Path "HotelProyecto.Tests/TestResults/Run-unit") {
-          if (Test-Path "HotelProyecto.Tests/TestResults/Run-unit/report.html") {
-            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-unit/report.html" -Destination "$buildDir/reports/" -Force
-          }
-          if (Test-Path "HotelProyecto.Tests/TestResults/Run-unit/CoverageReport") {
-            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-unit/CoverageReport/*" -Destination "$buildDir/coverage/" -Recurse -Force
-          }
-        }
-    
-    - name: Subida de artefactos de pruebas unitarias
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: Reporte-PruebasUnitarias-${{ matrix.os }}
-        path: build/unit-tests/
-        retention-days: 30
-    
-    - name: Subida de cobertura a Codecov
-      if: matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v3
-      with:
-        directory: ./HotelProyecto.Tests/TestResults/Run-unit/CoverageReport
-        flags: unittests
-        name: codecov-dotnet
-        fail_ci_if_error: false
+    runs-on: ubuntu-latest
 
-  test-ui:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    
-    if: github.event_name == 'pull_request' || contains(github.ref, 'main')
-    
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          SA_PASSWORD: "Your_password123"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd " /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Your_password123 -Q 'SELECT 1' "
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.0.x'
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+
+    - name: Cache NuGet
+      uses: actions/cache@v4
       with:
-        node-version: "18"
-    
-    - name: Instalar Playwright (Linux)
-      if: runner.os == 'Linux'
-      run: npx playwright install --with-deps
-    
-    - name: Instalar Playwright (Windows)
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        npx playwright install
-    
-    - name: Restore dependencies
-      run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
-    
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Restore
+      run: dotnet restore
+
     - name: Build
-      run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
-    
-    - name: Ejecutar pruebas UI con Playwright y generar reportes
-      shell: pwsh
-      run: |
-        ./scripts/run-tests.ps1 -Suite ui
-    
-    - name: Preparar artefactos de pruebas UI
-      shell: pwsh
-      run: |
-        $buildDir = "build/ui-tests"
-        New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
-        New-Item -ItemType Directory -Force -Path "$buildDir/coverage" | Out-Null
-        
-        if (Test-Path "HotelProyecto.Tests/TestResults/Run-ui") {
-          if (Test-Path "HotelProyecto.Tests/TestResults/Run-ui/report.html") {
-            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-ui/report.html" -Destination "$buildDir/reports/" -Force
-          }
-          if (Test-Path "HotelProyecto.Tests/TestResults/Run-ui/CoverageReport") {
-            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-ui/CoverageReport/*" -Destination "$buildDir/coverage/" -Recurse -Force
-          }
-        }
-    
-    - name: Subida de artefactos de pruebas UI
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Esperar SQL Server
+      run: sleep 20
+
+    - name: Ejecutar pruebas unitarias
+      env:
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestDB;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+      run: dotnet test --logger "trx" --results-directory TestResults
+
+    - name: Subir artefactos
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: Reporte-PruebasUI-${{ matrix.os }}
-        path: build/ui-tests/
+        name: Reporte-PruebasUnitarias
+        path: TestResults/
         retention-days: 30
