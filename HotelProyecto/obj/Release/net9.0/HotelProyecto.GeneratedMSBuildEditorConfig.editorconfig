@@ -9,49 +9,49 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HotelProyecto
 build_property.RootNamespace = HotelProyecto
-build_property.ProjectDir = C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto\
+build_property.ProjectDir = C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\HotelProyecto\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto
+build_property.MSBuildProjectDirectory = C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\HotelProyecto
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/EditarPerfil.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/EditarPerfil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xFZGl0YXJQZXJmaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/InicioSesion.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/InicioSesion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xJbmljaW9TZXNpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/Registro.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Cuentas/Registro.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc1xSZWdpc3Ryby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Home/Contacto.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Home/Contacto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Home/Index.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Reservaciones/Reservaciones.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Reservaciones/Reservaciones.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YWNpb25lc1xSZXNlcnZhY2lvbmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Reservaciones/ReservarHabitacion.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Reservaciones/ReservarHabitacion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YWNpb25lc1xSZXNlcnZhckhhYml0YWNpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Shared/_Layout.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TAPIAPC/Documents/GitHub/Ingenieria de pruebas/Proyecto final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/_ViewStart.cshtml]
+[C:/Users/arqju/OneDrive/Desktop/Hatty 7025/School/UABC/Semestre 7/Ingeniería de Pruebas/Proyecto Final/IDP-Proyecto-Final-Balatrinos/HotelProyecto/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

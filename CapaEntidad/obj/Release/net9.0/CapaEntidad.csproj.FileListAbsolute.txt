@@ -10,3 +10,15 @@ C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proye
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\refint\CapaEntidad.dll
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.pdb
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\ref\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\bin\Release\net9.0\CapaEntidad.deps.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\bin\Release\net9.0\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\bin\Release\net9.0\CapaEntidad.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.AssemblyInfoInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.AssemblyInfo.cs
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.sourcelink.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\refint\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\CapaEntidad.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaEntidad\obj\Release\net9.0\ref\CapaEntidad.dll

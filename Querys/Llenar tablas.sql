@@ -33,6 +33,16 @@ VALUES
 ('Daniela', 'Mendoza Gil', 'Calle Rio Presidio', 12, 'Orizaba', 21070, 'Mexicali', 'daniela.mendoza@correo.com', '6866666666', 'pass123'),
 ('Ricardo', 'Navarro Cruz', 'Blvd Lazaro', 100, 'Ex Ejido', 21080, 'Mexicali', 'ricardo.navarro@correo.com', '6867777777', 'pass123'),
 ('Fernanda', 'Castillo Luna', 'Calle Cuarta', 55, 'Centro Civico', 21090, 'Mexicali', 'fernanda.castillo@correo.com', '6868888888', 'pass123'),
+('Jesus Abraham', 'Zapata', 'Estrada', 'Av Reforma 120', 'Centro', 21000, 'Mexicali', 'jesus_abraham03@hotmail.com', '6861404265'),
+('Carlos', 'Lopez', 'Martinez', 'Calle Hidalgo 45', 'Nueva', 21020, 'Mexicali', 'carlos.lopez@correo.com', '6861111111'),
+('Ana', 'Garcia', 'Ruiz', 'Av Madero 78', 'Industrial', 21030, 'Mexicali', 'ana.garcia@correo.com', '6862222222'),
+('Luis', 'Hernandez', 'Soto', 'Privada del Sol 9', 'Esperanza', 21040, 'Mexicali', 'luis.hernandez@correo.com', '6863333333'),
+('Maria', 'Torres', 'Diaz', 'Av Universidad 321', 'Pueblo Nuevo', 21050, 'Mexicali', 'maria.torres@correo.com', '6864444444'),
+('Jorge', 'Ramirez', 'Vega', 'Calle Morelos 78', 'Bellavista', 21060, 'Mexicali', 'jorge.ramirez@correo.com', '6865555555'),
+('Daniela', 'Mendoza', 'Gil', 'Calle Rio Presidio 12', 'Orizaba', 21070, 'Mexicali', 'daniela.mendoza@correo.com', '6866666666'),
+('Ricardo', 'Navarro', 'Cruz', 'Blvd Lazaro 100', 'Ex Ejido', 21080, 'Mexicali', 'ricardo.navarro@correo.com', '6867777777'),
+('Fernanda', 'Castillo', 'Luna', 'Calle Cuarta 55', 'Centro Civico', 21090, 'Mexicali', 'fernanda.castillo@correo.com', '6868888888'),
+('Sofia', 'Ortega', 'Pineda', 'Av Colon 250', 'Prohogar', 21100, 'Mexicali', 'sofia.ortega@correo.com', '6869999999');
 GO
 
 /* 40 Habitaciones (101-110, 201-210, 301-310, 401-410) */

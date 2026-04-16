@@ -14,3 +14,19 @@ C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proye
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\refint\CapaDatos.dll
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.pdb
 C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\ref\CapaDatos.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\bin\Release\net9.0\CapaDatos.deps.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\bin\Release\net9.0\CapaDatos.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\bin\Release\net9.0\CapaDatos.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\bin\Release\net9.0\CapaEntidad.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\bin\Release\net9.0\CapaEntidad.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.AssemblyInfoInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.AssemblyInfo.cs
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.sourcelink.json
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.csproj.Up2Date
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\refint\CapaDatos.dll
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\CapaDatos.pdb
+C:\Users\arqju\OneDrive\Desktop\Hatty 7025\School\UABC\Semestre 7\Ingeniería de Pruebas\Proyecto Final\IDP-Proyecto-Final-Balatrinos\CapaDatos\obj\Release\net9.0\ref\CapaDatos.dll
