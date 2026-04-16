@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bf034a31-7314-4b5d-8ee1-af4bb9b8c579" name="Jesus Abraham@LAPTOP-JESÚS 2026-04-15 21:33:46" runUser="LAPTOP-JESÚS\Jesus Abraham" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-04-15T21:33:46.0469640-07:00" queuing="2026-04-15T21:33:46.0469643-07:00" start="2026-04-15T21:33:32.4985146-07:00" finish="2026-04-15T21:34:28.0358788-07:00" />
+  <TestSettings name="default" id="1d82003c-e3d7-469d-8fbd-083ad266d9b6">
+    <Deployment runDeploymentRoot="Jesus_Abraham_LAPTOP-JESÚS_2026-04-15_21_33_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="eeae2d45-bfdc-41b5-93de-aec5847718eb" testId="97b1d678-b036-99f8-7e8e-9b0084d6f730" testName="HotelProyecto.Tests.PruebasFuncionalesUI.EnviarMensajeContacto" computerName="LAPTOP-JESÚS" duration="00:00:04.1952287" startTime="2026-04-15T21:33:45.9834962-07:00" endTime="2026-04-15T21:33:45.9835317-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eeae2d45-bfdc-41b5-93de-aec5847718eb" />
+    <UnitTestResult executionId="9c12b804-0cdb-410f-ac2a-c832471644c4" testId="acd71e31-9ce2-7b3f-f53a-91beae56c914" testName="HotelProyecto.Tests.PruebasFuncionalesUI.InicioSesion_exitoso" computerName="LAPTOP-JESÚS" duration="00:00:05.3180229" startTime="2026-04-15T21:33:51.3036731-07:00" endTime="2026-04-15T21:33:51.3036736-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c12b804-0cdb-410f-ac2a-c832471644c4" />
+    <UnitTestResult executionId="0e799e88-6c23-490c-8338-7f037d63c57d" testId="1106c730-7f6a-4cbd-f8b1-7645dd500c3e" testName="HotelProyecto.Tests.PruebasFuncionalesUI.RealizarReserva" computerName="LAPTOP-JESÚS" duration="00:00:09.6909673" startTime="2026-04-15T21:34:27.3382726-07:00" endTime="2026-04-15T21:34:27.3382729-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e799e88-6c23-490c-8338-7f037d63c57d" />
+    <UnitTestResult executionId="0779b4ed-a79e-4255-966f-c06082b25095" testId="cd90a32e-4b7a-1e73-d7c2-bc9a4434acdc" testName="HotelProyecto.Tests.PruebasFuncionalesUI.Registro_exitoso" computerName="LAPTOP-JESÚS" duration="00:00:04.1326017" startTime="2026-04-15T21:33:55.4370122-07:00" endTime="2026-04-15T21:33:55.4370124-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0779b4ed-a79e-4255-966f-c06082b25095" />
+    <UnitTestResult executionId="f4058709-5dc2-43a9-bb0c-676f0511bb03" testId="ba260d14-2a79-b3b4-11d4-a54ded2d64a1" testName="HotelProyecto.Tests.PruebasFuncionalesUI.InicioSesion_fallido" computerName="LAPTOP-JESÚS" duration="00:00:13.5178080" startTime="2026-04-15T21:34:17.6465767-07:00" endTime="2026-04-15T21:34:17.6465771-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4058709-5dc2-43a9-bb0c-676f0511bb03" />
+    <UnitTestResult executionId="ac664c5c-d581-4dbb-88c7-151b1f41b06e" testId="705c6f0e-75d4-648a-ae26-4fbbe7e61b3b" testName="HotelProyecto.Tests.PruebasFuncionalesUI.VisualizarMapaDeGoogleMaps" computerName="LAPTOP-JESÚS" duration="00:00:08.6856691" startTime="2026-04-15T21:34:04.1280299-07:00" endTime="2026-04-15T21:34:04.1280303-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac664c5c-d581-4dbb-88c7-151b1f41b06e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.InicioSesion_fallido" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="ba260d14-2a79-b3b4-11d4-a54ded2d64a1">
+      <Execution id="f4058709-5dc2-43a9-bb0c-676f0511bb03" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="InicioSesion_fallido" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.Registro_exitoso" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="cd90a32e-4b7a-1e73-d7c2-bc9a4434acdc">
+      <Execution id="0779b4ed-a79e-4255-966f-c06082b25095" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="Registro_exitoso" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.RealizarReserva" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="1106c730-7f6a-4cbd-f8b1-7645dd500c3e">
+      <Execution id="0e799e88-6c23-490c-8338-7f037d63c57d" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="RealizarReserva" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.EnviarMensajeContacto" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="97b1d678-b036-99f8-7e8e-9b0084d6f730">
+      <Execution id="eeae2d45-bfdc-41b5-93de-aec5847718eb" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="EnviarMensajeContacto" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.VisualizarMapaDeGoogleMaps" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="705c6f0e-75d4-648a-ae26-4fbbe7e61b3b">
+      <Execution id="ac664c5c-d581-4dbb-88c7-151b1f41b06e" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="VisualizarMapaDeGoogleMaps" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasFuncionalesUI.InicioSesion_exitoso" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="acd71e31-9ce2-7b3f-f53a-91beae56c914">
+      <Execution id="9c12b804-0cdb-410f-ac2a-c832471644c4" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasFuncionalesUI" name="InicioSesion_exitoso" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="97b1d678-b036-99f8-7e8e-9b0084d6f730" executionId="eeae2d45-bfdc-41b5-93de-aec5847718eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acd71e31-9ce2-7b3f-f53a-91beae56c914" executionId="9c12b804-0cdb-410f-ac2a-c832471644c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1106c730-7f6a-4cbd-f8b1-7645dd500c3e" executionId="0e799e88-6c23-490c-8338-7f037d63c57d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd90a32e-4b7a-1e73-d7c2-bc9a4434acdc" executionId="0779b4ed-a79e-4255-966f-c06082b25095" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba260d14-2a79-b3b4-11d4-a54ded2d64a1" executionId="f4058709-5dc2-43a9-bb0c-676f0511bb03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="705c6f0e-75d4-648a-ae26-4fbbe7e61b3b" executionId="ac664c5c-d581-4dbb-88c7-151b1f41b06e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.15)&#xD;
+[xUnit.net 00:00:00.15]   Discovering: HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:00.21]   Discovered:  HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:00.22]   Starting:    HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:49.83]   Finished:    HotelProyecto.Tests&#xD;
+</StdOut>
+    </Output>
+    <CollectorDataEntries>
+      <Collector agentName="LAPTOP-JESÚS" uri="datacollector://microsoft/CoverletCodeCoverage/1.0" collectorDisplayName="XPlat code coverage">
+        <UriAttachments>
+          <UriAttachment>
+            <A href="LAPTOP-JESÚS\coverage.cobertura.xml"></A>
+          </UriAttachment>
+        </UriAttachments>
+      </Collector>
+    </CollectorDataEntries>
+  </ResultSummary>
+</TestRun>

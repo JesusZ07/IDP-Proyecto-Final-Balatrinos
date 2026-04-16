@@ -21,73 +21,63 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.x"
-    
-      - name: Restaurar dependencias de la web
-        run: dotnet restore HotelProyecto/HotelProyecto.csproj
-    
-      - name: Iniciar aplicación web en segundo plano
-        run: |
-          nohup dotnet run --project HotelProyecto/HotelProyecto.csproj --configuration Release --urls "http://127.0.0.1:5000" > app.log 2>&1 &
-          echo $! > app.pid
-    
-      - name: Esperar a que la aplicación esté lista
-        run: |
-          for i in {1..60}; do
-            if curl -fsS "http://127.0.0.1:5000/" > /dev/null; then
-              echo "Aplicación disponible en localhost:5000"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "La aplicación no inició a tiempo" | tee -a app.log
-          exit 1
-    
-      - name: Instalar Node.js
+      
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
     
-      - name: Instalar Newman
-        run: npm install -g newman
+      - name: Restaurar dependencias de la web
+        run: dotnet restore HotelProyecto/HotelProyecto.csproj
     
-      - name: Ejecutar pruebas de humo
+      - name: Compilar aplicación web
+        run: dotnet build HotelProyecto/HotelProyecto.csproj --no-restore --configuration Release
+    
+      - name: Ejecutar pruebas de humo y generar reportes
+        shell: pwsh
         run: |
-          newman run "Pruebas de humo - Hotel Osiris.json" --reporters cli,junit --reporter-junit-export newman-results.xml
+          powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite smoke
     
-      - name: Preparar carpeta de artefactos
+      - name: Preparar estructura de artefactos
+        shell: pwsh
         run: |
-          mkdir -p build/logs
-          mkdir -p build/newman
-    
-      - name: Copiar logs
+          $buildDir = "build/smoke-tests"
+          New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$buildDir/logs" | Out-Null
+          
+          # Copiar reportes de humo
+          if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke") {
+            if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke/report.html") {
+              Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-smoke/report.html" `
+                -Destination "$buildDir/reports/" -Force
+            }
+            if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke/newman-results.xml") {
+              Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-smoke/newman-results.xml" `
+                -Destination "$buildDir/reports/" -Force
+            }
+          }
+      
+      - name: Mostrar estructura de artefactos
+        shell: pwsh
         run: |
-          if [ -f app.log ]; then
-            cp app.log build/logs/
-          else
-            echo "No log found" > build/logs/empty.txt
-          fi
+          if (Test-Path "build") {
+            Write-Host "Estructura de artefactos" 
+            Get-ChildItem -Path "build" -Recurse | Select-Object FullName
+          }
     
-      - name: Copiar resultados de Newman
-        run: |
-          if [ -f newman-results.xml ]; then
-            cp newman-results.xml build/newman/
-          else
-            echo "No Newman results" > build/newman/empty.txt
-          fi
-    
-      - name: Ver contenido de build
-        run: ls -R build
-    
-      - name: Subida de artefactos
+      - name: Subida de artefactos de pruebas de humo
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Artefacto-SmokeTest
-          path: build/
+          name: Reporte-SmokeTest
+          path: build/smoke-tests/
           retention-days: 30
-    
-      - name: Mostrar logs de la aplicación si falla
-        if: failure()
+      
+      - name: Mostrar estado de pruebas
+        shell: pwsh
         run: |
-          echo "===== app.log ====="
-          cat app.log
+          if (Test-Path "HotelProyecto.Tests/TestResults/Run-smoke/report.html") {
+            Write-Host "Reporte HTML de smoke tests generado correctamente"
+          } else {
+            Write-Host "Reporte HTML no encontrado"
+          }

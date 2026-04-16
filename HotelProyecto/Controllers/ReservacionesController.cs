@@ -13,6 +13,7 @@ namespace HotelProyecto.Controllers
 
         private HabitacionBLL habitacionBLL = new HabitacionBLL();
         private ReservacionBLL reservacionBLL = new ReservacionBLL();
+        private HuespedBLL huespedBLL = new HuespedBLL();
 
         // GET: /Reservaciones/
         public IActionResult Reservaciones()
@@ -63,6 +64,14 @@ namespace HotelProyecto.Controllers
                 return RedirectToAction("Reservaciones");
             }
 
+            string correoUsuario = Request.Cookies["UsuarioCorreo"] ?? string.Empty;
+            Huesped huespedAutenticado = huespedBLL.ObtenerPorCorreo(correoUsuario);
+            if (huespedAutenticado == null)
+            {
+                TempData["Error"] = "No se encontró la cuenta del huésped autenticado.";
+                return RedirectToAction("Reservaciones");
+            }
+
             var habitacion = habitacionBLL.Obtener(numero_habitacion);
 
             if (habitacion == null || habitacion.estatus != "Disponible")
@@ -86,6 +95,7 @@ namespace HotelProyecto.Controllers
                 fecha_entrada = fecha_entrada,
                 fecha_salida = fecha_salida,
                 nombre_huesped = nombre_huesped,
+                huesped_id = huespedAutenticado.huesped_id,
                 numero_personas = num_personas
             };
 
@@ -102,9 +112,10 @@ namespace HotelProyecto.Controllers
                     return RedirectToAction("Reservaciones");
                 }
 
-                EnviarCorreoConfirmacion(nombre_huesped, correo_huesped, numero_habitacion, fecha_entrada, fecha_salida);
-
-                TempData["Mensaje"] = "La reservación se realizó con éxito.";
+                bool correoEnviado = EnviarCorreoConfirmacion(nombre_huesped, correo_huesped, numero_habitacion, fecha_entrada, fecha_salida);
+                TempData["Mensaje"] = correoEnviado
+                    ? "La reservación se realizó con éxito."
+                    : "La reservación se realizó con éxito. No fue posible enviar el correo de confirmación.";
                 return RedirectToAction("Reservaciones");
             }
             else
@@ -117,12 +128,14 @@ namespace HotelProyecto.Controllers
             }
         }
 
-        private void EnviarCorreoConfirmacion(string nombre, string correoHuesped, int numeroHabitacion, DateTime entrada, DateTime salida)
+        private bool EnviarCorreoConfirmacion(string nombre, string correoHuesped, int numeroHabitacion, DateTime entrada, DateTime salida)
         {
-            var mensaje = new System.Net.Mail.MailMessage();
-            mensaje.To.Add(CorreoReceptorFijo);
-            mensaje.Subject = "Confirmación de Reservación - Hotel";
-            mensaje.Body = $@"
+            try
+            {
+                var mensaje = new System.Net.Mail.MailMessage();
+                mensaje.To.Add(CorreoReceptorFijo);
+                mensaje.Subject = "Confirmación de Reservación - Hotel";
+                mensaje.Body = $@"
                                 Estimado/a {nombre},
 
                                 Su reservación ha sido confirmada con éxito.
@@ -138,17 +151,23 @@ namespace HotelProyecto.Controllers
 
                                 Hotel Proyecto";
 
-            mensaje.IsBodyHtml = false;
-            mensaje.From = new System.Net.Mail.MailAddress("zopedepatas123@gmail.com", "Hotel Oasis");
+                mensaje.IsBodyHtml = false;
+                mensaje.From = new System.Net.Mail.MailAddress("zopedepatas123@gmail.com", "Hotel Oasis");
 
-            var smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com")
+                var smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new System.Net.NetworkCredential("zopedepatas123@gmail.com", "xdce fcpw jrtv ezso"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mensaje);
+                return true;
+            }
+            catch
             {
-                Port = 587,
-                Credentials = new System.Net.NetworkCredential("zopedepatas123@gmail.com", "xdce fcpw jrtv ezso"),
-                EnableSsl = true
-            };
-
-            smtp.Send(mensaje);
+                return false;
+            }
         }
 
         private decimal ObtenerPrecioPorTipo(string tipoHabitacion)

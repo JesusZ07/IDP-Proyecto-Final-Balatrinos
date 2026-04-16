@@ -29,7 +29,16 @@ namespace CapaDatos
                 conexionBD.Open();
 
                 // llenar una DataTable
-                query = @"select * from reservaciones where reservacion_id = @reservacion_id";
+                    query = @"SELECT 
+                              r.reservacion_id,
+                              r.estatus,
+                              r.fecha_entrada,
+                              r.fecha_salida,
+                              r.numero_personas,
+                              LTRIM(RTRIM(CONCAT(h.nombre, ' ', h.apellido_1, ' ', ISNULL(h.apellido_2, '')))) AS nombre_huesped
+                          FROM reservaciones r
+                          INNER JOIN huespedes h ON h.huesped_id = r.huesped_id
+                          WHERE r.reservacion_id = @reservacion_id";
                 SqlCommand comando = new SqlCommand(query, conexionBD);
                 comando.Parameters.AddWithValue("@reservacion_id", reservacionID);
 
@@ -76,13 +85,14 @@ namespace CapaDatos
 
                 // llenar una DataTable
                 query = @"select 
-                                reservaciones.reservacion_id,
-                                reservaciones.estatus,
-                                reservaciones.fecha_entrada,
-                                reservaciones.fecha_salida,
-                                reservaciones.nombre_huesped,
-                                reservaciones.numero_personas
-                            from reservaciones";
+                                r.reservacion_id,
+                                r.estatus,
+                                r.fecha_entrada,
+                                r.fecha_salida,
+                                LTRIM(RTRIM(CONCAT(h.nombre, ' ', h.apellido_1, ' ', ISNULL(h.apellido_2, '')))) AS nombre_huesped,
+                                r.numero_personas
+                            FROM reservaciones r
+                            INNER JOIN huespedes h ON h.huesped_id = r.huesped_id";
 
                 SqlDataAdapter adaptadorDatos = new SqlDataAdapter(query, conexionBD);
                 adaptadorDatos.Fill(registros);
@@ -113,15 +123,19 @@ namespace CapaDatos
                 // abrir conexion
                 conexionBD.Open();
 
+                int huespedId = reservacion.huesped_id > 0
+                    ? reservacion.huesped_id
+                    : ObtenerHuespedIdPorNombre(conexionBD, reservacion.nombre_huesped);
+
                 // agregar el registro
-                query = @"INSERT INTO reservaciones (estatus, fecha_entrada, fecha_salida, nombre_huesped, numero_personas) 
-                                      VALUES (@estatus, @fecha_entrada, @fecha_salida, @nombre_huesped, @numero_personas)";
+                query = @"INSERT INTO reservaciones (estatus, fecha_entrada, fecha_salida, huesped_id, numero_personas) 
+                                      VALUES (@estatus, @fecha_entrada, @fecha_salida, @huesped_id, @numero_personas)";
                 
                 SqlCommand comando = new SqlCommand(query, conexionBD);
                 comando.Parameters.AddWithValue("@estatus", reservacion.estatus);
                 comando.Parameters.AddWithValue("@fecha_entrada", reservacion.fecha_entrada);
                 comando.Parameters.AddWithValue("@fecha_salida", reservacion.fecha_salida);
-                comando.Parameters.AddWithValue("@nombre_huesped", reservacion.nombre_huesped);
+                comando.Parameters.AddWithValue("@huesped_id", huespedId);
                 comando.Parameters.AddWithValue("@numero_personas", reservacion.numero_personas);
 
 
@@ -154,12 +168,16 @@ namespace CapaDatos
                 // abrir conexion
                 conexionBD.Open();
 
+                int huespedId = reservacion.huesped_id > 0
+                    ? reservacion.huesped_id
+                    : ObtenerHuespedIdPorNombre(conexionBD, reservacion.nombre_huesped);
+
                 // agregar el registro
                 query = @"UPDATE reservaciones
                                  SET estatus           = @estatus,
                                  fecha_entrada     = @fecha_entrada,
                                  fecha_salida      = @fecha_salida,
-                                 nombre_huesped    = @nombre_huesped,
+                                 huesped_id        = @huesped_id,
                                  numero_personas   = @numero_personas
                                  WHERE reservacion_id = @reservacion_id";
 
@@ -169,7 +187,7 @@ namespace CapaDatos
                 comando.Parameters.AddWithValue("@estatus", reservacion.estatus);
                 comando.Parameters.AddWithValue("@fecha_entrada", reservacion.fecha_entrada);
                 comando.Parameters.AddWithValue("@fecha_salida", reservacion.fecha_salida);
-                comando.Parameters.AddWithValue("@nombre_huesped", reservacion.nombre_huesped);
+                comando.Parameters.AddWithValue("@huesped_id", huespedId);
                 comando.Parameters.AddWithValue("@numero_personas", reservacion.numero_personas);
 
                 // ejecutar el comando 
@@ -216,6 +234,26 @@ namespace CapaDatos
             {
                 throw;
             }
+        }
+
+        private int ObtenerHuespedIdPorNombre(SqlConnection conexionBD, string nombreHuesped)
+        {
+            query = @"SELECT TOP (1) huesped_id
+                      FROM huespedes
+                      WHERE LTRIM(RTRIM(CONCAT(nombre, ' ', apellido_1, ' ', ISNULL(apellido_2, '')))) = @nombre_huesped
+                         OR nombre = @nombre_huesped
+                      ORDER BY huesped_id";
+
+            SqlCommand comando = new SqlCommand(query, conexionBD);
+            comando.Parameters.AddWithValue("@nombre_huesped", nombreHuesped?.Trim() ?? string.Empty);
+
+            object resultado = comando.ExecuteScalar();
+            if (resultado == null)
+            {
+                throw new InvalidOperationException("No se encontró un huésped con el nombre proporcionado.");
+            }
+
+            return Convert.ToInt32(resultado);
         }
     }
 }

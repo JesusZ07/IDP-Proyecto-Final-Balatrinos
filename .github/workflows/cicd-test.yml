@@ -10,13 +10,13 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test-unit:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-
+    
     steps:
     - uses: actions/checkout@v4
     
@@ -31,66 +31,108 @@ jobs:
     - name: Build
       run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
     
-    - name: Instalar herramientas de análisis
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-    
-    - name: Run Unit Tests con xUnit
-      run: |
-        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --configuration Release --filter "FullyQualifiedName~PruebasUnitarias&Category!=Database" --logger "console;verbosity=normal" --collect:"XPlat Code Coverage" --results-directory ./TestResults
-    
-    - name: Generar reporte de cobertura
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        reportgenerator \
-          -reports:"./TestResults/**/coverage.cobertura.xml" \
-          -targetdir:"./coverage-report" \
-          -reporttypes:"Html;HtmlSummary"
-    
-    - name: Lint con StyleCop
-      run: |
-        dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release /p:EnforceCodeStyleInBuild=true /p:TreatWarningsAsErrors=false
-      continue-on-error: true
-    
-    - name: Crear carpeta de artefactos
+    - name: Ejecutar pruebas unitarias y generar reportes
       shell: pwsh
       run: |
-        New-Item -ItemType Directory -Force -Path build/reports | Out-Null
-        New-Item -ItemType Directory -Force -Path build/coverage | Out-Null
+        powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite unit
     
-    - name: Copiar reporte de cobertura
+    - name: Preparar artefactos de pruebas unitarias
       shell: pwsh
       run: |
-        if (Test-Path coverage-report) {
-          Copy-Item -Path "coverage-report/*" -Destination "build/coverage/" -Recurse -Force
-        }
-        if (Test-Path TestResults) {
-          Copy-Item -Path "TestResults/*" -Destination "build/reports/" -Recurse -Force
-        }
-    
-    - name: Copiar archivos compilados
-      shell: pwsh
-      run: |
-        Copy-Item -Path "HotelProyecto.Tests/HotelProyecto.Tests.csproj" -Destination "build/" -Force
-        if (Test-Path "HotelProyecto/bin/Release") {
-          New-Item -ItemType Directory -Force -Path "build/HotelProyecto" | Out-Null
-          Copy-Item -Path "HotelProyecto/bin/Release/*" -Destination "build/HotelProyecto/" -Recurse -Force
+        $buildDir = "build/unit-tests"
+        New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
+        New-Item -ItemType Directory -Force -Path "$buildDir/coverage" | Out-Null
+        
+        if (Test-Path "HotelProyecto.Tests/TestResults/Run-unit") {
+          Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-unit/report.html" -Destination "$buildDir/reports/" -Force
+          if (Test-Path "HotelProyecto.Tests/TestResults/Run-unit/CoverageReport") {
+            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-unit/CoverageReport/*" -Destination "$buildDir/coverage/" -Recurse -Force
+          }
         }
     
-    - name: Subida de artefactos de prueba
+    - name: Subida de artefactos de pruebas unitarias
+      if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: Artefacto-Prueba-DotNet-${{ matrix.os }}
-        path: build/
+        name: Reporte-PruebasUnitarias-${{ matrix.os }}
+        path: build/unit-tests/
         retention-days: 30
     
     - name: Subida de cobertura a Codecov
       if: matrix.os == 'ubuntu-latest'
       uses: codecov/codecov-action@v3
       with:
-        directory: ./coverage-report
+        directory: ./HotelProyecto.Tests/TestResults/Run-unit/CoverageReport
         flags: unittests
         name: codecov-dotnet
         fail_ci_if_error: false
+
+  test-ui:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    
+    if: github.event_name == 'pull_request' || contains(github.ref, 'main')
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    
+    - name: Instalar dependencias de Playwright (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libnss3 \
+          libnspr4 \
+          libdbus-1-3 \
+          libatk1.0-0 \
+          libatk-bridge2.0-0 \
+          libcups2 \
+          libdrm2 \
+          libxkbcommon0 \
+          libxcomposite1 \
+          libxdamage1 \
+          libxfixes3 \
+          libxrandr2 \
+          libgbm1 \
+          libasound2
+    
+    - name: Restore dependencies
+      run: dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
+    
+    - name: Build
+      run: dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore --configuration Release
+    
+    - name: Ejecutar pruebas UI con Playwright y generar reportes
+      shell: pwsh
+      run: |
+        powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite ui
+    
+    - name: Preparar artefactos de pruebas UI
+      shell: pwsh
+      run: |
+        $buildDir = "build/ui-tests"
+        New-Item -ItemType Directory -Force -Path "$buildDir/reports" | Out-Null
+        New-Item -ItemType Directory -Force -Path "$buildDir/coverage" | Out-Null
+        
+        if (Test-Path "HotelProyecto.Tests/TestResults/Run-ui") {
+          Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-ui/report.html" -Destination "$buildDir/reports/" -Force
+          if (Test-Path "HotelProyecto.Tests/TestResults/Run-ui/CoverageReport") {
+            Copy-Item -Path "HotelProyecto.Tests/TestResults/Run-ui/CoverageReport/*" -Destination "$buildDir/coverage/" -Recurse -Force
+          }
+        }
+    
+    - name: Subida de artefactos de pruebas UI
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Reporte-PruebasUI-${{ matrix.os }}
+        path: build/ui-tests/
+        retention-days: 30

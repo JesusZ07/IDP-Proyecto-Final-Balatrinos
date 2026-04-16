@@ -125,7 +125,7 @@ public class PruebasFuncionalesUI
             await page.FillAsync("#fecha_salida", salida.ToString("yyyy-MM-dd"));
             await page.ClickAsync("button[type='submit']");
 
-            await page.WaitForURLAsync("**/Reservaciones/Reservaciones");
+            await page.WaitForURLAsync("**/Reservaciones/Reservaciones**");
             await ExpectTextContains(page, "body", "reservación");
         });
     }

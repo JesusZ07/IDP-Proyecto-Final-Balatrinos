@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="55b7d18c-20b2-40ee-bad7-4e154116b8c2" name="Jesus Abraham@LAPTOP-JESÚS 2026-04-15 21:18:33" runUser="LAPTOP-JESÚS\Jesus Abraham" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-04-15T21:18:33.6524200-07:00" queuing="2026-04-15T21:18:33.6524204-07:00" start="2026-04-15T21:18:31.8382201-07:00" finish="2026-04-15T21:18:33.6900564-07:00" />
+  <TestSettings name="default" id="c8459908-1c36-4381-a937-4d6d62264a5a">
+    <Deployment runDeploymentRoot="Jesus_Abraham_LAPTOP-JESÚS_2026-04-15_21_18_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="72895187-43da-4cde-80e7-e240bd6ba98d" testId="196f150f-382e-6fc5-9880-f774419dcb57" testName="HotelProyecto.Tests.PruebasUnitarias.VerificacionCorreo" computerName="LAPTOP-JESÚS" duration="00:00:00.0121821" startTime="2026-04-15T21:18:33.5554712-07:00" endTime="2026-04-15T21:18:33.5554713-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72895187-43da-4cde-80e7-e240bd6ba98d" />
+    <UnitTestResult executionId="413ce4a2-b123-4d1e-915e-03be5a42a251" testId="00711ae6-d387-3d6f-af2c-15c2a58545af" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservaciones" computerName="LAPTOP-JESÚS" duration="00:00:00.0010859" startTime="2026-04-15T21:18:33.4922258-07:00" endTime="2026-04-15T21:18:33.4922262-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="413ce4a2-b123-4d1e-915e-03be5a42a251" />
+    <UnitTestResult executionId="07b4c5fe-7699-430f-9526-e99677daf254" testId="20df0d87-46c8-ffe7-9cd0-5a5a865e1f36" testName="HotelProyecto.Tests.PruebasUnitarias.Conexion_BD" computerName="LAPTOP-JESÚS" duration="00:00:00.0035550" startTime="2026-04-15T21:18:33.5558279-07:00" endTime="2026-04-15T21:18:33.5558279-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07b4c5fe-7699-430f-9526-e99677daf254" />
+    <UnitTestResult executionId="d45afd72-3fb8-4510-bd4b-0dc7bb5d779b" testId="e4c62dd8-af4f-ab74-7cae-08d896d620fe" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitacionPorNumero" computerName="LAPTOP-JESÚS" duration="00:00:00.0017438" startTime="2026-04-15T21:18:33.4940610-07:00" endTime="2026-04-15T21:18:33.4940613-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d45afd72-3fb8-4510-bd4b-0dc7bb5d779b" />
+    <UnitTestResult executionId="ad38d594-8806-4ab9-a2d0-12d84e167348" testId="dfaf8bb6-6cf3-8450-e414-e0bbd16519fc" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservacionPorID" computerName="LAPTOP-JESÚS" duration="00:00:00.4941614" startTime="2026-04-15T21:18:33.4862236-07:00" endTime="2026-04-15T21:18:33.4862241-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad38d594-8806-4ab9-a2d0-12d84e167348" />
+    <UnitTestResult executionId="293c6e42-bced-4eb0-bec0-e81e89dc04f8" testId="29fb06f3-b6a3-26c1-aec1-4e06a0d9b8cc" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerHuespedPorID" computerName="LAPTOP-JESÚS" duration="00:00:00.0027810" startTime="2026-04-15T21:18:33.5557530-07:00" endTime="2026-04-15T21:18:33.5557531-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="293c6e42-bced-4eb0-bec0-e81e89dc04f8" />
+    <UnitTestResult executionId="a7cf5790-34ec-46d2-8be9-29556165e330" testId="78c57f7f-026d-d9e0-acb3-26c204f59032" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservacionesPorID" computerName="LAPTOP-JESÚS" duration="00:00:00.0016019" startTime="2026-04-15T21:18:33.4958014-07:00" endTime="2026-04-15T21:18:33.4958016-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7cf5790-34ec-46d2-8be9-29556165e330" />
+    <UnitTestResult executionId="c3eae716-20fe-47fa-ab25-7002052d8fbb" testId="c835590b-0f1a-ef73-4aab-55fc3ae21ad7" testName="HotelProyecto.Tests.PruebasUnitarias.CadenaConexion_ContieneCatalogoHotel" computerName="LAPTOP-JESÚS" duration="00:00:00.0048538" startTime="2026-04-15T21:18:32.9926274-07:00" endTime="2026-04-15T21:18:32.9926607-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3eae716-20fe-47fa-ab25-7002052d8fbb" />
+    <UnitTestResult executionId="39133b4d-250f-4467-abe9-f54cb28c0c4b" testId="c8fb3f2b-2a73-02e9-e0e7-ec4c59071e15" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerHuespedes" computerName="LAPTOP-JESÚS" duration="00:00:00.0021256" startTime="2026-04-15T21:18:33.4979967-07:00" endTime="2026-04-15T21:18:33.4979970-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39133b4d-250f-4467-abe9-f54cb28c0c4b" />
+    <UnitTestResult executionId="7b280651-897c-4a53-878a-04af93af3364" testId="fdf81953-c29c-df87-615a-f1e19e8a0cca" testName="HotelProyecto.Tests.PruebasUnitarias.Cargar_TablasBD" computerName="LAPTOP-JESÚS" duration="00:00:00.0024898" startTime="2026-04-15T21:18:33.5015877-07:00" endTime="2026-04-15T21:18:33.5015879-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b280651-897c-4a53-878a-04af93af3364" />
+    <UnitTestResult executionId="c64a314c-eeca-4a43-8c0c-367f6617c004" testId="899e5b29-c89b-0743-7038-bd147e8ea1c6" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitaciones" computerName="LAPTOP-JESÚS" duration="00:00:00.0008805" startTime="2026-04-15T21:18:33.4989857-07:00" endTime="2026-04-15T21:18:33.4989860-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c64a314c-eeca-4a43-8c0c-367f6617c004" />
+    <UnitTestResult executionId="2a243fb0-4dbf-46f3-ae30-971714f2d596" testId="93fcba51-36fa-828d-43de-a8dcdb084b5a" testName="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitacionesPorNumero" computerName="LAPTOP-JESÚS" duration="00:00:00.0047576" startTime="2026-04-15T21:18:33.4910047-07:00" endTime="2026-04-15T21:18:33.4910050-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a243fb0-4dbf-46f3-ae30-971714f2d596" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.Conexion_BD" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="20df0d87-46c8-ffe7-9cd0-5a5a865e1f36">
+      <Execution id="07b4c5fe-7699-430f-9526-e99677daf254" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="Conexion_BD" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.VerificacionCorreo" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="196f150f-382e-6fc5-9880-f774419dcb57">
+      <Execution id="72895187-43da-4cde-80e7-e240bd6ba98d" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="VerificacionCorreo" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitacionesPorNumero" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="93fcba51-36fa-828d-43de-a8dcdb084b5a">
+      <Execution id="2a243fb0-4dbf-46f3-ae30-971714f2d596" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerHabitacionesPorNumero" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerHuespedes" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="c8fb3f2b-2a73-02e9-e0e7-ec4c59071e15">
+      <Execution id="39133b4d-250f-4467-abe9-f54cb28c0c4b" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerHuespedes" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.Cargar_TablasBD" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="fdf81953-c29c-df87-615a-f1e19e8a0cca">
+      <Execution id="7b280651-897c-4a53-878a-04af93af3364" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="Cargar_TablasBD" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.CadenaConexion_ContieneCatalogoHotel" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="c835590b-0f1a-ef73-4aab-55fc3ae21ad7">
+      <Execution id="c3eae716-20fe-47fa-ab25-7002052d8fbb" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="CadenaConexion_ContieneCatalogoHotel" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservaciones" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="00711ae6-d387-3d6f-af2c-15c2a58545af">
+      <Execution id="413ce4a2-b123-4d1e-915e-03be5a42a251" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerReservaciones" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerHuespedPorID" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="29fb06f3-b6a3-26c1-aec1-4e06a0d9b8cc">
+      <Execution id="293c6e42-bced-4eb0-bec0-e81e89dc04f8" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerHuespedPorID" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitaciones" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="899e5b29-c89b-0743-7038-bd147e8ea1c6">
+      <Execution id="c64a314c-eeca-4a43-8c0c-367f6617c004" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerHabitaciones" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservacionesPorID" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="78c57f7f-026d-d9e0-acb3-26c204f59032">
+      <Execution id="a7cf5790-34ec-46d2-8be9-29556165e330" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerReservacionesPorID" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerReservacionPorID" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="dfaf8bb6-6cf3-8450-e414-e0bbd16519fc">
+      <Execution id="ad38d594-8806-4ab9-a2d0-12d84e167348" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerReservacionPorID" />
+    </UnitTest>
+    <UnitTest name="HotelProyecto.Tests.PruebasUnitarias.ObtenerHabitacionPorNumero" storage="c:\users\tapiapc\documents\github\ingenieria de pruebas\proyecto final\idp-proyecto-final-balatrinos\hotelproyecto.tests\bin\release\net9.0\hotelproyecto.tests.dll" id="e4c62dd8-af4f-ab74-7cae-08d896d620fe">
+      <Execution id="d45afd72-3fb8-4510-bd4b-0dc7bb5d779b" />
+      <TestMethod codeBase="C:\Users\TAPIAPC\Documents\GitHub\Ingenieria de pruebas\Proyecto final\IDP-Proyecto-Final-Balatrinos\HotelProyecto.Tests\bin\Release\net9.0\HotelProyecto.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="HotelProyecto.Tests.PruebasUnitarias" name="ObtenerHabitacionPorNumero" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="196f150f-382e-6fc5-9880-f774419dcb57" executionId="72895187-43da-4cde-80e7-e240bd6ba98d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00711ae6-d387-3d6f-af2c-15c2a58545af" executionId="413ce4a2-b123-4d1e-915e-03be5a42a251" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20df0d87-46c8-ffe7-9cd0-5a5a865e1f36" executionId="07b4c5fe-7699-430f-9526-e99677daf254" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4c62dd8-af4f-ab74-7cae-08d896d620fe" executionId="d45afd72-3fb8-4510-bd4b-0dc7bb5d779b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dfaf8bb6-6cf3-8450-e414-e0bbd16519fc" executionId="ad38d594-8806-4ab9-a2d0-12d84e167348" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29fb06f3-b6a3-26c1-aec1-4e06a0d9b8cc" executionId="293c6e42-bced-4eb0-bec0-e81e89dc04f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="78c57f7f-026d-d9e0-acb3-26c204f59032" executionId="a7cf5790-34ec-46d2-8be9-29556165e330" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c835590b-0f1a-ef73-4aab-55fc3ae21ad7" executionId="c3eae716-20fe-47fa-ab25-7002052d8fbb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8fb3f2b-2a73-02e9-e0e7-ec4c59071e15" executionId="39133b4d-250f-4467-abe9-f54cb28c0c4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdf81953-c29c-df87-615a-f1e19e8a0cca" executionId="7b280651-897c-4a53-878a-04af93af3364" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="899e5b29-c89b-0743-7038-bd147e8ea1c6" executionId="c64a314c-eeca-4a43-8c0c-367f6617c004" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93fcba51-36fa-828d-43de-a8dcdb084b5a" executionId="2a243fb0-4dbf-46f3-ae30-971714f2d596" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="12" executed="12" passed="12" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.15)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:00.19]   Discovered:  HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:00.20]   Starting:    HotelProyecto.Tests&#xD;
+[xUnit.net 00:00:00.83]   Finished:    HotelProyecto.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

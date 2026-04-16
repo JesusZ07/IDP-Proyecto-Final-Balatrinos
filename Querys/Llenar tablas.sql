@@ -5,7 +5,7 @@ GO
   Script de carga inicial
   - 10 huespedes
   - 40 habitaciones
-  - 40 reservaciones
+	- 5 reservaciones
 */
 
 /* Limpieza previa para evitar conflictos de PK/FK */
@@ -60,10 +60,13 @@ FROM N
 ORDER BY n;
 GO
 
-/* 40 Reservaciones */
-;WITH N AS (
-	SELECT TOP (40) ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS n
-	FROM sys.all_objects
+/* 5 Reservaciones usando huespedes existentes */
+;WITH H AS (
+	SELECT TOP (5)
+		huesped_id,
+		ROW_NUMBER() OVER (ORDER BY huesped_id) AS n
+	FROM [dbo].[huespedes]
+	ORDER BY huesped_id
 )
 INSERT INTO [dbo].[reservaciones] ([estatus], [fecha_entrada], [fecha_salida], [huesped_id], [numero_personas])
 SELECT
@@ -74,9 +77,9 @@ SELECT
 	END AS estatus,
 	DATEADD(DAY, n, CAST('2026-05-01' AS datetime)) AS fecha_entrada,
 	DATEADD(DAY, n + ((n % 4) + 1), CAST('2026-05-01' AS datetime)) AS fecha_salida,
-	((n - 1) % 10) + 1 AS huesped_id,
+	huesped_id,
 	((n - 1) % 4) + 1 AS numero_personas
-FROM N
+FROM H
 ORDER BY n;
 GO
 

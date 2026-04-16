@@ -5,34 +5,23 @@ Para ejecutar el programa (aplicacion de escritorio y web), abre la solucion en 
 3.- En el menu, elige run-desktop para la aplicacion de escritorio o run-web para la aplicacion web.
 
 Nota: Es necesario tener en ejecucion los servicios SQL Server (MSSQLSERVER) y SQL Server Agent para que funcione la base de datos.
-Tambien necesitas el respaldo Hotel.bak; de lo contrario no podras hacer reservaciones, registrarte ni iniciar sesion.
+Tambien necesitas el respaldo Hotel.bak; de lo contrario no podras hacer reservaciones, registrarte ni iniciar sesion, o si gustas crea tu propia base de datos llamada Hotel, pero usa los sql Crear tablas y Llenar tablas
 
-Para ejecutar pruebas, usa estos comandos desde la raiz de la solucion:
+Para ejecutar pruebas con su reporte en un solo comando, solo abran la terminal o una nueva terminal.
 
 Ejecutar todas las pruebas:
-dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release
+powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite all
 
-Ejecutar solo las pruebas unitarias:
-dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --filter "FullyQualifiedName~PruebasUnitarias"
+Ejecutar solo las pruebas unitarias (Framework xunit):
+powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite unit
 
-Ejecutar solo las pruebas funcionales de UI (visual, abre navegador):
-dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --filter "FullyQualifiedName~PruebasFuncionalesUI"
+Ejecutar solo las pruebas funcionales de UI (Playwright y framework xunit):
+powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite ui
 
-Si falla una prueba UI por navegador/Playwright, instala Chromium y vuelve a ejecutar:
+
+Si falla la ejecucion de las pruebas UI (Playwright), instalen Chromium con el siguiente comando y una vez instalado vuelvan a ejecutar la prueba.
 powershell -ExecutionPolicy Bypass -File "HotelProyecto.Tests/bin/Release/net9.0/playwright.ps1" install chromium
 
-Generar reporte HTML (equivalente a practicas con pytest, pero en .NET):
+Ejecutar pruebas de humo (Scripts de Postman):
+powershell -ExecutionPolicy Bypass -File "scripts/run-tests.ps1" -Suite smoke
 
-1.- Ejecuta pruebas con resultados y cobertura:
-dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --logger "trx;LogFileName=TestResults.trx" --collect:"XPlat Code Coverage"
-
-2.- Instala ReportGenerator (solo la primera vez):
-dotnet tool install --global dotnet-reportgenerator-globaltool
-
-3.- Genera reporte HTML de cobertura:
-reportgenerator -reports:"HotelProyecto.Tests/TestResults/**/coverage.cobertura.xml" -targetdir:"HotelProyecto.Tests/TestResults/CoverageReport" -reporttypes:Html
-
-4.- Abre el reporte en el navegador:
-HotelProyecto.Tests/TestResults/CoverageReport/index.html
-
-Nota: En este proyecto no se usa pytest; los comandos con "python -m pytest" no aplican porque las pruebas estan en xUnit + Playwright (.NET).

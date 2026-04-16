@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using Xunit;
@@ -14,17 +15,19 @@ public class PlaywrightWebAppFixture : IAsyncLifetime
 
     public IPlaywright Playwright { get; private set; } = null!;
     public IBrowser Browser { get; private set; } = null!;
-    public string BaseUrl { get; } = "http://127.0.0.1:5199";
+    public string BaseUrl { get; private set; } = string.Empty;
 
     public async Task InitializeAsync()
     {
         string root = FindSolutionRoot();
         string webProject = Path.Combine(root, "HotelProyecto", "HotelProyecto.csproj");
+        int port = GetAvailablePort();
+        BaseUrl = $"http://127.0.0.1:{port}";
 
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = $"run --project \"{webProject}\" --no-build --urls {BaseUrl}",
+            Arguments = $"run --project \"{webProject}\" --configuration Release --no-build --urls {BaseUrl}",
             WorkingDirectory = root,
             UseShellExecute = false,
             RedirectStandardOutput = true,
@@ -75,6 +78,13 @@ public class PlaywrightWebAppFixture : IAsyncLifetime
 
         for (int i = 0; i < 40; i++)
         {
+            if (_webProcess != null && _webProcess.HasExited)
+            {
+                string salidaExit = _webProcess.StandardOutput.ReadToEnd();
+                string errorExit = _webProcess.StandardError.ReadToEnd();
+                throw new InvalidOperationException($"La aplicación web terminó inesperadamente. Output: {salidaExit} Error: {errorExit}");
+            }
+
             try
             {
                 using HttpResponseMessage response = await client.GetAsync($"{BaseUrl}/Home/Index");
@@ -93,6 +103,15 @@ public class PlaywrightWebAppFixture : IAsyncLifetime
         string salida = _webProcess?.StandardOutput.ReadToEnd() ?? string.Empty;
         string errores = _webProcess?.StandardError.ReadToEnd() ?? string.Empty;
         throw new TimeoutException($"La aplicación web no inició a tiempo. Output: {salida} Error: {errores}");
+    }
+
+    private static int GetAvailablePort()
+    {
+        TcpListener listener = new TcpListener(System.Net.IPAddress.Loopback, 0);
+        listener.Start();
+        int port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+        listener.Stop();
+        return port;
     }
 
     private static string FindSolutionRoot()

@@ -13,6 +13,7 @@ namespace CapaEntidad
         public DateTime fecha_entrada { get; set; }
         public DateTime fecha_salida { get; set; }
         public string nombre_huesped { get; set; }
+        public int huesped_id { get; set; }
         public int reservacion_id { get; set; }
         public int numero_personas { get; set; }
     }
