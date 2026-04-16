@@ -42,7 +42,7 @@ jobs:
       run: sleep 30
 
     - name: Add EF Design Package
-      run: dotnet add HotelProyecto/HotelProyecto.csproj package Microsoft.EntityFrameworkCore.Design
+      run: dotnet add HotelProyecto/HotelProyecto.csproj package Microsoft.EntityFrameworkCore.Design --version 9.0.0
 
     - name: Init Database
       run: |
