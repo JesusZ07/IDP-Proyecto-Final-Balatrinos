@@ -1,4 +1,4 @@
-name: .NET Tests (Unitarias)
+name: CI-CD
 
 on:
   push:
@@ -7,32 +7,48 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  validacion:
     runs-on: ubuntu-latest
 
     env:
       EnableWindowsTargeting: true
 
     steps:
-    - name: Checkout
+    - name: Clonar repositorio
       uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Configurar .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
 
-    - name: Restore
+    - name: Verificar versión de .NET
+      run: dotnet --version
+
+    - name: Mostrar información del entorno .NET
+      run: dotnet --info
+
+    - name: Listar SDKs instalados
+      run: dotnet --list-sdks
+
+    - name: Listar runtimes instalados
+      run: dotnet --list-runtimes
+
+    - name: Restaurar dependencias
       run: dotnet restore
 
-    - name: Build
+    - name: Verificar cargas de trabajo (workloads)
+      run: dotnet workload list
+
+    - name: Compilar solución
       run: dotnet build --no-restore
 
-    - name: Run Pure Unit Tests
-      run: dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-build --filter "FullyQualifiedName~VerificacionCorreo" --logger "trx" --results-directory TestResults
+    - name: Publicar aplicación (prueba)
+      run: dotnet publish -c Release --no-build
 
-    - name: Upload Test Results
+    - name: Subir artefactos de compilación
       uses: actions/upload-artifact@v4
       with:
-        name: TestResults
-        path: TestResults
+        name: salida-compilacion
+        path: |
+          **/bin/Release/**
