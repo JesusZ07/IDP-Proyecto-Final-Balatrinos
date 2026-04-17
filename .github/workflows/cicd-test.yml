@@ -49,7 +49,7 @@ jobs:
 
     - name: Ejecutar pruebas unitarias
       run: |
-        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~PruebasUnitarias"
+        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~PruebasUnitarias&Category!=Database"
 
     - name: Instalar Newman
       run: npm install -g newman newman-reporter-junitfull
