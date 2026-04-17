@@ -2,9 +2,9 @@ name: Pruebas de humo
 
 on:
   push:
-    branches: ["main"]
+    branches: ["Falla"]
   pull_request:
-    branches: ["main"]
+    branches: ["Falla"]
 
 permissions:
   contents: read
