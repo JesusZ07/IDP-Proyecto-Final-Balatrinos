@@ -20,7 +20,7 @@ namespace HotelProyecto.Controllers
         [HttpPost]
         public IActionResult InicioSesion(string correo, string contrasena)
         {
-            Huesped huesped = huespedBLL.ValidarCredenciales(correo);
+            Huesped huesped = huespedBLL.ValidarCredenciales(correo, contrasena);
 
             if (huesped != null) // Si el huésped existe
             {
