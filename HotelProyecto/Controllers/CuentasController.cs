@@ -22,7 +22,7 @@ namespace HotelProyecto.Controllers
         {
             Huesped huesped = huespedBLL.ValidarCredenciales(correo, contrasena);
 
-            if (huesped == null) // Si el huésped existe
+            if (huesped != null) // Si el huésped existe
             {
                 CookieOptions opciones = new CookieOptions
                 {
