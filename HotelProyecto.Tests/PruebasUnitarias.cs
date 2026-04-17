@@ -18,7 +18,7 @@ namespace HotelProyecto.Tests
         }
 
         //Pruebas de las funciones y metodos de la CapaDatos
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void Conexion_BD()
         {
             using SqlConnection conexion = new SqlConnection(CadenaConexion);
