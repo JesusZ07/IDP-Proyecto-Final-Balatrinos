@@ -11,7 +11,7 @@ namespace HotelProyecto.Tests
     {
         private const string CadenaConexion = "Data Source=.;Initial Catalog=Hotel;Integrated Security=True;TrustServerCertificate=True";
 
-        [Fact]
+        [Fact, Trait("Category", "Database")]
         public void CadenaConexion_ContieneCatalogoHotel()
         {
             Assert.Contains("Initial Catalog=Hotel", CadenaConexion, StringComparison.OrdinalIgnoreCase);
