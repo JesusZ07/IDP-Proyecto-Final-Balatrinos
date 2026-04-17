@@ -11,14 +11,14 @@ namespace HotelProyecto.Tests
     {
         private const string CadenaConexion = "Data Source=.;Initial Catalog=Hotel;Integrated Security=True;TrustServerCertificate=True";
 
-        [Fact, Trait("Category", "Database")]
+        [Fact]
         public void CadenaConexion_ContieneCatalogoHotel()
         {
             Assert.Contains("Initial Catalog=Hotel", CadenaConexion, StringComparison.OrdinalIgnoreCase);
         }
 
         //Pruebas de las funciones y metodos de la CapaDatos
-        [Fact, Trait("Category", "Database")]
+        [Fact]
         public void Conexion_BD()
         {
             using SqlConnection conexion = new SqlConnection(CadenaConexion);
