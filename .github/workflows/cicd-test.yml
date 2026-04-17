@@ -20,6 +20,11 @@ jobs:
       with:
         dotnet-version: 9.0.x
 
+    - name: Instalar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18"
+
     - name: Verificar version de .NET
       run: dotnet --version
 
@@ -31,12 +36,39 @@ jobs:
         dotnet restore CapaEntidad/CapaEntidad.csproj
         dotnet restore CapaDatos/CapaDatos.csproj
         dotnet restore CapaNegocios/CapaNegocios.csproj
+        dotnet restore HotelProyecto/HotelProyecto.csproj
+        dotnet restore HotelProyecto.Tests/HotelProyecto.Tests.csproj
 
     - name: Compilar proyectos 
       run: |
         dotnet build CapaEntidad/CapaEntidad.csproj --no-restore -c Release
         dotnet build CapaDatos/CapaDatos.csproj --no-restore -c Release
         dotnet build CapaNegocios/CapaNegocios.csproj --no-restore -c Release
+        dotnet build HotelProyecto/HotelProyecto.csproj --no-restore -c Release
+        dotnet build HotelProyecto.Tests/HotelProyecto.Tests.csproj --no-restore -c Release
+
+    - name: Ejecutar pruebas unitarias
+      run: |
+        dotnet test HotelProyecto.Tests/HotelProyecto.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~PruebasUnitarias"
+
+    - name: Instalar Newman
+      run: npm install -g newman newman-reporter-junitfull
+
+    - name: Ejecutar pruebas funcionales sin playwright
+      run: |
+        mkdir -p HotelProyecto.Tests/TestResults/Run-funcional
+        dotnet run --project HotelProyecto/HotelProyecto.csproj --configuration Release --urls "http://127.0.0.1:5000" > web.log 2>&1 &
+        WEB_PID=$!
+        trap "kill $WEB_PID" EXIT
+
+        for i in {1..40}; do
+          if curl -fsS "http://127.0.0.1:5000/" > /dev/null; then
+            break
+          fi
+          sleep 2
+        done
+
+        newman run "Pruebas de humo - Hotel Osiris.json" --reporters cli,junit --reporter-junit-export "HotelProyecto.Tests/TestResults/Run-funcional/newman-results.xml"
 
     - name: Generar artefactos
       uses: actions/upload-artifact@v4
@@ -46,3 +78,5 @@ jobs:
           CapaEntidad/bin/Release
           CapaDatos/bin/Release
           CapaNegocios/bin/Release
+          HotelProyecto.Tests/TestResults/Run-funcional
+          web.log
