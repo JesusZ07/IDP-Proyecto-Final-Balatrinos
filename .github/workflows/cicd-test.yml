@@ -2,9 +2,9 @@ name: NET CI/CD Test
 
 on:
   push:
-    branches: ["main"]
+    branches: ["Falla"]
   pull_request:
-    branches: ["main"]
+    branches: ["Falla"]
 
 permissions:
   contents: read
