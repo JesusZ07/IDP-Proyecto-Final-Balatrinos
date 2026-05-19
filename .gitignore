@@ -1,0 +1,33 @@
+## Visual Studio / .NET ignores
+# Build Folders
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+project.assets.json
+project.nuget.cache
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Test results
+TestResults/
+
+# Others
+*.log
+*.bak
+*.tmp
