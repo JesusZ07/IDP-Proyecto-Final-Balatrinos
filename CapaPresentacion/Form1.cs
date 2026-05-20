@@ -73,7 +73,15 @@ namespace CapaPresentacion
         private void AbrirFormulario(Form formulario)
         {
             formulario.StartPosition = FormStartPosition.CenterScreen;
-            formulario.ShowDialog(this);
+            // When running automated tests set TEST_MODE=1 in the environment so this uses non-blocking Show()
+            if (Environment.GetEnvironmentVariable("TEST_MODE") == "1")
+            {
+                formulario.Show(this);
+            }
+            else
+            {
+                formulario.ShowDialog(this);
+            }
         }
     }
 }
