@@ -11,7 +11,6 @@ namespace HotelProyecto.Tests
 {
     public class PruebasUnitariasDesktop
     {
-        // IDs capturados durante las pruebas para referencias deterministas
         private static int createdHuespedId = 0;
         private static string createdHuespedCorreo = null;
         private static string createdHuespedNombreCompleto = null;
@@ -83,6 +82,25 @@ namespace HotelProyecto.Tests
                 }
             }
             Assert.True(createdReservacionId > 0, "EnsureReservacionExists no capturó el ID de la reservación creada.");
+        }
+
+        private void EnsureHabitacionExists()
+        {
+            if (createdHabitacionNumero > 0) return;
+            var habitacionBLL = new HabitacionBLL();
+            var rnd = new Random();
+            int numero = rnd.Next(1000, 9999);
+            var habitacion = new CapaEntidad.Habitacion
+            {
+                numero_habitacion = numero,
+                tipo_habitacion = "Doble",
+                piso = 2,
+                estatus = "Disponible"
+            };
+
+            bool creado = habitacionBLL.Agregar(habitacion);
+            Assert.True(creado, "No se pudo crear la habitación de prueba en EnsureHabitacionExists.");
+            createdHabitacionNumero = numero;
         }
         [Fact, Trait("Category", "Database")]
         public void ObtenerConexion()
@@ -166,26 +184,10 @@ namespace HotelProyecto.Tests
         [Fact, Trait("Category", "Database")]
         public void Huesped_Update()
         {
-            string correo = $"manuel.antonio{Guid.NewGuid().ToString().Substring(0,8)}@example.com";
+            // Use the captured guest to perform update so deletion targets the latest version
+            EnsureHuespedExists();
             var huespedBLL = new HuespedBLL();
-            var huesped = new Huesped
-            {
-                nombre = "Manuel Antonio",
-                apellido_1 = "Ramirez",
-                apellido_2 = "Estrada",
-                calle = "Churrubusco",
-                colonia = "Condesa",
-                codigo_postal = 21467,
-                ciudad = "Tangamandapio",
-                correo = correo,
-                numero_celular = "6861404265",
-                contrasena = "password"
-            };
-
-            bool creado = huespedBLL.Agregar(huesped);
-            Assert.True(creado, "La creación del huésped para actualización debería retornar true.");
-
-            var existente = huespedBLL.ObtenerPorCorreo(correo);
+            var existente = huespedBLL.Obtener(createdHuespedId);
             Assert.NotNull(existente);
 
             existente.ciudad = "Ensenada";
@@ -194,7 +196,7 @@ namespace HotelProyecto.Tests
             bool actualizado = huespedBLL.Actualizar(existente);
             Assert.True(actualizado, "La actualización debería retornar true.");
 
-            var obtenido = huespedBLL.ObtenerPorCorreo(correo);
+            var obtenido = huespedBLL.Obtener(createdHuespedId);
             Assert.NotNull(obtenido);
             Assert.Equal("Ensenada", obtenido.ciudad);
         }
@@ -249,21 +251,10 @@ namespace HotelProyecto.Tests
         [Fact, Trait("Category", "Database")]
         public void Habitaciones_Update()
         {
+            // Update the room created earlier to keep tests consistent
+            EnsureHabitacionExists();
             var habitacionBLL = new HabitacionBLL();
-            var rnd = new Random();
-            int numero = rnd.Next(1000, 9999);
-            var habitacion = new CapaEntidad.Habitacion
-            {
-                numero_habitacion = numero,
-                tipo_habitacion = "Doble",
-                piso = 2,
-                estatus = "Disponible"
-            };
-
-            bool creado = habitacionBLL.Agregar(habitacion);
-            Assert.True(creado, "La creación de la habitación para actualización debería retornar true.");
-
-            var existente = habitacionBLL.Obtener(numero);
+            var existente = habitacionBLL.Obtener(createdHabitacionNumero);
             Assert.NotNull(existente);
 
             existente.piso = 4;
@@ -272,7 +263,7 @@ namespace HotelProyecto.Tests
             bool actualizado = habitacionBLL.Actualizar(existente);
             Assert.True(actualizado, "La actualización debería retornar true.");
 
-            var obtenido = habitacionBLL.Obtener(numero);
+            var obtenido = habitacionBLL.Obtener(createdHabitacionNumero);
             Assert.NotNull(obtenido);
             Assert.Equal(4, obtenido.piso);
             Assert.Equal("Ocupada", obtenido.estatus);
@@ -346,38 +337,10 @@ namespace HotelProyecto.Tests
         public void Reservaciones_Update()
         {
             var reservacionBLL = new ReservacionBLL();
-
-            EnsureHuespedExists();
-
-            var reservacion = new CapaEntidad.Reservacion
-            {
-                estatus = "Confirmada",
-                fecha_entrada = DateTime.Today.AddDays(7),
-                fecha_salida = DateTime.Today.AddDays(10),
-                nombre_huesped = createdHuespedNombreCompleto,
-                numero_personas = 2
-            };
-
-            bool creado = reservacionBLL.Agregar(reservacion);
-            Assert.True(creado, "La creación de la reservación para actualización debería retornar true.");
-
-            var tabla = reservacionBLL.ObtenerTodos();
-            Assert.NotNull(tabla);
-
-            int idEncontrado = 0;
-            foreach (System.Data.DataRow row in tabla.Rows)
-            {
-                if (row["nombre_huesped"].ToString().Trim() == "Manuel Antonio Ramirez Estrada" &&
-                    row["estatus"].ToString() == "Confirmada" &&
-                    row["numero_personas"] != DBNull.Value &&
-                    Convert.ToInt32(row["numero_personas"]) == 2)
-                {
-                    idEncontrado = Convert.ToInt32(row["reservacion_id"]);
-                    break;
-                }
-            }
-
-            Assert.True(idEncontrado > 0, "No se encontró la reservación para actualizar.");
+            // Update the reservation created earlier to ensure delete removes last version
+            EnsureReservacionExists();
+            int idEncontrado = createdReservacionId;
+            Assert.True(idEncontrado > 0, "No existe reservación capturada para actualizar.");
 
             var existente = reservacionBLL.Obtener(idEncontrado);
             Assert.NotNull(existente);
@@ -431,18 +394,20 @@ namespace HotelProyecto.Tests
         public void Habitaciones_Delete()
         {
             var habitacionBLL = new HabitacionBLL();
-            var tabla = habitacionBLL.ObtenerTodos();
-            Assert.NotNull(tabla);
-
-            int numeroAEliminar = 0;
-            foreach (System.Data.DataRow row in tabla.Rows)
+            int numeroAEliminar = createdHabitacionNumero;
+            if (numeroAEliminar == 0)
             {
-                if (row["tipo_habitacion"].ToString() == "Doble" &&
-                    Convert.ToInt32(row["piso"]) == 4 &&
-                    row["estatus"].ToString() == "Ocupada")
+                var tabla = habitacionBLL.ObtenerTodos();
+                Assert.NotNull(tabla);
+                foreach (System.Data.DataRow row in tabla.Rows)
                 {
-                    numeroAEliminar = Convert.ToInt32(row["numero_habitacion"]);
-                    break;
+                    if (row["tipo_habitacion"].ToString() == "Doble" &&
+                        Convert.ToInt32(row["piso"]) == 4 &&
+                        row["estatus"].ToString() == "Ocupada")
+                    {
+                        numeroAEliminar = Convert.ToInt32(row["numero_habitacion"]);
+                        break;
+                    }
                 }
             }
 
@@ -454,29 +419,34 @@ namespace HotelProyecto.Tests
             var obtenido = habitacionBLL.Obtener(numeroAEliminar);
             Assert.NotNull(obtenido);
             Assert.Equal(0, obtenido.numero_habitacion);
+
+            if (createdHabitacionNumero == numeroAEliminar) createdHabitacionNumero = 0;
         }
 
         [Fact, Trait("Category", "Database")]
         public void Huesped_Delete()
         {
             var huespedBLL = new HuespedBLL();
-            var tabla = huespedBLL.ObtenerTodos();
-            Assert.NotNull(tabla);
+            int idAEliminar = createdHuespedId;
+            string correo = createdHuespedCorreo;
+            string nombreCompleto = createdHuespedNombreCompleto;
 
-            int idAEliminar = 0;
-            string correo = null;
-            string nombreCompleto = null;
-            foreach (System.Data.DataRow row in tabla.Rows)
+            if (idAEliminar == 0)
             {
-                if (row["nombre"].ToString() == "Manuel Antonio" &&
-                    row["apellido_1"].ToString() == "Ramirez" &&
-                    row["apellido_2"].ToString() == "Estrada" &&
-                    row["numero_celular"].ToString() == "6861404265")
+                var tabla = huespedBLL.ObtenerTodos();
+                Assert.NotNull(tabla);
+                foreach (System.Data.DataRow row in tabla.Rows)
                 {
-                    idAEliminar = Convert.ToInt32(row["huesped_id"]);
-                    correo = row["correo"].ToString();
-                    nombreCompleto = string.Concat(row["nombre"].ToString().Trim(), " ", row["apellido_1"].ToString().Trim(), " ", row["apellido_2"].ToString().Trim()).Trim();
-                    break;
+                    if (row["nombre"].ToString() == "Manuel Antonio" &&
+                        row["apellido_1"].ToString() == "Ramirez" &&
+                        row["apellido_2"].ToString() == "Estrada" &&
+                        row["numero_celular"].ToString() == "6861404265")
+                    {
+                        idAEliminar = Convert.ToInt32(row["huesped_id"]);
+                        correo = row["correo"].ToString();
+                        nombreCompleto = string.Concat(row["nombre"].ToString().Trim(), " ", row["apellido_1"].ToString().Trim(), " ", row["apellido_2"].ToString().Trim()).Trim();
+                        break;
+                    }
                 }
             }
 
@@ -489,10 +459,12 @@ namespace HotelProyecto.Tests
                 var tablaRes = reservacionBLL.ObtenerTodos();
                 foreach (System.Data.DataRow r in tablaRes.Rows)
                 {
+                    // eliminar todas las reservaciones que apunten al huésped (por nombre completo)
                     if (r["nombre_huesped"].ToString().Trim() == nombreCompleto)
                     {
                         int idRes = Convert.ToInt32(r["reservacion_id"]);
                         reservacionBLL.Eliminar(idRes);
+                        if (createdReservacionId == idRes) createdReservacionId = 0;
                     }
                 }
             }
@@ -500,8 +472,13 @@ namespace HotelProyecto.Tests
             bool eliminado = huespedBLL.Eliminar(idAEliminar);
             Assert.True(eliminado, "La eliminación debería retornar true.");
 
-            var obtenido = huespedBLL.ObtenerPorCorreo(correo);
-            Assert.Null(obtenido);
+            var obtenido = huespedBLL.Obtener(idAEliminar);
+            Assert.NotNull(obtenido);
+            Assert.Equal(0, obtenido.huesped_id);
+
+            if (createdHuespedId == idAEliminar) createdHuespedId = 0;
+            if (createdHuespedCorreo == correo) createdHuespedCorreo = null;
+            if (createdHuespedNombreCompleto == nombreCompleto) createdHuespedNombreCompleto = null;
         }
     }
 }
