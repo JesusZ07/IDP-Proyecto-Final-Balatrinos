@@ -16,9 +16,17 @@ public class PlaywrightWebAppFixture : IAsyncLifetime
     public IPlaywright Playwright { get; private set; } = null!;
     public IBrowser Browser { get; private set; } = null!;
     public string BaseUrl { get; private set; } = string.Empty;
+    public bool Enabled { get; private set; } = false;
 
     public async Task InitializeAsync()
     {
+        // Only start UI web app when explicitly enabled via env var RUN_UI_TESTS=true
+        Enabled = string.Equals(Environment.GetEnvironmentVariable("RUN_UI_TESTS"), "true", StringComparison.OrdinalIgnoreCase);
+        if (!Enabled)
+        {
+            return;
+        }
+
         string root = FindSolutionRoot();
         string webProject = Path.Combine(root, "HotelProyecto", "HotelProyecto.csproj");
         int port = GetAvailablePort();
@@ -58,6 +66,11 @@ public class PlaywrightWebAppFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
+        if (!Enabled)
+        {
+            return;
+        }
+
         if (Browser != null)
         {
             await Browser.CloseAsync();

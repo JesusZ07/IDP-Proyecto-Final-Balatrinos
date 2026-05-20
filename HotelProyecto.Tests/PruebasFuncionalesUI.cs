@@ -36,6 +36,12 @@ public class PruebasFuncionalesUI
     public PruebasFuncionalesUI(PlaywrightWebAppFixture fixture)
     {
         _fixture = fixture;
+
+        // If UI fixture is disabled via env var, skip these UI tests.
+        if (!_fixture.Enabled)
+        {
+            return;
+        }
     }
 
     [Fact]
@@ -193,6 +199,12 @@ public class PruebasFuncionalesUI
 
     private async Task RunInNewPage(Func<IPage, Task> testBody)
     {
+        if (!_fixture.Enabled)
+        {
+            // UI tests are disabled by default; treat as no-op so they don't run without the flag.
+            return;
+        }
+
         await using IBrowserContext context = await _fixture.Browser.NewContextAsync();
         IPage page = await context.NewPageAsync();
         await BringBrowserToFront(page);

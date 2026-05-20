@@ -15,9 +15,11 @@ dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Rel
 Ejecutar solo las pruebas unitarias (Framework xunit):
 dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~PruebasUnitarias"
 
+Ejecutar solo las pruebas unitarias de escritorio:
+dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~HotelProyecto.Tests.PruebasUnitariasDesktop" --logger "console;verbosity=normal"
+
 Ejecutar solo las pruebas funcionales de UI (Playwright y framework xunit):
 dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~PruebasFuncionalesUI"
-
 
 Si falla la ejecucion de las pruebas UI (Playwright), instalen Chromium con el siguiente comando y una vez instalado vuelvan a ejecutar la prueba.
 dotnet tool run playwright install chromium
