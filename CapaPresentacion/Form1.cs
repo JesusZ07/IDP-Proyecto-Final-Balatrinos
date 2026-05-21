@@ -15,6 +15,8 @@ namespace CapaPresentacion
             btn_GestionHabitaciones.Click += (_, __) => AbrirFormulario(new Form2());
             btn_GestionReservaciones.Click += (_, __) => AbrirFormulario(new Form3());
             btn_GestionHuespedes.Click += (_, __) => AbrirFormulario(new Form4());
+            // Habilitar navegación por teclado (flechas + Enter)
+            KeyboardNavigation.Enable(this, btn_GestionHabitaciones, btn_GestionReservaciones, btn_GestionHuespedes);
         }
 
         private void ConfigurarDisenoPrincipal()
@@ -76,11 +78,21 @@ namespace CapaPresentacion
             // When running automated tests set TEST_MODE=1 in the environment so this uses non-blocking Show()
             if (Environment.GetEnvironmentVariable("TEST_MODE") == "1")
             {
+                // Force the new form to appear in foreground for automated tests
+                formulario.TopMost = true;
                 formulario.Show(this);
+                formulario.BringToFront();
+                formulario.Activate();
+                // remove TopMost after shown so it doesn't stay above other windows
+                formulario.TopMost = false;
             }
             else
             {
+                formulario.TopMost = true;
                 formulario.ShowDialog(this);
+                // ensure it's active when shown modally
+                formulario.Activate();
+                formulario.TopMost = false;
             }
         }
     }

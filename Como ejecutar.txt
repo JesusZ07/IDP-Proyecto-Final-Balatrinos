@@ -21,18 +21,6 @@ dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Rel
 Ejecutar solo las pruebas funcionales de UI (Playwright y framework xunit):
 dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~PruebasFuncionalesUI"
 
-Ejecutar solo las pruebas funcionales de UI de escritorio (NetAutoGUI):
-PowerShell:
-powershell -NoProfile -Command "& { $env:TEST_MODE = '1'; dotnet test 'HotelProyecto.Tests/HotelProyecto.Tests.csproj' --filter 'FullyQualifiedName~PruebasFuncionalesUIDesktop' --configuration Release }"
-CMD (alternativa):
-set TEST_MODE=1 && dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --filter "FullyQualifiedName~PruebasFuncionalesUIDesktop" --configuration Release
-
-Comando recomendado (Debug, sin rebuild):
-PowerShell (Debug, no-build):
-powershell -NoProfile -Command "& { $env:TEST_MODE = '1'; dotnet test 'HotelProyecto.Tests/HotelProyecto.Tests.csproj' --filter 'FullyQualifiedName~PruebasFuncionalesUIDesktop' --configuration Debug --no-build }"
-CMD (Debug, no-build):
-set TEST_MODE=1 && dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --filter "FullyQualifiedName~PruebasFuncionalesUIDesktop" --configuration Debug --no-build
-
 Si falla la ejecucion de las pruebas UI (Playwright), instalen Chromium con el siguiente comando y una vez instalado vuelvan a ejecutar la prueba.
 dotnet tool run playwright install chromium
 

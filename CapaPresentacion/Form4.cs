@@ -28,6 +28,17 @@ namespace CapaPresentacion
             btn_Guardar.Click += (_, __) => GuardarHuesped();
             btn_Eliminar.Click += (_, __) => EliminarHuesped();
             dgv_Huespedes.SelectionChanged += (_, __) => CargarDesdeFilaSeleccionada();
+            // Habilitar navegación por teclado entre botones de acción
+            KeyboardNavigation.Enable(this, btn_Guardar, btn_Limpiar, btn_Eliminar, btn_Agregar, btn_Actualizar, btn_Editar, btn_Regresar);
+            // Atajos CRUD: Ctrl+S=Guardar, Ctrl+N=Nuevo, Ctrl+E=Editar, Del=Eliminar, Ctrl+R=Actualizar, Esc=Regresar
+            KeyboardNavigation.EnableCrudShortcuts(this,
+                guardar: GuardarHuesped,
+                agregar: LimpiarFormulario,
+                editar: CargarDesdeFilaSeleccionada,
+                eliminar: EliminarHuesped,
+                actualizar: CargarHuespedes,
+                regresar: () => Close(),
+                grid: dgv_Huespedes);
         }
 
         private void AplicarDisenoSimetrico()
