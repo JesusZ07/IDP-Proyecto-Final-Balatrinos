@@ -15,8 +15,13 @@ dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Rel
 Ejecutar solo las pruebas unitarias (Framework xunit):
 dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~PruebasUnitarias"
 
-Ejecutar solo las pruebas unitarias de escritorio:
-dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~HotelProyecto.Tests.PruebasUnitariasDesktop" --logger "console;verbosity=normal"
+Ejecutar pruebas de escritorio con cobertura y generar reporte HTML de cobertura:
+# 1) Ejecutar pruebas y recolectar cobertura (los resultados irán a TestResults/Run-desktop)
+dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~HotelProyecto.Tests.PruebasUnitariasDesktop" --logger "console;verbosity=normal" --results-directory "HotelProyecto.Tests/TestResults/Run-desktop" --collect:"XPlat Code Coverage"
+
+# 2) Generar HTML con ReportGenerator (instalar si hace falta: `dotnet tool install --global dotnet-reportgenerator-globaltool`)
+reportgenerator -reports:"HotelProyecto.Tests/TestResults/Run-desktop/**/coverage.cobertura.xml" -targetdir:"HotelProyecto.Tests/TestResults/Run-desktop/CoverageReport" -reporttypes:Html
+
 
 Ejecutar solo las pruebas funcionales de UI (Playwright y framework xunit):
 dotnet test "HotelProyecto.Tests/HotelProyecto.Tests.csproj" --configuration Release --filter "FullyQualifiedName~PruebasFuncionalesUI"

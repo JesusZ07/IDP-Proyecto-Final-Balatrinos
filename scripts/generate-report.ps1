@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('all', 'unit', 'ui', 'smoke')]
+    [ValidateSet('all', 'unit', 'desktop', 'ui', 'smoke')]
     [string]$Suite = 'all',
 
     [string]$Configuration = 'Release'
@@ -222,6 +222,10 @@ $dotnetArgs = @(
 switch ($Suite) {
     'unit' {
         $dotnetArgs += @('--filter', 'FullyQualifiedName~PruebasUnitarias')
+    }
+    'desktop' {
+        # Ejecutar solo las pruebas unitarias de escritorio
+        $dotnetArgs += @('--filter', 'FullyQualifiedName~HotelProyecto.Tests.PruebasUnitariasDesktop')
     }
     'ui' {
         $env:UI_HEADLESS = 'false'
