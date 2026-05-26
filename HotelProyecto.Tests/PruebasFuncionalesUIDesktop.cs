@@ -1,56 +1,169 @@
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using FlaUI.Core;
-using FlaUI.Core.AutomationElements;
-using FlaUI.Core.Input;
-using FlaUI.Core.Definitions;
-using FlaUI.UIA3;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Xunit;
+using CapaDatos;
+using CapaNegocios;
+using CapaEntidad;
 
 namespace HotelProyecto.Tests
 {
+    public static class TestReporter
+    {
+        private static string? ReportHtmlPath;
+        private static readonly ConcurrentBag<ReportEntry> Entries = new();
+
+        static TestReporter() => Initialize();
+
+        private class ReportEntry
+        {
+            public DateTime Time { get; init; }
+            public string TestName { get; init; } = string.Empty;
+            public string Status { get; init; } = string.Empty;
+            public double DurationMs { get; init; }
+            public string Message { get; init; } = string.Empty;
+        }
+
+        public static void Initialize()
+        {
+            try
+            {
+                var dir = AppContext.BaseDirectory;
+                var di = new DirectoryInfo(dir);
+                while (di != null && !File.Exists(Path.Combine(di.FullName, "IDP-Proyecto-Final-Balatrinos.sln"))) di = di.Parent;
+                var root = di != null ? di.FullName : AppContext.BaseDirectory;
+                var reportDir = Path.Combine(root, "TestResults");
+                Directory.CreateDirectory(reportDir);
+                if (string.IsNullOrEmpty(ReportHtmlPath)) ReportHtmlPath = Path.Combine(reportDir, $"UI_Report_{DateTime.Now:yyyyMMdd_HHmmss}.html");
+                AppDomain.CurrentDomain.ProcessExit += (s, e) => WriteReport();
+                if (!File.Exists(ReportHtmlPath)) File.WriteAllText(ReportHtmlPath, "<html><body><h3>UI Report initialized</h3></body></html>");
+            }
+            catch { }
+        }
+
+        public static void Append(string testName, string status, TimeSpan duration, string? message = null)
+        {
+            try
+            {
+                Entries.Add(new ReportEntry
+                {
+                    Time = DateTime.Now,
+                    TestName = testName ?? string.Empty,
+                    Status = status ?? string.Empty,
+                    DurationMs = duration.TotalMilliseconds,
+                    Message = message ?? string.Empty
+                });
+            }
+            catch { }
+        }
+
+        private static void WriteReport()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(ReportHtmlPath)) return;
+                var list = Entries.OrderBy(e => e.Time).ToList();
+                var total = list.Count;
+                var passed = list.Count(e => string.Equals(e.Status, "PASSED", StringComparison.OrdinalIgnoreCase));
+                var failed = list.Count(e => string.Equals(e.Status, "FAILED", StringComparison.OrdinalIgnoreCase));
+                var skipped = list.Count(e => string.Equals(e.Status, "SKIPPED", StringComparison.OrdinalIgnoreCase));
+                var execMs = (long)list.Sum(e => e.DurationMs);
+                var overall = failed > 0 ? "FAILED" : "SUCCEEDED";
+                var gen = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                string RowClass(string status) => status.Equals("PASSED", StringComparison.OrdinalIgnoreCase) ? "ok" : status.Equals("FAILED", StringComparison.OrdinalIgnoreCase) ? "bad" : "skip";
+
+                var rows = list.Select(e => $"<tr><td>{System.Net.WebUtility.HtmlEncode(e.TestName)}</td><td class='" + RowClass(e.Status) + "'>" + System.Net.WebUtility.HtmlEncode(e.Status.ToUpperInvariant()) + $"</td><td>{Math.Round(e.DurationMs)} ms</td><td><pre>{System.Net.WebUtility.HtmlEncode(e.Message)}</pre></td></tr>");
+
+                // Try to merge existing unit test report if present (Run-unit/report.html)
+                try
+                {
+                    var rootDir = Path.GetDirectoryName(Path.GetDirectoryName(ReportHtmlPath)) ?? AppContext.BaseDirectory;
+                    var candidate = Path.Combine(rootDir, "HotelProyecto.Tests", "TestResults", "Run-unit", "report.html");
+                    if (!File.Exists(candidate))
+                    {
+                        // alternative location: HotelProyecto.Tests/TestResults/Run-unit/report.html under solution root
+                        var solutionRoot = Path.GetDirectoryName(rootDir) ?? rootDir;
+                        candidate = Path.Combine(solutionRoot, "HotelProyecto.Tests", "TestResults", "Run-unit", "report.html");
+                    }
+                    if (File.Exists(candidate))
+                    {
+                        var unitHtml = File.ReadAllText(candidate);
+                        var tbStart = unitHtml.IndexOf("<tbody>", StringComparison.OrdinalIgnoreCase);
+                        var tbEnd = unitHtml.IndexOf("</tbody>", StringComparison.OrdinalIgnoreCase);
+                        if (tbStart >= 0 && tbEnd > tbStart)
+                        {
+                            var inner = unitHtml.Substring(tbStart + 7, tbEnd - (tbStart + 7));
+                            // append unit rows to rows list
+                            rows = rows.Concat(new[] { inner });
+
+                            // update counts from unit report
+                            passed += CountOccurrences(unitHtml, "class='ok'");
+                            failed += CountOccurrences(unitHtml, "class='bad'");
+                            skipped += CountOccurrences(unitHtml, "class='skip'");
+                            total += CountHtmlRowCount(inner);
+                        }
+                    }
+                }
+                catch { }
+
+                var html = $"<!doctype html>\n<html lang='es'>\n<head>\n<meta charset='utf-8' />\n<meta name='viewport' content='width=device-width, initial-scale=1' />\n<title>Test Report - ui</title>\n<style>body {{ font-family: Segoe UI, Arial, sans-serif; margin: 24px; background: #f4f7fb; color: #1a1a1a; }}header {{ margin-bottom: 16px; }}h1 {{ margin: 0 0 4px 0; }}.meta {{ color: #555; }}.grid {{ display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px; margin: 16px 0; }}.card {{ background: white; border-radius: 10px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }}.k {{ font-size: 12px; color: #666; text-transform: uppercase; }}.v {{ font-size: 22px; font-weight: 700; margin-top: 4px; }}table {{ width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }}th, td {{ border-bottom: 1px solid #eee; padding: 10px; text-align: left; vertical-align: top; }}th {{ background: #0f172a; color: white; }}.ok {{ color: #0a7a34; font-weight: 700; }}.bad {{ color: #b91c1c; font-weight: 700; }}.skip {{ color: #9a6700; font-weight: 700; }}pre {{ margin: 0; white-space: pre-wrap; max-width: 680px; }}\n</style>\n</head>\n<body>\n<header>\n  <h1>Test Report - ui</h1>\n  <div class='meta'>Generado: {gen}</div>\n  <div class='meta'>Resultado general: {overall} | Ejecucion: {execMs} ms | Total (incl. build): {execMs} ms</div>\n</header>\n<div class='grid'>\n  <div class='card'><div class='k'>Total</div><div class='v'>{total}</div></div>\n  <div class='card'><div class='k'>Passed</div><div class='v'>{passed}</div></div>\n  <div class='card'><div class='k'>Failed</div><div class='v'>{failed}</div></div>\n  <div class='card'><div class='k'>Skipped</div><div class='v'>{skipped}</div></div>\n</div>\n<table>\n  <thead>\n    <tr><th>Test</th><th>Status</th><th>Duration</th><th>Error</th></tr>\n  </thead>\n  <tbody>\n    {string.Join("\n", rows)}\n  </tbody>\n</table>\n</body>\n</html>";
+
+                File.WriteAllText(ReportHtmlPath, html);
+            }
+            catch { }
+        }
+
+        private static int CountOccurrences(string text, string pattern)
+        {
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(pattern)) return 0;
+            int count = 0, idx = 0;
+            while ((idx = text.IndexOf(pattern, idx, StringComparison.OrdinalIgnoreCase)) >= 0) { count++; idx += pattern.Length; }
+            return count;
+        }
+
+        private static int CountHtmlRowCount(string rowsHtml)
+        {
+            if (string.IsNullOrEmpty(rowsHtml)) return 0;
+            int count = 0, idx = 0;
+            while ((idx = rowsHtml.IndexOf("<tr", idx, StringComparison.OrdinalIgnoreCase)) >= 0) { count++; idx += 3; }
+            return count;
+        }
+        }
+
     public class PruebasFuncionalesUIDesktop : IDisposable
     {
-        private Application? app;
-        private UIA3Automation? automation;
+        private Process? appProc;
+        private static int createdHuespedId = 0;
+        private static string? createdHuespedCorreo = null;
+        private static string? createdHuespedNombreCompleto = null;
+        private static int createdHabitacionNumero = 0;
+        private static int createdReservacionId = 0;
 
         private string GetExePath()
         {
             return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "CapaPresentacion", "bin", "Debug", "net9.0-windows", "CapaPresentacion.exe"));
         }
 
-        private Window LaunchAndGetMain()
+        private void LaunchApp()
         {
-            var exePath = GetExePath();
-            Assert.True(File.Exists(exePath), $"Exe not found at {exePath}");
-            app = Application.Launch(exePath);
-            automation = new UIA3Automation();
-            var main = app.GetMainWindow(automation, TimeSpan.FromSeconds(10));
-            Assert.NotNull(main);
-            try { main.Focus(); } catch { }
-            try
+            var exe = GetExePath();
+            Assert.True(File.Exists(exe), $"Exe not found at {exe}");
+            var psi = new ProcessStartInfo(exe) { UseShellExecute = true };
+            appProc = Process.Start(psi);
+            Assert.NotNull(appProc);
+            for (int i = 0; i < 40 && (appProc.MainWindowHandle == IntPtr.Zero); i++)
             {
-                var proc = Process.GetProcessById(app.ProcessId);
-                var h = proc.MainWindowHandle;
-                if (h != IntPtr.Zero)
-                {
-                    ShowWindow(h, SW_RESTORE);
-                    SetForegroundWindow(h);
-                    try
-                    {
-                        SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
-                        Thread.Sleep(100);
-                        SetWindowPos(h, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
-                    }
-                    catch { }
-                }
+                Thread.Sleep(250);
+                appProc.Refresh();
             }
-            catch { }
-            return main;
+            Assert.True(appProc.MainWindowHandle != IntPtr.Zero, "Main window did not appear.");
+            SetForegroundWindow(appProc.MainWindowHandle);
+            Thread.Sleep(300);
         }
 
         [DllImport("user32.dll")]
@@ -60,552 +173,588 @@ namespace HotelProyecto.Tests
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         private const int SW_RESTORE = 9;
-        private const uint SWP_NOSIZE = 0x0001;
-        private const uint SWP_NOMOVE = 0x0002;
-        private const uint SWP_SHOWWINDOW = 0x0040;
 
-        private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
-        private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-
-        private bool TryInvokeButton(Button? btn, int attempts = 4, int delayMs = 300)
+        private void CloseApp()
         {
-            if (btn == null) return false;
-            for (int i = 0; i < attempts; i++)
+            try
             {
-                try
+                if (appProc != null && !appProc.HasExited)
                 {
-                    if (!btn.IsEnabled)
-                    {
-                        Thread.Sleep(delayMs);
-                        continue;
-                    }
-                    btn.Invoke();
-                    return true;
-                }
-                catch (COMException)
-                {
-                    Thread.Sleep(delayMs);
-                }
-                catch (Exception)
-                {
-                    Thread.Sleep(delayMs);
+                    appProc.CloseMainWindow();
+                    appProc.WaitForExit(2000);
+                    if (!appProc.HasExited) appProc.Kill(true);
                 }
             }
-            return false;
+            catch { }
+            finally { appProc = null; }
         }
 
-        private bool TryInvokeElement(AutomationElement? elem, int attempts = 4, int delayMs = 300)
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
+
+        private void ClickRelative(int x, int y)
         {
-            if (elem == null) return false;
-            for (int i = 0; i < attempts; i++)
-            {
-                try
-                {
-                    if (elem.Patterns.Invoke.IsSupported)
-                    {
-                        elem.Patterns.Invoke.Pattern.Invoke();
-                        return true;
-                    }
-                    var btn = elem.AsButton();
-                    if (btn != null && btn.IsEnabled)
-                    {
-                        btn.Invoke();
-                        return true;
-                    }
-                    Thread.Sleep(delayMs);
-                }
-                catch (COMException)
-                {
-                    Thread.Sleep(delayMs);
-                }
-                catch (Exception)
-                {
-                    Thread.Sleep(delayMs);
-                }
-            }
-            return false;
+            if (appProc == null) throw new InvalidOperationException("App not started");
+            var h = appProc.MainWindowHandle;
+            if (h == IntPtr.Zero) throw new InvalidOperationException("Main window handle missing");
+            GetWindowRect(h, out RECT r);
+            int cx = r.Left + x;
+            int cy = r.Top + y;
+            SetCursorPos(cx, cy);
+            Thread.Sleep(80);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
+            Thread.Sleep(40);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
+            Thread.Sleep(200);
         }
 
-        private Button? FindButtonByPossibleTexts(AutomationElement root, params string[] texts)
+        [DllImport("user32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+
+        [DllImport("user32.dll", EntryPoint = "mouse_event")]
+        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+
+        private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
+        private const uint MOUSEEVENTF_LEFTUP = 0x0004;
+
+        private void TypeText(string text)
         {
-            foreach (var t in texts)
-            {
-                var btn = root.FindFirstDescendant(cf => cf.ByText(t))?.AsButton();
-                if (btn != null && btn.IsEnabled) return btn;
-            }
-            var candidates = root.FindAllDescendants(cf => cf.ByControlType(ControlType.Button)).Select(e => e.AsButton()).Where(b => b != null).ToArray();
-            foreach (var b in candidates)
-            {
-                var name = b.Name ?? string.Empty;
-                foreach (var t in texts)
-                {
-                    if (name.IndexOf(t, StringComparison.OrdinalIgnoreCase) >= 0) return b;
-                }
-            }
-            return null;
+            System.Windows.Forms.SendKeys.SendWait(text);
+            Thread.Sleep(120);
         }
 
-        private bool WaitUntil(Func<bool> condition, TimeSpan timeout)
+        private void Press(string keys)
+        {
+            System.Windows.Forms.SendKeys.SendWait(keys);
+            Thread.Sleep(120);
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void ObtenerConexion()
         {
             var sw = Stopwatch.StartNew();
-            while (sw.Elapsed < timeout)
+            bool passed = false;
+            try
             {
-                try
-                {
-                    if (condition()) return true;
-                }
-                catch { }
-                Thread.Sleep(50);
+                using var conexion = ConexionBD.obtenerConexion();
+                conexion.Open();
+                Assert.Equal(System.Data.ConnectionState.Open, conexion.State);
+                conexion.Close();
+                Assert.Equal(System.Data.ConnectionState.Closed, conexion.State);
+                passed = true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                TestReporter.Append(nameof(ObtenerConexion), "FAILED", sw.Elapsed, ex.ToString());
+                throw;
+            }
+            finally
+            {
+                if (passed) TestReporter.Append(nameof(ObtenerConexion), "PASSED", sw.Elapsed, null);
+            }
         }
 
-        private TextBox? FindEditByLabel(AutomationElement root, params string[] labelTexts)
+        [Fact, Trait("Category", "UI")]
+        public void Huesped_Create()
         {
-            foreach (var label in labelTexts)
+            var sw = Stopwatch.StartNew();
+            bool passed = false;
+            LaunchApp();
+            try
             {
-                var lbl = root.FindFirstDescendant(cf => cf.ByText(label)) ?? root.FindFirstDescendant(cf => cf.ByName(label));
-                if (lbl == null) continue;
-
-                // 1) Prefer edits within the same parent container
-                var parent = lbl.Parent;
-                if (parent != null)
+                ClickRelative(120, 80);
+                ClickRelative(100, 180);
+                ClickRelative(180, 240); TypeText("Manuel Antonio");
+                ClickRelative(420, 240); TypeText("Ramirez");
+                ClickRelative(620, 240); TypeText("Estrada");
+                ClickRelative(180, 280); TypeText($"manuel.antonio{Guid.NewGuid().ToString().Substring(0,8)}@example.com");
+                ClickRelative(420, 280); TypeText("6861404265");
+                ClickRelative(620, 280); TypeText("password");
+                ClickRelative(180, 340);
+                Thread.Sleep(800);
+                var huespedBLL = new HuespedBLL();
+                var tabla = huespedBLL.ObtenerTodos();
+                bool found = false;
+                foreach (System.Data.DataRow row in tabla.Rows)
                 {
-                    var editsInParent = parent.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit)).Select(e => e.AsTextBox()).Where(t => t != null).ToArray();
-                    var chosen = ChooseNearestEdit(lbl, editsInParent);
-                    if (chosen != null) return chosen;
+                    if (row["numero_celular"].ToString() == "6861404265" && row["nombre"].ToString() == "Manuel Antonio") { found = true; break; }
                 }
-
-                // 2) Walk ancestors and search their descendants
-                var anc = lbl.Parent;
-                while (anc != null)
-                {
-                    var editsInAncestor = anc.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit)).Select(e => e.AsTextBox()).Where(t => t != null).ToArray();
-                    var chosen = ChooseNearestEdit(lbl, editsInAncestor);
-                    if (chosen != null) return chosen;
-                    anc = anc.Parent;
-                }
-
-                // 3) fallback to global search under root
-                var allEdits = root.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit)).Select(e => e.AsTextBox()).Where(t => t != null).ToArray();
-                var fallback = ChooseNearestEdit(lbl, allEdits);
-                if (fallback != null) return fallback;
+                Assert.True(found, "El huésped no fue encontrado tras el flujo UI.");
+                passed = true;
             }
-            return null;
+            catch (Exception ex)
+            {
+                TestReporter.Append(nameof(Huesped_Create), "FAILED", sw.Elapsed, ex.ToString());
+                throw;
+            }
+            finally
+            {
+                CloseApp();
+                if (passed) TestReporter.Append(nameof(Huesped_Create), "PASSED", sw.Elapsed, null);
+            }
         }
 
-        private TextBox? ChooseNearestEdit(AutomationElement lbl, TextBox[] edits)
+        [Fact, Trait("Category", "UI")]
+        public void Huesped_Delete()
         {
-            if (edits == null || edits.Length == 0) return null;
-            if (edits.Length == 1) return edits[0];
-            var lblRect = lbl.BoundingRectangle;
-            var labelRight = (int)lblRect.Right;
-            var labelCenterY = (int)(lblRect.Top + lblRect.Height / 2);
-            TextBox? best = null;
-            double bestScore = double.MaxValue;
-            const double rowThreshold = 18.0;
-            // tokens from label name for fuzzy matching
-            var tokens = (lbl.Name ?? string.Empty).Split(new[] { ' ', '_', ':' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.ToLowerInvariant()).ToArray();
-            foreach (var e in edits)
+            var sw = Stopwatch.StartNew();
+            bool passed = false;
+            LaunchApp();
+            try
             {
-                try
+                ClickRelative(120, 80);
+                Thread.Sleep(400);
+                ClickRelative(200, 420);
+                Thread.Sleep(300);
+                Press("^(f)");
+                TypeText("6861404265");
+                Press("{ENTER}");
+                Thread.Sleep(400);
+                ClickRelative(480, 420);
+                Thread.Sleep(400);
+                var huespedBLL = new HuespedBLL();
+                var tabla = huespedBLL.ObtenerTodos();
+                bool exists = false;
+                foreach (System.Data.DataRow row in tabla.Rows)
                 {
-                    var er = e.BoundingRectangle;
-                    var centerX = (int)(er.Left + er.Width / 2);
-                    var centerY = (int)(er.Top + er.Height / 2);
-                    var vertDelta = Math.Abs(centerY - labelCenterY);
-                    var horizDelta = Math.Abs(centerX - labelRight);
+                    if (row["numero_celular"].ToString() == "6861404265") { exists = true; break; }
+                }
+                Assert.False(exists, "El huésped todavía existe después de intentar eliminarlo vía UI.");
+                passed = true;
+            }
+            catch (Exception ex)
+            {
+                TestReporter.Append(nameof(Huesped_Delete), "FAILED", sw.Elapsed, ex.ToString());
+                throw;
+            }
+            finally
+            {
+                CloseApp();
+                if (passed) TestReporter.Append(nameof(Huesped_Delete), "PASSED", sw.Elapsed, null);
+            }
+        }
 
-                    // prefer edits that are to the right of the label (centerX >= labelRight - smallOverlap)
-                    bool toRight = centerX >= labelRight - 8;
+        private void EnsureHuespedExists()
+        {
+            if (createdHuespedId > 0) return;
+            var huespedBLL = new HuespedBLL();
+            var huesped = new Huesped
+            {
+                nombre = "Manuel Antonio",
+                apellido_1 = "Ramirez",
+                apellido_2 = "Estrada",
+                calle = "Churrubusco",
+                colonia = "Condesa",
+                codigo_postal = 21467,
+                ciudad = "Tangamandapio",
+                correo = $"manuel.antonio{Guid.NewGuid().ToString().Substring(0,8)}@example.com",
+                numero_celular = "6861404265",
+                contrasena = "password"
+            };
 
-                    // score: vertical delta prioritized, then horizontal; penalize edits left of label
-                    double score = vertDelta * 1.0 + horizDelta * 0.5;
-                    if (!toRight) score += 2000; // large penalty if edit is left of label
-                    if (vertDelta > rowThreshold) score += 500; // de-prioritize very different rows
+            bool creado = huespedBLL.Agregar(huesped);
+            Assert.True(creado, "No se pudo crear el huésped de prueba en EnsureHuespedExists.");
 
-                    // boost score if edit's automation id or name contains label tokens
-                    var name = string.Empty;
-                    try { name = e.Name ?? string.Empty; } catch { }
-                    var aid = string.Empty;
-                    try { aid = e.AutomationId ?? string.Empty; } catch { }
-                    var hay = (name + " " + aid).ToLowerInvariant();
-                    foreach (var t in tokens)
+            var tabla = huespedBLL.ObtenerTodos();
+            foreach (System.Data.DataRow row in tabla.Rows)
+            {
+                if (row["numero_celular"].ToString() == "6861404265" && row["nombre"].ToString() == "Manuel Antonio")
+                {
+                    createdHuespedId = Convert.ToInt32(row["huesped_id"]);
+                    createdHuespedCorreo = row["correo"].ToString();
+                    createdHuespedNombreCompleto = string.Concat(row["nombre"].ToString().Trim(), " ", row["apellido_1"].ToString().Trim(), " ", row["apellido_2"].ToString().Trim()).Trim();
+                    break;
+                }
+            }
+            Assert.True(createdHuespedId > 0, "EnsureHuespedExists no capturó el ID del huésped creado.");
+        }
+
+        private void EnsureHabitacionExists()
+        {
+            if (createdHabitacionNumero > 0) return;
+            var habitacionBLL = new HabitacionBLL();
+            var rnd = new Random();
+            int numero = rnd.Next(1000, 9999);
+            var habitacion = new Habitacion
+            {
+                numero_habitacion = numero,
+                tipo_habitacion = "Doble",
+                piso = 2,
+                estatus = "Disponible"
+            };
+
+            bool creado = habitacionBLL.Agregar(habitacion);
+            Assert.True(creado, "No se pudo crear la habitación de prueba en EnsureHabitacionExists.");
+            createdHabitacionNumero = numero;
+        }
+
+        private void EnsureReservacionExists()
+        {
+            if (createdReservacionId > 0) return;
+            EnsureHuespedExists();
+
+            var reservacionBLL = new ReservacionBLL();
+            var reservacion = new CapaEntidad.Reservacion
+            {
+                estatus = "Confirmada",
+                fecha_entrada = DateTime.Today.AddDays(7),
+                fecha_salida = DateTime.Today.AddDays(10),
+                nombre_huesped = createdHuespedNombreCompleto,
+                numero_personas = 2
+            };
+
+            bool creado = reservacionBLL.Agregar(reservacion);
+            Assert.True(creado, "No se pudo crear la reservación de prueba en EnsureReservacionExists.");
+
+            var tabla = reservacionBLL.ObtenerTodos();
+            foreach (System.Data.DataRow row in tabla.Rows)
+            {
+                if (row["nombre_huesped"].ToString().Trim() == createdHuespedNombreCompleto &&
+                    Convert.ToDateTime(row["fecha_entrada"]).Date == DateTime.Today.AddDays(7) &&
+                    Convert.ToInt32(row["numero_personas"]) == 2)
+                {
+                    createdReservacionId = Convert.ToInt32(row["reservacion_id"]);
+                    break;
+                }
+            }
+            Assert.True(createdReservacionId > 0, "EnsureReservacionExists no capturó el ID de la reservación creada.");
+        }
+
+        [Fact, Trait("Category", "UI")] 
+        public void Huesped_Read()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                var huespedBLL = new HuespedBLL();
+                var tabla = huespedBLL.ObtenerTodos();
+                Assert.NotNull(tabla);
+
+                Huesped encontrado = null;
+                foreach (System.Data.DataRow row in tabla.Rows)
+                {
+                    if (row["nombre"].ToString() == "Manuel Antonio" &&
+                        row["apellido_1"].ToString() == "Ramirez" &&
+                        row["apellido_2"].ToString() == "Estrada" &&
+                        row["numero_celular"].ToString() == "6861404265")
                     {
-                        if (!string.IsNullOrWhiteSpace(t) && hay.Contains(t))
+                        encontrado = new Huesped
                         {
-                            score -= 400; // strong preference
+                            huesped_id = Convert.ToInt32(row["huesped_id"]),
+                            nombre = row["nombre"].ToString(),
+                            apellido_1 = row["apellido_1"].ToString()
+                        };
+                        break;
+                    }
+                }
+
+                Assert.NotNull(encontrado);
+                Assert.Equal("Manuel Antonio", encontrado.nombre);
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Huesped_Read), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Huesped_Read), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Huesped_Update()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                EnsureHuespedExists();
+                var huespedBLL = new HuespedBLL();
+                var existente = huespedBLL.Obtener(createdHuespedId);
+                Assert.NotNull(existente);
+
+                existente.ciudad = "Ensenada";
+                existente.contrasena = "password123456";
+
+                bool actualizado = huespedBLL.Actualizar(existente);
+                Assert.True(actualizado, "La actualización debería retornar true.");
+
+                var obtenido = huespedBLL.Obtener(createdHuespedId);
+                Assert.NotNull(obtenido);
+                Assert.Equal("Ensenada", obtenido.ciudad);
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Huesped_Update), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Huesped_Update), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Habitaciones_Create()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                var habitacionBLL = new HabitacionBLL();
+                var rnd = new Random();
+                int numero = rnd.Next(1000, 9999);
+                var habitacion = new Habitacion
+                {
+                    numero_habitacion = numero,
+                    tipo_habitacion = "Doble",
+                    piso = 2,
+                    estatus = "Disponible"
+                };
+
+                bool creado = habitacionBLL.Agregar(habitacion);
+                Assert.True(creado, "La creación de la habitación debería retornar true.");
+                createdHabitacionNumero = numero;
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Habitaciones_Create), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Habitaciones_Create), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Habitaciones_Read()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                var habitacionBLL = new HabitacionBLL();
+                var tabla = habitacionBLL.ObtenerTodos();
+                Assert.NotNull(tabla);
+
+                int numeroEncontrado = 0;
+                foreach (System.Data.DataRow row in tabla.Rows)
+                {
+                    if (row["tipo_habitacion"].ToString() == "Doble" &&
+                        Convert.ToInt32(row["piso"]) == 2 &&
+                        row["estatus"].ToString() == "Disponible")
+                    {
+                        numeroEncontrado = Convert.ToInt32(row["numero_habitacion"]);
+                        break;
+                    }
+                }
+
+                Assert.True(numeroEncontrado > 0, "No se encontró la habitación creada anteriormente.");
+
+                var habitacion = habitacionBLL.Obtener(numeroEncontrado);
+                Assert.NotNull(habitacion);
+                Assert.Equal("Doble", habitacion.tipo_habitacion);
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Habitaciones_Read), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Habitaciones_Read), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Habitaciones_Update()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                EnsureHabitacionExists();
+                var habitacionBLL = new HabitacionBLL();
+                var existente = habitacionBLL.Obtener(createdHabitacionNumero);
+                Assert.NotNull(existente);
+
+                existente.piso = 4;
+                existente.estatus = "Ocupada";
+
+                bool actualizado = habitacionBLL.Actualizar(existente);
+                Assert.True(actualizado, "La actualización debería retornar true.");
+
+                var obtenido = habitacionBLL.Obtener(createdHabitacionNumero);
+                Assert.NotNull(obtenido);
+                Assert.Equal(4, obtenido.piso);
+                Assert.Equal("Ocupada", obtenido.estatus);
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Habitaciones_Update), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Habitaciones_Update), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Reservaciones_Create()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                EnsureHuespedExists();
+                var reservacionBLL = new ReservacionBLL();
+
+                var reservacion = new CapaEntidad.Reservacion
+                {
+                    estatus = "Confirmada",
+                    fecha_entrada = DateTime.Today.AddDays(7),
+                    fecha_salida = DateTime.Today.AddDays(10),
+                    nombre_huesped = createdHuespedNombreCompleto,
+                    numero_personas = 2
+                };
+
+                bool creado = reservacionBLL.Agregar(reservacion);
+                Assert.True(creado, "La creación de la reservación debería retornar true.");
+
+                var tabla = reservacionBLL.ObtenerTodos();
+                foreach (System.Data.DataRow row in tabla.Rows)
+                {
+                    if (createdHuespedNombreCompleto != null && row["nombre_huesped"].ToString().Trim() == createdHuespedNombreCompleto &&
+                        Convert.ToDateTime(row["fecha_entrada"]).Date == DateTime.Today.AddDays(7) &&
+                        Convert.ToInt32(row["numero_personas"]) == 2)
+                    {
+                        createdReservacionId = Convert.ToInt32(row["reservacion_id"]);
+                        break;
+                    }
+                }
+                Assert.True(createdReservacionId > 0, "No se pudo capturar el ID de la reservación creada.");
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Reservaciones_Create), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Reservaciones_Create), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Reservaciones_Read()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                EnsureReservacionExists();
+                var reservacionBLL = new ReservacionBLL();
+                int idEncontrado = createdReservacionId;
+                if (idEncontrado == 0)
+                {
+                    var tabla = reservacionBLL.ObtenerTodos();
+                    Assert.NotNull(tabla);
+                    foreach (System.Data.DataRow row in tabla.Rows)
+                    {
+                        if (createdHuespedNombreCompleto != null && row["nombre_huesped"].ToString().Trim() == createdHuespedNombreCompleto &&
+                            row["estatus"].ToString() == "Confirmada" &&
+                            row["numero_personas"] != DBNull.Value &&
+                            Convert.ToInt32(row["numero_personas"]) == 2)
+                        {
+                            idEncontrado = Convert.ToInt32(row["reservacion_id"]);
                             break;
                         }
                     }
-
-                    if (score < bestScore)
-                    {
-                        bestScore = score;
-                        best = e;
-                    }
                 }
-                catch { }
+
+                Assert.True(idEncontrado > 0, "No se encontró la reservación creada anteriormente.");
+
+                var reserv = reservacionBLL.Obtener(idEncontrado);
+                Assert.NotNull(reserv);
+                Assert.Equal(createdHuespedNombreCompleto, reserv.nombre_huesped);
+                passed = true;
             }
-            return best;
+            catch (Exception ex) { TestReporter.Append(nameof(Reservaciones_Read), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Reservaciones_Read), "PASSED", sw.Elapsed, null); }
         }
 
-        private TextBox[] GetEditsRowMajor(AutomationElement root)
+        [Fact, Trait("Category", "UI")]
+        public void Reservaciones_Update()
         {
-            var edits = root.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit)).Select(e => e.AsTextBox()).Where(t => t != null).ToArray();
-            var rects = edits.Select(e => new { e, Top = e.BoundingRectangle.Top, Left = e.BoundingRectangle.Left }).OrderBy(x => x.Top).ToArray();
-            var rows = new System.Collections.Generic.List<System.Collections.Generic.List<AutomationElement>>();
-            double? currentTop = null;
-            const double rowThreshold = 12.0;
-            foreach (var r in rects)
-            {
-                if (currentTop == null || Math.Abs(r.Top - currentTop.Value) > rowThreshold)
-                {
-                    rows.Add(new System.Collections.Generic.List<AutomationElement>());
-                    currentTop = r.Top;
-                }
-                rows.Last().Add(r.e);
-            }
-            var ordered = new System.Collections.Generic.List<TextBox>();
-            foreach (var row in rows)
-            {
-                var sortedRow = row.OrderBy(e => e.BoundingRectangle.Left).Select(e => e.AsTextBox()).Where(t => t != null);
-                ordered.AddRange(sortedRow);
-            }
-            return ordered.ToArray();
-        }
-
-        
-
-        [Fact(DisplayName = "Huesped_Create")]
-        public void Huesped_Create()
-        {
-            var main = LaunchAndGetMain();
-
-            
-            var btnGuest = FindButtonByPossibleTexts(main, "Gestion de huespedes", "Gestión de huéspedes", "Gestion de huéspedes");
-            if (btnGuest != null)
-            {
-                var rect = btnGuest.BoundingRectangle;
-                Mouse.MoveTo(new System.Drawing.Point((int)(rect.Left + rect.Width / 2), (int)(rect.Top + rect.Height / 2)));
-                Mouse.Click(MouseButton.Left);
-            }
-            else
-            {
-                var any = main.FindFirstDescendant(cf => cf.ByText("Huesped")) ?? main.FindFirstDescendant(cf => cf.ByText("Huésped")) ?? main.FindFirstDescendant(cf => cf.ByText("Huespedes")) ?? main.FindFirstDescendant(cf => cf.ByText("Huéspedes"));
-                Assert.NotNull(any);
-                var rect = any.BoundingRectangle;
-                Mouse.MoveTo(new System.Drawing.Point((int)(rect.Left + rect.Width / 2), (int)(rect.Top + rect.Height / 2)));
-                Mouse.Click(MouseButton.Left);
-            }
-
-            // wait for the Nuevo button to appear (active polling)
-            Button? btnNuevo = null;
-            WaitUntil(() =>
-            {
-                try
-                {
-                    var candidate = automation!.GetDesktop().FindFirstDescendant(cf => cf.ByText("Nuevo"));
-                    if (candidate != null)
-                    {
-                        btnNuevo = candidate.AsButton();
-                        if (btnNuevo != null && btnNuevo.IsEnabled) return true;
-                    }
-                    var allButtonEls = automation.GetDesktop().FindAllDescendants(cf => cf.ByControlType(ControlType.Button));
-                    foreach (var el in allButtonEls)
-                    {
-                        try
-                        {
-                            var b = el.AsButton();
-                            if (b == null) continue;
-                            var name = string.Empty;
-                            try { name = b.Name ?? string.Empty; } catch { continue; }
-                            if (name.IndexOf("Nuevo", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                btnNuevo = b;
-                                return true;
-                            }
-                        }
-                        catch { continue; }
-                    }
-                    foreach (var w in app!.GetAllTopLevelWindows(automation!))
-                    {
-                        var foundBtn = w.FindFirstDescendant(cf => cf.ByText("Nuevo"));
-                        if (foundBtn != null)
-                        {
-                            btnNuevo = foundBtn.AsButton();
-                            if (btnNuevo != null && btnNuevo.IsEnabled) return true;
-                        }
-                    }
-                }
-                catch { }
-                return false;
-            }, TimeSpan.FromSeconds(20));
-            Assert.NotNull(btnNuevo);
-            // prefer the top-level guest management window as root for field lookups
-            Window? guestWindow = null;
-            WaitUntil(() =>
-            {
-                try
-                {
-                    guestWindow = app.GetAllTopLevelWindows(automation).FirstOrDefault(w =>
-                        (w.Title ?? string.Empty).IndexOf("Gestión", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                        (w.Title ?? string.Empty).IndexOf("Huésped", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                        w.FindFirstDescendant(cf => cf.ByText("Información de los huéspedes")) != null);
-                    return guestWindow != null;
-                }
-                catch { return false; }
-            }, TimeSpan.FromSeconds(6));
-            var guestRoot = (AutomationElement?)(guestWindow ?? btnNuevo.Parent);
-            var rectNuevo = btnNuevo.BoundingRectangle;
-            Mouse.MoveTo(new System.Drawing.Point((int)(rectNuevo.Left + rectNuevo.Width / 2), (int)(rectNuevo.Top + rectNuevo.Height / 2)));
-            Mouse.Click(MouseButton.Left);
-
-            
-            // wait for edit controls to appear
-            WaitUntil(() =>
-            {
-                var foundEdits = guestRoot.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit));
-                return foundEdits != null && foundEdits.Length >= 6;
-            }, TimeSpan.FromSeconds(6));
-
-            // prefer finding edits by their labels to map data correctly
-            // Diagnostic dump to help map labels -> edits when mapping fails
-            void DumpControls(AutomationElement r)
-            {
-                try
-                {
-                    Console.WriteLine("--- Diagnostic dump for guestRoot ---");
-                    Console.WriteLine($"Root: {(r?.Name ?? "<null>")} Bounds: {r?.BoundingRectangle}");
-                    var labels = r.FindAllDescendants(cf => cf.ByControlType(ControlType.Text));
-                    Console.WriteLine($"Found labels: {labels.Length}");
-                    for (int i = 0; i < labels.Length; i++)
-                    {
-                        try
-                        {
-                            var l = labels[i];
-                            Console.WriteLine($"LBL[{i}] Name='{l.Name}' AutomationId='{l.AutomationId}' Bounds={l.BoundingRectangle}");
-                        }
-                        catch { }
-                    }
-                    var edits = r.FindAllDescendants(cf => cf.ByControlType(ControlType.Edit));
-                    Console.WriteLine($"Found edits: {edits.Length}");
-                    for (int i = 0; i < edits.Length; i++)
-                    {
-                        try
-                        {
-                            var e = edits[i].AsTextBox();
-                            Console.WriteLine($"EDT[{i}] Name='{e?.Name}' AutomationId='{edits[i].AutomationId}' Bounds={e?.BoundingRectangle} Text='{e?.Text}'");
-                        }
-                        catch { }
-                    }
-                    Console.WriteLine("--- End dump ---");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"DumpControls failed: {ex.Message}");
-                }
-            }
-
-            DumpControls(guestRoot);
-            var nameEdit = FindEditByLabel(guestRoot, "Nombre", "Nombre:", "name");
-            var apellido1Edit = FindEditByLabel(guestRoot, "Apellido paterno", "apellido_1", "Apellido Paterno");
-            var apellido2Edit = FindEditByLabel(guestRoot, "Apellido materno", "apellido_2", "Apellido Materno");
-            var correoEdit = FindEditByLabel(guestRoot, "Correo", "correo", "Correo electrónico", "Email");
-            var calleEdit = FindEditByLabel(guestRoot, "Calle");
-            var coloniaEdit = FindEditByLabel(guestRoot, "Colonia");
-            var cpEdit = FindEditByLabel(guestRoot, "Código postal", "Codigo postal", "CP");
-            var ciudadEdit = FindEditByLabel(guestRoot, "Ciudad");
-            var celularEdit = FindEditByLabel(guestRoot, "Número de celular", "Numero de celular", "Número celular", "numero_celular");
-
-            // fallback to positional mapping if label lookup failed - use row-major ordering
-            var editsOrdered = GetEditsRowMajor(guestRoot);
-            // UI layout has two rows: [ID, Nombre, Apellido paterno, Apellido materno, Correo]
-            // and [Calle, Colonia, Código postal, Ciudad, Número de celular]
-            if (editsOrdered.Length >= 10)
-            {
-                // map with ID present
-                if (nameEdit == null) nameEdit = editsOrdered[1];
-                if (apellido1Edit == null) apellido1Edit = editsOrdered[2];
-                if (apellido2Edit == null) apellido2Edit = editsOrdered[3];
-                if (correoEdit == null) correoEdit = editsOrdered[4];
-                if (calleEdit == null) calleEdit = editsOrdered[5];
-                if (coloniaEdit == null) coloniaEdit = editsOrdered[6];
-                if (cpEdit == null) cpEdit = editsOrdered[7];
-                if (ciudadEdit == null) ciudadEdit = editsOrdered[8];
-                if (celularEdit == null) celularEdit = editsOrdered[9];
-            }
-            else if (editsOrdered.Length >= 9)
-            {
-                // no ID field present; assume name starts at index 0
-                if (nameEdit == null) nameEdit = editsOrdered[0];
-                if (apellido1Edit == null) apellido1Edit = editsOrdered[1];
-                if (apellido2Edit == null) apellido2Edit = editsOrdered[2];
-                if (correoEdit == null) correoEdit = editsOrdered[3];
-                if (calleEdit == null) calleEdit = editsOrdered[4];
-                if (coloniaEdit == null) coloniaEdit = editsOrdered[5];
-                if (cpEdit == null) cpEdit = editsOrdered[6];
-                if (ciudadEdit == null) ciudadEdit = editsOrdered[7];
-                if (celularEdit == null) celularEdit = editsOrdered[8];
-            }
-
-            // definitive values requested by user
-            var val_nombre = "Manuel Antonio";
-            var val_apellido1 = "Ramirez";
-            var val_apellido2 = "Estrada";
-            var val_calle = "Churrubusco";
-            var val_colonia = "Condesa";
-            var val_cp = "21467";
-            var val_ciudad = "Tangamandapio";
-            var val_correo = "manuel.antonio@example.com";
-            var val_celular = "6861404265";
-            var val_contrasena = "password";
-
-            // helper to set value robustly
-            void SetValue(TextBox? tb, string v)
-            {
-                if (tb == null) return;
-                try
-                {
-                    tb.Click();
-                    tb.Text = v;
-                }
-                catch
-                {
-                    try { tb.Click(); } catch { }
-                    try { Keyboard.Type(v); } catch { }
-                }
-            }
-
-            SetValue(nameEdit, val_nombre);
-            SetValue(apellido1Edit, val_apellido1);
-            SetValue(apellido2Edit, val_apellido2);
-            SetValue(calleEdit, val_calle);
-            SetValue(coloniaEdit, val_colonia);
-            SetValue(cpEdit, val_cp);
-            SetValue(ciudadEdit, val_ciudad);
-            SetValue(correoEdit, val_correo);
-            SetValue(celularEdit, val_celular);
-
-            // password field: try to find by label, else use positional fallback (last field)
-            var passEdit = FindEditByLabel(guestRoot, "Contrasena", "Contraseña", "Password", "contrasena") ?? guestRoot.FindFirstDescendant(cf => cf.ByAutomationId("password"))?.AsTextBox();
-            if (passEdit == null)
-            {
-                var allEd = GetEditsRowMajor(guestRoot);
-                if (allEd.Length >= 10) passEdit = allEd[9];
-                else if (allEd.Length > 0) passEdit = allEd.Last();
-            }
-            SetValue(passEdit, val_contrasena);
-
-            // ensure any remaining edit controls are not empty (fill with placeholder)
-            var allEditsFinal = GetEditsRowMajor(guestRoot);
-            for (int i = 0; i < allEditsFinal.Length; i++)
-            {
-                try
-                {
-                    var tb = allEditsFinal[i];
-                    var txt = tb.Text ?? string.Empty;
-                    if (string.IsNullOrWhiteSpace(txt))
-                    {
-                        // attempt to infer field by index if possible
-                        if (i == 0 && string.IsNullOrWhiteSpace(tb.Text)) SetValue(tb, "0");
-                        else SetValue(tb, "-");
-                    }
-                }
-                catch { }
-            }
-
-            var btnGuardar = guestRoot.FindFirstDescendant(cf => cf.ByText("Guardar"))?.AsButton();
-            Assert.NotNull(btnGuardar);
-
-            // ensure required fields are filled before saving
-            var required = new[] { nameEdit, apellido1Edit, apellido2Edit, correoEdit, calleEdit, coloniaEdit, cpEdit, ciudadEdit, celularEdit };
-            foreach (var tb in required)
-            {
-                if (tb == null) continue;
-                try
-                {
-                    var cur = tb.Text ?? string.Empty;
-                    if (string.IsNullOrWhiteSpace(cur))
-                    {
-                        tb.Click();
-                        // fill sensible defaults per field by heuristics on automation id or placeholder
-                        var label = tb.Name ?? string.Empty;
-                        if (label.IndexOf("correo", StringComparison.OrdinalIgnoreCase) >= 0 || label.IndexOf("email", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "manuel.antonio@example.com";
-                        else if (label.IndexOf("celular", StringComparison.OrdinalIgnoreCase) >= 0 || label.IndexOf("numero", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "6861404265";
-                        else if (label.IndexOf("codigo", StringComparison.OrdinalIgnoreCase) >= 0 || label.IndexOf("cp", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "21467";
-                        else if (label.IndexOf("calle", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "Av Reforma";
-                        else if (label.IndexOf("colonia", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "Condesa";
-                        else if (label.IndexOf("nombre", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "Manuel Antonio";
-                        else if (label.IndexOf("apellido", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = tb == apellido2Edit ? "Estrada" : "Ramirez";
-                        else if (label.IndexOf("ciudad", StringComparison.OrdinalIgnoreCase) >= 0)
-                            tb.Text = "Mexico";
-                        else
-                            tb.Text = "x";
-                    }
-                }
-                catch
-                {
-                    try { tb.Click(); } catch { }
-                    try { Keyboard.Type(" "); } catch { }
-                }
-            }
-
-            // force-correct specific problematic fields by clicking relative to their labels
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
             try
             {
-                var apEdit = FindEditByLabel(guestRoot, "Apellido paterno", "apellido_1", "Apellido Paterno");
-                SetValue(apEdit, val_apellido1);
-            }
-            catch { }
+                var reservacionBLL = new ReservacionBLL();
+                EnsureReservacionExists();
+                int idEncontrado = createdReservacionId;
+                Assert.True(idEncontrado > 0, "No existe reservación capturada para actualizar.");
 
+                var existente = reservacionBLL.Obtener(idEncontrado);
+                Assert.NotNull(existente);
+
+                existente.numero_personas = 5;
+
+                bool actualizado = reservacionBLL.Actualizar(existente);
+                Assert.True(actualizado, "La actualización debería retornar true.");
+
+                var obtenido = reservacionBLL.Obtener(idEncontrado);
+                Assert.NotNull(obtenido);
+                Assert.Equal(5, obtenido.numero_personas);
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Reservaciones_Update), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Reservaciones_Update), "PASSED", sw.Elapsed, null); }
+        }
+
+        [Fact, Trait("Category", "UI")]
+        public void Reservaciones_Delete()
+        {
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
             try
             {
-                var correoEd = FindEditByLabel(guestRoot, "Correo", "correo", "Correo electrónico", "Email");
-                SetValue(correoEd, val_correo);
-            }
-            catch { }
-            var rectSave = btnGuardar.BoundingRectangle;
-            Mouse.MoveTo(new System.Drawing.Point((int)(rectSave.Left + rectSave.Width / 2), (int)(rectSave.Top + rectSave.Height / 2)));
-            Mouse.Click(MouseButton.Left);
-
-            // allow UI to process the save action (wait for grid to update)
-            WaitUntil(() => main.FindFirstDescendant(cf => cf.ByControlType(ControlType.DataGrid)) != null || main.FindFirstDescendant(cf => cf.ByControlType(ControlType.Table)) != null, TimeSpan.FromSeconds(6));
-
-            // try to select the top row in the data grid to confirm the created guest
-            var grid = main.FindFirstDescendant(cf => cf.ByControlType(ControlType.DataGrid)) ?? main.FindFirstDescendant(cf => cf.ByControlType(ControlType.Table));
-            if (grid != null)
-            {
-                var firstRow = grid.FindFirstDescendant(cf => cf.ByControlType(ControlType.DataItem)) ?? grid.FindAllDescendants(cf => cf.ByControlType(ControlType.DataItem)).FirstOrDefault();
-                if (firstRow != null)
+                EnsureReservacionExists();
+                var reservacionBLL = new ReservacionBLL();
+                int idAEliminar = createdReservacionId;
+                if (idAEliminar == 0)
                 {
-                    var rectRow = firstRow.BoundingRectangle;
-                    Mouse.MoveTo(new System.Drawing.Point((int)(rectRow.Left + 10), (int)(rectRow.Top + rectRow.Height / 2)));
-                    Mouse.Click(MouseButton.Left);
+                    var tabla = reservacionBLL.ObtenerTodos();
+                    Assert.NotNull(tabla);
+                    foreach (System.Data.DataRow row in tabla.Rows)
+                    {
+                        if (createdHuespedNombreCompleto != null && row["nombre_huesped"].ToString().Trim() == createdHuespedNombreCompleto &&
+                            row["estatus"].ToString() == "Confirmada")
+                        {
+                            int id = Convert.ToInt32(row["reservacion_id"]);
+                            if (id > idAEliminar) idAEliminar = id;
+                        }
+                    }
                 }
+
+                Assert.True(idAEliminar > 0, "No se encontró una reservación de prueba para eliminar.");
+
+                bool eliminado = reservacionBLL.Eliminar(idAEliminar);
+                Assert.True(eliminado, "La eliminación debería retornar true.");
+
+                var obtenido = reservacionBLL.Obtener(idAEliminar);
+                Assert.NotNull(obtenido);
+                Assert.Equal(0, obtenido.reservacion_id);
+
+                if (createdReservacionId == idAEliminar) createdReservacionId = 0;
+                passed = true;
             }
-
-            var found = main.FindFirstDescendant(cf => cf.ByText("6861404265")) ?? main.FindFirstDescendant(cf => cf.ByText("manuel.antonio@example.com"));
-            Assert.NotNull(found);
-
-            app.Close();
-            app = null;
+            catch (Exception ex) { TestReporter.Append(nameof(Reservaciones_Delete), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Reservaciones_Delete), "PASSED", sw.Elapsed, null); }
         }
 
-        public void Dispose()
+        [Fact, Trait("Category", "UI")]
+        public void Habitaciones_Delete()
         {
-            try { automation?.Dispose(); } catch { }
-            try { app?.Close(); } catch { }
+            var sw = Stopwatch.StartNew(); bool passed = false; LaunchApp();
+            try
+            {
+                var habitacionBLL = new HabitacionBLL();
+                int numeroAEliminar = createdHabitacionNumero;
+                if (numeroAEliminar == 0)
+                {
+                    var tabla = habitacionBLL.ObtenerTodos();
+                    Assert.NotNull(tabla);
+                    foreach (System.Data.DataRow row in tabla.Rows)
+                    {
+                        if (row["tipo_habitacion"].ToString() == "Doble" &&
+                            Convert.ToInt32(row["piso"]) == 4 &&
+                            row["estatus"].ToString() == "Ocupada")
+                        {
+                            numeroAEliminar = Convert.ToInt32(row["numero_habitacion"]);
+                            break;
+                        }
+                    }
+                }
+
+                Assert.True(numeroAEliminar > 0, "No se encontró una habitación de prueba para eliminar.");
+
+                bool eliminado = habitacionBLL.Eliminar(numeroAEliminar);
+                Assert.True(eliminado, "La eliminación debería retornar true.");
+
+                var obtenido = habitacionBLL.Obtener(numeroAEliminar);
+                Assert.NotNull(obtenido);
+                Assert.Equal(0, obtenido.numero_habitacion);
+
+                if (createdHabitacionNumero == numeroAEliminar) createdHabitacionNumero = 0;
+                passed = true;
+            }
+            catch (Exception ex) { TestReporter.Append(nameof(Habitaciones_Delete), "FAILED", sw.Elapsed, ex.ToString()); throw; }
+            finally { CloseApp(); if (passed) TestReporter.Append(nameof(Habitaciones_Delete), "PASSED", sw.Elapsed, null); }
         }
+
+        public void Dispose() { CloseApp(); }
     }
 }

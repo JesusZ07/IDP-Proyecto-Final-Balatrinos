@@ -9,8 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
-    <PackageReference Include="FlaUI.Core" Version="4.2.0" />
-    <PackageReference Include="FlaUI.UIA3" Version="4.2.0" />
+    <!-- FlaUI removed: migrated to NetAutoGUI-based tests -->
     <PackageReference Include="InputSimulatorStandard" Version="1.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.59.0" />
